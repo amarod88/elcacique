@@ -27,8 +27,8 @@ export async function callGroq(
       {
         messages,
         model: modelName,
-        temperature: 0.3,
-        max_tokens: 800,
+        temperature: 0.5,
+        max_tokens: 700,
         top_p: 0.9,
       },
       { signal: controller.signal }
@@ -53,56 +53,13 @@ export function selectModel(
 ): 'fast' | 'smart' {
   const last = messages[messages.length - 1]?.content.toLowerCase() ?? '';
 
-  const smartTriggers = [
-    // Consultas comerciales complejas / Cotizaciones / Precios en español
-    'cotizar',
-    'cotización',
-    'cotizacion',
-    'presupuesto',
-    'comparar',
-    'recomendar',
-    'recomiéndame',
-    'recomiendame',
-    'cuánto cuesta',
-    'cuanto cuesta',
-    'precio',
-    'precios',
-    'costo',
-    'costos',
-    'para cuántas',
-    'para cuantas',
-    'volumen',
-    'mayoreo',
-    'por mayor',
-    'institucional',
-    'licitación',
-    'licitacion',
-    'proyecto especial',
-    // English triggers
-    'how much',
-    'how many',
-    'cost',
-    'costs',
-    'price',
-    'prices',
-    'pricing',
-    'quote',
-    'quotation',
-    'recommend',
-    'recommendation',
-    'compare',
-    'bulk',
-    'wholesale',
-    'tender',
-    'scrub',
-    'scrubs',
-    'uniform',
-    'uniforms',
-  ];
+  // Saludos simples y consultas muy cortas van al fast
+  const simpleGreetings = ['hola', 'buenos días', 'buenas tardes', 'buenas noches', 'hi', 'hello'];
+  const isJustGreeting = simpleGreetings.some((g) => last.trim() === g || last.trim() === `${g}!`);
 
-  if (smartTriggers.some((t) => last.includes(t))) return 'smart';
-  if (messages.length > 10) return 'smart';
-  if (last.length > 150) return 'smart';
+  if (isJustGreeting && messages.length <= 2) return 'fast';
 
-  return 'fast';
+  // Todo lo demás va al smart (más natural y conversacional)
+  // El fast solo se usa como fallback si smart falla
+  return 'smart';
 }

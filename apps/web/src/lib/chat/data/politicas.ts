@@ -1,36 +1,67 @@
-export const POLITICAS = `# Políticas de El Cacique
+export const POLITICAS = `
+## Políticas de pago
 
-## Garantía
-- 3 a 6 meses según prenda.
-- Cubre defectos de fábrica.
+### Delivery en casco urbano de Managua
+- Anticipo 50% al ordenar, saldo 50% contra entrega.
 
-## Devoluciones y cambios
-- Dentro de 1 mes por defectos de fábrica.
-- No aplica por mal uso o desgaste natural.
+### Envíos fuera de Managua (terminal de buses)
+- Pago 100% antes de despachar el pedido a la terminal.
+- El cliente indica la ciudad y la terminal de buses de destino.
+- El costo del envío se cotiza con el asesor según destino y peso.
 
-## Pagos
-- PayPal (única pasarela online).
-- Transferencia bancaria.
-- Depósito bancario.
-- Efectivo en tienda física.
+### Retiro en tienda
+- Anticipo 50% al ordenar, saldo 50% al retirar.
 
-## Confirmación humana obligatoria
-Antes de que el cliente proceda a pagar o depositar, un asesor humano debe confirmar tiempos de entrega, producto y precio. El bot genera la prefactura pero no cierra el pago sin validación humana.
+### Métodos de pago
+PayPal, transferencia bancaria, depósito bancario, efectivo en tienda o contra entrega (Managua).
 
-## Delivery
-- Gratis en casco urbano (Managua).
-- Fuera del casco urbano, el costo se coordina con un asesor.
+## Políticas de reembolso
 
-## Tiempos de entrega
-- Catálogo: 48–72 horas.
-- Confección a medida: 5–15 días.
-- Sastrería: 7–20 días.
-- Escolares/deportivos: 5–10 días.
+### Solicitud por cambio de opinión
+- Plazo máximo: 24 horas desde la confirmación del pago del anticipo.
+- Aplica solo en pedidos NO urgentes.
+- El producto NO debe estar cortado, confeccionado ni bordado.
+- Una vez iniciada la producción, el anticipo no es reembolsable.
 
-## Precios
-- Cada producto tiene precio retail y precio por mayor.
-- Retail = precio por mayor × 1.15.
-- Precio por mayor aplica desde 12 unidades.
-- Menos de 12 unidades: precio retail.
-- 12 unidades o más: precio por mayor.
+### Tiempos de ejecución
+- Transferencia o depósito: 72 horas después de la solicitud (antifraude bancario).
+- PayPal: se procesa de inmediato, menos comisión de la plataforma.
+- Efectivo: devolución inmediata si la orden NO ha sido procesada.
+
+## Políticas de devolución y garantía
+
+### Garantía por desperfectos de costura
+- Hasta 6 meses desde la entrega.
+- Cubre: costuras abiertas, descocidos, fallas en el ensamble.
+- Solución: arreglo gratuito sobre costura.
+
+### Devolución y cambio por otros defectos
+Aplica SOLO antes de uso y/o modificación, dentro del primer mes:
+- Manchas de fábrica.
+- Irregularidades textiles.
+- Errores de diagramación o ubicación de bordado.
+- Error de talla (si fue error de El Cacique).
+- Cualquier otro desperfecto de fabricación.
+
+### No cubierto
+- Mal uso o desgaste natural.
+- Prendas modificadas por el cliente o terceros.
+- Daños por lavado inadecuado.
+
+## Políticas de entrega
+
+- Delivery gratis en casco urbano de Managua.
+- Fuera de Managua: envío a terminal de buses indicada por el cliente.
+- Plazos: 48–72h catálogo, 5–15 días a medida, 7–20 días sastrería.
+
+## Validez de proformas
+
+- 14 días calendario desde su emisión.
+- Después de este plazo, los precios pueden cambiar sin aviso.
+
+## Contacto
+
+- WhatsApp: +505 8467 6004
+- Horario: Lunes a viernes 8:00am–5:00pm, sábados 8:00am–12:00pm
+- Dirección: Semáforos de Plaza El Sol, 4 cuadras al sur, a mano izquierda, Managua
 `;

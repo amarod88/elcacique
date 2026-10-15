@@ -8,26 +8,41 @@ export interface ChatMessageProps {
 }
 
 /**
- * Parsea segmentos de texto con formato de negrita (**texto**).
+ * Sanitiza el símbolo $ para evitar cortes indebidos en el parser de líneas.
+ */
+function sanitizeContent(content: string): string {
+  return content.replace(/\$/g, '___DOLLAR___');
+}
+
+/**
+ * Restaura el símbolo $ en los textos renderizados.
+ */
+function desanitizeContent(content: string): string {
+  return content.replace(/___DOLLAR___/g, '$');
+}
+
+/**
+ * Parsea segmentos de texto con formato de negrita (**texto**), desanitizando el $.
  */
 function renderBold(text: string): React.ReactNode {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) =>
     part.startsWith('**') && part.endsWith('**') ? (
       <strong key={i} className="font-semibold">
-        {part.slice(2, -2)}
+        {desanitizeContent(part.slice(2, -2))}
       </strong>
     ) : (
-      part
+      desanitizeContent(part)
     )
   );
 }
 
 /**
- * Renderiza contenido con formato básico: negritas, listas y saltos de línea.
+ * Renderiza contenido con formato básico: negritas, listas y saltos de línea sin cortar por el $.
  */
 function renderContent(content: string): React.ReactNode {
-  const lines = content.split('\n');
+  const safeContent = sanitizeContent(content);
+  const lines = safeContent.split('\n');
   return lines.map((line, i) => {
     const trimmed = line.trim();
     if (trimmed.startsWith('- ')) {

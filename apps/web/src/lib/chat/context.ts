@@ -45,16 +45,21 @@ function buildProductoActual(slug?: string): string {
 
 function buildCatalogSummary(): string {
   const categorias = getCategorias();
-  const lineas: string[] = ['CATÁLOGO EL CACIQUE (Resumen)'];
+  const lineas: string[] = ['CATÁLOGO EL CACIQUE'];
 
   for (const cat of categorias) {
     lineas.push(`\n${cat.nombre.toUpperCase()} (${cat.count}):`);
     const prods = productos.filter((p) => p.categoria === cat.id);
     for (const p of prods) {
-      const precio = p.precio_retail
-        ? `retail C$${p.precio_retail.toLocaleString('es-NI')}, mayor C$${p.precio_mayor?.toLocaleString('es-NI')}`
-        : `rango C$${p.precio_min?.toLocaleString('es-NI')}-${p.precio_max?.toLocaleString('es-NI')}`;
-      lineas.push(`- ${p.nombre}: ${precio}, MOQ ${p.moq}`);
+      if (p.precio_retail !== undefined && p.precio_retail !== null) {
+        lineas.push(
+          `- ${p.nombre}: retail C$${p.precio_retail}, mayor C$${p.precio_mayor}, MOQ ${p.moq}`
+        );
+      } else {
+        lineas.push(
+          `- ${p.nombre}: rango C$${p.precio_min ?? 0}-${p.precio_max ?? 0}, MOQ ${p.moq}`
+        );
+      }
     }
   }
 

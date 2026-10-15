@@ -9,7 +9,7 @@ export interface ChatHeaderProps {
 }
 
 /**
- * Cabecera del widget de chat con monograma, estado en línea y acciones de control.
+ * Cabecera del widget de chat con monograma, estado en línea y acciones de control para Dori.
  */
 export default function ChatHeader({ onClear, onMinimize, onClose }: ChatHeaderProps) {
   const handleClear = () => {
@@ -23,11 +23,11 @@ export default function ChatHeader({ onClear, onMinimize, onClose }: ChatHeaderP
 
   return (
     <div className="bg-azul text-white px-4 py-3 h-16 flex items-center justify-between rounded-t-2xl select-none shrink-0 shadow-md">
-      {/* Información del asistente */}
+      {/* Información de Dori */}
       <div className="flex items-center space-x-3">
         <div className="relative">
           <div className="w-10 h-10 rounded-full bg-vino text-white flex items-center justify-center font-display text-lg font-bold shadow-sm">
-            C
+            D
           </div>
           <span
             className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-success ring-2 ring-azul"
@@ -37,7 +37,7 @@ export default function ChatHeader({ onClear, onMinimize, onClose }: ChatHeaderP
 
         <div className="flex flex-col">
           <span className="font-display text-base font-medium leading-tight">
-            Cacique Asistente
+            Dori
           </span>
           <span className="text-xs text-celeste-100 flex items-center mt-0.5">
             <span className="w-2 h-2 rounded-full bg-success inline-block mr-1.5" />

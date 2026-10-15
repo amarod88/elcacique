@@ -22,7 +22,7 @@ export interface ChatWindowProps {
 }
 
 const BIENVENIDA_MSG =
-  'Bienvenido a El Cacique. ¿En qué tipo de uniforme está interesado hoy? Puedo ayudarle con uniformes médicos, corporativos, industriales, gastronómicos, escolares y sastrería a medida.';
+  '¡Bienvenido a El Cacique! Soy Dori, su asistente virtual. ¿En qué tipo de uniforme está interesado hoy? Puedo ayudarle con uniformes médicos, corporativos, industriales, gastronómicos, escolares y sastrería a medida.';
 
 function extractSlugFromPath(path: string): string | undefined {
   const match = path.match(/^\/producto\/([^/]+)/);
@@ -159,7 +159,7 @@ export default function ChatWindow({ onClose, onMinimize }: ChatWindowProps) {
       const errorMessage: ChatMessageItem = {
         role: 'assistant',
         content:
-          'Estoy experimentando dificultades para conectar en este momento. Por favor reintente en unos instantes o contáctenos por WhatsApp al +505 8888-8888.',
+          'Estoy experimentando dificultades para conectar en este momento. Por favor reintente en unos instantes o contáctenos por WhatsApp al +505 8467 6004.',
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -187,7 +187,7 @@ export default function ChatWindow({ onClose, onMinimize }: ChatWindowProps) {
       className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-6 z-50 w-full sm:w-96 h-full sm:h-[600px] bg-white sm:rounded-2xl shadow-xl flex flex-col border sm:border-gris-200 overflow-hidden animate-fade-in-delayed transition-all duration-200"
       role="dialog"
       aria-modal="true"
-      aria-label="Ventana de chat con Cacique Asistente"
+      aria-label="Ventana de chat con Dori"
     >
       {/* Cabecera */}
       <ChatHeader onClear={handleClear} onMinimize={onMinimize} onClose={onClose} />

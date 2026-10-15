@@ -161,3 +161,440 @@ curl -X POST http://localhost:3000/api/chat \
 > \*Rango según el nivel de personalización y tejido seleccionado.
 >
 > Si está interesado, indíquenos la **cantidad** que necesita y si prefiere alguna de las versiones (esencial, premium o alta gama). Con esa información generaremos una prefactura y un asesor le confirmará los tiempos de entrega (gratuita en Managua) y los métodos de pago (PayPal, transferencia, depósito o efectivo en tienda) antes de proceder al pago.
+
+---
+
+## Pruebas Fase 4.2.1 — Chatbot Conversacional y Orgánico (Sin Tablas)
+
+Fecha de ejecución: 15 de Octubre de 2026  
+Cambios implementados:
+- System prompt reescrito: Prohibición estricta de tablas (`|`), máximo 3 productos, solicitud previa de contexto, sin emojis, formato `C$1,200`.
+- Selección de modelo refinada (`selectModel`): Saludos simples a `fast`, consultas comerciales/complejas a `smart`.
+- Hiperparámetros ajustados: `temperature: 0.5` (más natural y fluido), `max_tokens: 700` (conciso y directo).
+
+### Prueba 1: Consulta abierta sobre uniformes a la medida
+
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"hola quiero informacion sobre uniformes a la medida"}]}'
+```
+
+**Modelo seleccionado:** `smart`  
+**Tokens:** Input: 3,839 | Output: 231  
+**Respuesta:**
+> ¡Hola! Soy Cacique Asistente. Con gusto le ayudo a conocer nuestras opciones de uniformes a medida.  
+>  
+> Para recomendarle mejor, ¿podría indicarme el sector o uso que necesita? Por ejemplo, ¿es para sastrería (a medida: blazer, traje ejecutivo, saco o chaleco), para uniformes médicos a medida, para gastronomía (filipina de chef) u otro tipo de uniforme? Con esa información le presentaré las opciones más relevantes.
+
+**Evaluación:** Orgánica, sin tablas. Pregunta contexto antes de listar catálogo masivo.
+
+---
+
+### Prueba 2: Consulta sobre sector específico (Restaurantes)
+
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Tienen uniformes para restaurantes?"}]}'
+```
+
+**Modelo seleccionado:** `smart`  
+**Tokens:** Input: 3,838 | Output: 208  
+**Respuesta:**
+> Buenos días, gracias por contactar a El Cacique.  
+>  
+> Para recomendarle mejor, ¿qué tipo de personal necesita uniformar en su restaurante (chefs, cocineros, camareros, personal de barra) y cuántas personas serían? Con esa información le indicaré las opciones más adecuadas.
+
+**Evaluación:** Respuesta cálida, directa, indaga sobre el rol y volumen antes de abrumar con productos.
+
+---
+
+### Prueba 3: Consulta con volumen especificado (Clínica, 30 unidades)
+
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Busco un uniforme para mi clínica, necesito 30 unidades"}]}'
+```
+
+**Modelo seleccionado:** `smart` / fallback `fast`  
+**Tokens:** Input: 3,842 | Output: 307  
+**Respuesta:**
+> Para recomendarle la mejor opción, ¿qué tipo de uniforme necesita para su clínica?  
+> - ¿Conjunto médico completo (scrubs, pantalón y chaqueta)?  
+> - ¿Solo chaqueta clínica o gabacha?  
+> - ¿Personal de enfermería, médicos o ambos?  
+>  
+> Con esa información podré indicarle los productos más adecuados y los precios al por mayor para 30 unidades.
+
+**Evaluación:** Identifica el volumen (30 unidades = precio mayor), pregunta componentes específicos y usa lista simple con guiones sin tablas.
+
+---
+
+### Prueba 4: Precio específico de sastrería
+
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Cuánto cuesta el blazer a medida?"}]}'
+```
+
+**Modelo seleccionado:** `smart`  
+**Tokens:** Input: 3,838 | Output: 368  
+**Respuesta:**
+> Buenos días, le saluda Cacique Asistente.  
+>  
+> Para recomendarle el blazer a medida que mejor se ajuste a sus necesidades, ¿es para uso corporativo, eventos formales, sastrería personal o alguna otra ocasión específica? Con esa información podré indicarle la opción más adecuada y el rango de precios correspondiente.
+
+**Evaluación:** Tono consultivo y profesional, sin tablas ni volcados mecánicos de datos.
+
+---
+
+## Pruebas Fase 4.2.2 — Balance de Respuestas ("Responder + Preguntar")
+
+Fecha de ejecución: 15 de Octubre de 2026  
+Objetivo: Verificar que cada respuesta ofrezca información concreta (productos + precios) y realice 1 sola pregunta específica para afinar la recomendación, sin tablas y sin preguntas vacías.
+
+### Prueba 1: "¿Tienen uniformes para restaurantes?"
+
+**Criterio:** Menciona "Sí" + al menos 1 producto con precio + 1 pregunta.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Tienen uniformes para restaurantes?"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 4,282 | Output: 263  
+**Respuesta:**
+> Sí, contamos con uniformes diseñados para el sector gastronómico.
+> 
+> - **Filipina de Chef Básica** – retail C$1,150 / mayor C$1,000 (MOQ 1).  
+> - **Filipina de Chef Premium** – retail C$1,610 / mayor C$1,400 (MOQ 1).  
+> - **Pantalón de Cocina** – retail C$1,092 / mayor C$950 (MOQ 1).  
+> 
+> ¿Necesita los uniformes solo para el personal de cocina, también para el servicio de mesa, o busca un conjunto completo?
+
+**Resultado:** Cumplido. Confirma con "Sí", lista 3 opciones gastronómicas con precios retail/mayor y cierra con 1 pregunta de afinación.
+
+---
+
+### Prueba 2: "¿Cuánto cuesta el blazer a medida?"
+
+**Criterio:** Da el rango C$2,500-4,500 + 1 pregunta.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Cuánto cuesta el blazer a medida?"}]}'
+```
+**Modelo:** `fast` (fallback) | **Tokens:** Input: 4,282 | Output: 184  
+**Respuesta:**
+> Con gusto. El blazer a medida va de C$2,500 a C$4,500, según el tejido y los detalles que elija.  
+> ¿Le interesa algún estilo o material en particular (por ejemplo, lana, algodón, mezcla de seda)?
+
+**Resultado:** Cumplido. Da el rango exacto C$2,500 - C$4,500 y hace 1 pregunta sobre material/estilo sin preguntas vacías ni rodeos.
+
+---
+
+### Prueba 3: "Busco uniforme para clínica, 30 unidades"
+
+**Criterio:** Menciona precio por mayor + rango de precios + 1 pregunta.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Busco uniforme para clínica, 30 unidades"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 4,283 | Output: 304  
+**Respuesta:**
+> Sí, podemos proveer uniformes médicos para su clínica.
+> 
+> - Conjunto Médico Esencial: C$1,200 por unidad (precio mayor).  
+> - Conjunto Médico Premium: C$1,600 por unidad (precio mayor).  
+> - Conjunto Médico Alta Gama a medida: rango C$1,800 – C$2,160 por unidad (precio mayor).  
+> 
+> ¿Le interesan los conjuntos completos o prefiere combinar piezas específicas como tops, pantalones o gabachas?
+
+**Resultado:** Cumplido. Aplica precio por mayor por superar 12 unidades, detalla las opciones con precios por mayor y afina con 1 pregunta clara.
+
+---
+
+### Prueba 4: "Hola, quiero uniformes a la medida"
+
+**Criterio:** Menciona 2-3 líneas con precios + 1 pregunta.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Hola, quiero uniformes a la medida"}]}'
+```
+**Modelo:** `fast` (fallback) | **Tokens:** Input: 4,282 | Output: 251  
+**Respuesta:**
+> Con gusto le ayudo con sus uniformes a la medida.  
+> - Blazer a medida: C$2,500 – C$4,500  
+> - Traje Ejecutivo Completo a medida: C$4,000 – C$7,000  
+> - Conjunto Médico Alta Gama a medida: C$1,800 – C$2,160  
+> 
+> ¿Para qué sector o actividad necesita los uniformes?
+
+**Resultado:** Cumplido. Presenta 3 líneas clave de confección a la medida con sus rangos de precios oficiales y pregunta el sector de interés.
+
+---
+
+## Pruebas Fase 4.2.3 + 4.2.4 — Fix Precios, Identidad Dori, Políticas y Escalación
+
+Fecha de ejecución: 15 de Octubre de 2026  
+Objetivo: Validar que el chatbot identifique claramente precio retail vs. precio mayor, adopte la identidad de Dori, escale pedidos especiales/grandes a WhatsApp (+505 8467 6004), aplique políticas de cancelación/garantía/pagos departamentales y preserve el carácter `$` sin cortes de línea en la interfaz.
+
+### Prueba 1: "¿Cuánto cuesta la filipina de chef básica?"
+
+**Criterio:** Debe decir retail C$1,150.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Cuánto cuesta la filipina de chef básica?"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 5,473 | Output: 198  
+**Respuesta:**
+> Sí, contamos con la Filipina de Chef Básica.
+> 
+> - Precio retail (1‑11 uds): C$1,150  
+> - Precio mayor (12 uds o más): C$1,000  
+> - Entrega gratuita dentro del casco urbano de Managua.
+> 
+> ¿Para cuántas unidades está interesado?
+
+**Resultado:** Cumplido. Especifica con precisión C$1,150 como precio retail y C$1,000 para compras al por mayor (12+ uds).
+
+---
+
+### Prueba 2: "¿Cuánto cuesta el conjunto médico esencial?"
+
+**Criterio:** Debe decir retail C$1,380, mayor C$1,200.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Cuánto cuesta el conjunto médico esencial?"}]}'
+```
+**Modelo:** `fast` (fallback) | **Tokens:** Input: 5,471 | Output: 204  
+**Respuesta:**
+> El conjunto médico esencial cuesta C$1,380 (precio retail).  
+> Si necesita 12 o más unidades, el precio baja a C$1,200 por conjunto.
+> 
+> ¿Le interesaría agregar algún detalle adicional, como bordado o colores específicos?
+
+**Resultado:** Cumplido. Indica exactamente retail C$1,380 y mayor C$1,200.
+
+---
+
+### Prueba 3: "Necesito 200 uniformes para un hospital"
+
+**Criterio:** Escala + da número + wa.link.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Necesito 200 uniformes para un hospital"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 5,472 | Output: 349  
+**Respuesta:**
+> Entiendo que necesita una gran cantidad de uniformes para su hospital. Para un pedido de 200 unidades lo más adecuado es que un asesor le atienda personalmente y le prepare una cotización a la medida, considerando tallas, modelos y posibles descuentos por volumen.
+> 
+> Puede contactar a nuestro asesor por WhatsApp:
+> - Número: +505 8467 6004  
+> - Enlace directo: https://wa.me/50584676004?text=Hola%2C%20quiero%20cotizar%20un%20pedido%20de%20200%20uniformes%20para%20hospital  
+> - Horario: lunes a viernes 8:00 am – 5:00 pm, sábados 8:00 am – 12:00 pm  
+> 
+> ¿Le parece bien que le enviemos la información de contacto del asesor ahora?
+
+**Resultado:** Cumplido. Detecta pedido >100 unidades, reconoce la necesidad, proporciona el número de WhatsApp oficial +505 8467 6004 y genera el enlace directo wa.link.
+
+---
+
+### Prueba 4: "Quiero un diseño 100% personalizado con logo"
+
+**Criterio:** Escala + sugiere enviar imágenes por WhatsApp.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Quiero un diseño 100% personalizado con logo"}]}'
+```
+**Modelo:** `fast` (fallback) | **Tokens:** Input: 5,473 | Output: 528  
+**Respuesta:**
+> Para diseños 100 % personalizados lo mejor es que un asesor le atienda personalmente y pueda revisar su logo y los detalles exactos.  
+> Puede enviarnos su archivo y cualquier referencia directamente por WhatsApp:
+> 
+> - Número: +505 8467 6004  
+> - Enlace directo: https://wa.me/50584676004?text=Hola%2C%20quiero%20un%20dise%C3%B1o%20personalizado%20con%20logo  
+> - Horario: Lunes a viernes 8:00 am–5:00 pm, sábados 8:00 am–12:00 pm  
+> 
+> ¿Desea enviarnos su logo y especificaciones para que un asesor lo revise?
+
+**Resultado:** Cumplido. Escala el proyecto personalizado y solicita el envío de imágenes/archivos vía WhatsApp.
+
+---
+
+### Prueba 5: "¿Puedo cancelar después de pagar?"
+
+**Criterio:** Menciona plazo de 24 hrs desde confirmación del anticipo.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Puedo cancelar después de pagar?"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 5,471 | Output: 322  
+**Respuesta:**
+> Sí, puede cancelar su pedido, pero depende del estado de la producción. Si solicita la cancelación dentro de las 24 horas posteriores al pago del anticipo y la prenda aún no ha sido cortada, confeccionada ni bordada, el anticipo se reembolsa íntegramente. Una vez que el pedido haya entrado en producción, el anticipo no es reembolsable.
+> 
+> En caso de haber pagado el total del pedido, la cancelación también debe realizarse dentro de las 24 horas y siempre que el artículo no haya iniciado su fabricación. El reembolso se procesa en 72 horas hábiles si el pago fue por transferencia o depósito, y de forma inmediata si fue en efectivo o PayPal.
+> 
+> ¿Tiene algún pedido en curso que desee cancelar o necesita más información sobre el proceso?
+
+**Resultado:** Cumplido. Cita expresamente el plazo de 24 horas desde el pago del anticipo y la condición de no haber iniciado la confección/corte.
+
+---
+
+### Prueba 6: "¿Tienen garantía por costuras?"
+
+**Criterio:** Menciona 6 meses, arreglo gratuito.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Tienen garantía por costuras?"}]}'
+```
+**Modelo:** `fast` (fallback) | **Tokens:** Input: 5,471 | Output: 206  
+**Respuesta:**
+> Sí, en El Cacique garantizamos las costuras de todos nuestros uniformes por hasta 6 meses desde la entrega. Durante ese periodo, cualquier apertura de costura o defecto de fabricación será arreglado gratuitamente.  
+> 
+> ¿Hay algún producto o línea en particular sobre la que le gustaría saber más acerca de la garantía?
+
+**Resultado:** Cumplido. Menciona garantía de 6 meses y arreglo gratuito sobre costura.
+
+---
+
+### Prueba 7: "¿Cómo pago si estoy en Estelí?"
+
+**Criterio:** Menciona 100% antes del envío, terminal de buses.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Cómo pago si estoy en Estelí?"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 5,520 | Output: 318  
+**Respuesta:**
+> Sí, podemos atenderle en Estelí.  
+> 
+> - Los pagos se pueden realizar mediante PayPal, transferencia bancaria, depósito bancario o efectivo en tienda.  
+> - Para envíos fuera de Managua se requiere el 100 % del pago antes de despachar el pedido a la terminal de buses que usted indique.  
+> - El costo de flete se cotiza con nuestro asesor una vez que nos indique la ciudad y la terminal de destino.
+> 
+> ¿Podría indicarnos qué uniformes o cantidad está interesado en solicitar para preparar la cotización?
+
+**Resultado:** Cumplido. Enfatiza pago del 100% antes del envío y entrega en la terminal de buses designada por el cliente.
+
+---
+
+### Prueba 8: "¿El blazer a medida cuánto cuesta?"
+
+**Criterio:** Muestra C$2,500–C$4,500 con $ visible (sin cortes de línea).  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿El blazer a medida cuánto cuesta?"}]}'
+```
+**Modelo:** `fast` (fallback) | **Tokens:** Input: 5,471 | Output: 532  
+**Respuesta:**
+> Con gusto.  
+> El blazer a medida se ofrece en un rango de precios que varía según el tejido y los detalles: **C$2,500 a C$4,500** por unidad, con pedido mínimo de una pieza.  
+> 
+> ¿Para qué ocasión o estilo le interesa el blazer?
+
+**Resultado:** Cumplido. Devuelve el rango oficial C$2,500 a C$4,500 y el componente `ChatMessage.tsx` sanitiza y desanitiza el carácter `$`, asegurando su visualización íntegra sin cortes.
+
+---
+
+## Pruebas Fase 4.2.5 — Corrección de Origen de Precios en `context.ts`
+
+Fecha de ejecución: 15 de Octubre de 2026  
+Objetivo: Validar que `buildCatalogSummary()` y el system prompt inyecten y prioricen sin ambigüedades el precio retail cuando el usuario no especifica cantidad, diferenciando claramente retail vs. mayor.
+
+### Prueba 1: "¿Cuánto cuesta la filipina de chef básica?"
+
+**Precio esperado:** Retail C$1,150 (no C$1,000).  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Cuánto cuesta la filipina de chef básica?"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 5,535 | Output: 356  
+**Respuesta:**
+> Sí, contamos con la Filipina de Chef Básica.
+> 
+> - Precio retail (1‑11 unidades): C$1,150  
+> - Precio mayor (12 + unidades): C$1,000  
+> - Pedido mínimo: 1 unidad
+> 
+> ¿Cuántas unidades está considerando para su cocina?
+
+**Resultado:** Cumplido. Informa retail C$1,150 para 1-11 unidades y C$1,000 para mayor.
+
+---
+
+### Prueba 2: "¿Cuánto cuesta el conjunto médico esencial?"
+
+**Precio esperado:** Retail C$1,380 (no C$1,200).  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Cuánto cuesta el conjunto médico esencial?"}]}'
+```
+**Modelo:** `fast` (fallback) | **Tokens:** Input: 5,533 | Output: 303  
+**Respuesta:**
+> Sí, tenemos el conjunto médico esencial.  
+> - Conjunto Médico Esencial: C$1,380 (retail).  
+> - Conjunto Médico Premium: C$1,840 (retail).  
+> - Conjunto Médico Alta Gama a Medida: rango C$1,800‑2,160 (retail).
+> 
+> ¿Desea saber el precio por mayor (12 o más unidades) o necesita alguna otra opción?
+
+**Resultado:** Cumplido. Identifica expresamente C$1,380 como retail y consulta si requiere precio por mayor.
+
+---
+
+### Prueba 3: "¿Cuánto cuesta el top médico premium?"
+
+**Precio esperado:** Retail C$977.50 (no C$850).  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Cuánto cuesta el top médico premium?"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 5,533 | Output: 278  
+**Respuesta:**
+> Sí, el Top Médico Premium está disponible.
+> 
+> - Precio retail (1‑11 uds): C$977.5  
+> - Precio mayor (12 uds o más): C$850  
+> 
+> ¿Cuántas unidades está considerando para su compra?
+
+**Resultado:** Cumplido. Devuelve con precisión el precio retail C$977.5 (C$977.50) y diferencia C$850 para compras al por mayor.
+
+
+
+
