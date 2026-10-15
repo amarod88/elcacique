@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colores de marca */
+  --color-beige: #F5F0E8;
+  --color-beige-100: #FAF7F0;
+  --color-beige-200: #EDE6D6;
+  --color-celeste: #A8D5E5;
+  --color-celeste-100: #D6EBF2;
+  --color-azul: #1B3A5C;
+  --color-azul-700: #12283F;
+  --color-azul-500: #2D5A87;
+  --color-vino: #722F37;
+  --color-vino-600: #5C252C;
+  --color-vino-400: #8E4149;
+  --color-marron: #5C4033;
+  --color-marron-400: #8A6B5C;
+
+  /* Colores semánticos */
+  --color-success: #2F7D4F;
+  --color-warning: #C68A2E;
+  --color-error: #A32C2C;
+  --color-info: #2D5A87;
+
+  /* Neutros */
+  --color-blanco: #FFFFFF;
+  --color-negro: #0F0F0F;
+  --color-gris-50: #F9F9F9;
+  --color-gris-100: #F0F0F0;
+  --color-gris-200: #E0E0E0;
+  --color-gris-400: #9E9E9E;
+  --color-gris-600: #5A5A5A;
+
+  /* Tipografía */
+  --font-display: var(--font-display, 'DM Serif Display', serif);
+  --font-body: var(--font-body, 'Inter', sans-serif);
+
+  /* Escala tipográfica */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+
+  /* Espaciado */
+  --spacing-section: 6rem;
+  --spacing-section-sm: 4rem;
+
+  /* Radios */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(27, 58, 92, 0.06);
+  --shadow-md: 0 4px 12px rgba(27, 58, 92, 0.08);
+  --shadow-lg: 0 12px 32px rgba(27, 58, 92, 0.12);
+  --shadow-xl: 0 24px 48px rgba(27, 58, 92, 0.16);
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-beige);
+  color: var(--color-marron);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-azul);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-delayed {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

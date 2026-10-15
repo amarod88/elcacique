@@ -1,11 +1,37 @@
-<div align="center">
+# El Cacique — Landing Premium + Chatbot IA
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Landing web premium con chatbot de atención al cliente y ventas para El Cacique, Fábrica de Uniformes en Nicaragua.
 
-  <h1>Built with AI Studio</h2>
+## Stack
+- Next.js 16 + React 19 + TypeScript
+- Tailwind CSS 4
+- Groq (GPT-OSS 20B / 120B) para el chatbot
+- PayPal para pagos
+- ImageKit para imágenes y video
+- Vercel para despliegue
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Requisitos
+- Node 20+
+- pnpm 9+
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Instalación
+```bash
+pnpm install
+pnpm dev
+```
 
-</div>
+## Estructura
+- `apps/web` — Landing y chatbot
+- `packages/shared` — Tipos y datos compartidos
+- `packages/config` — Configuración compartida
+- `ia/` — Base de conocimiento del chatbot
+
+## Fases
+- Fase 0: Fundaciones (actual)
+- Fase 1: Catálogo y datos
+- Fase 2: Diseño visual
+- Fase 3: Landing base
+- Fase 4: Chatbot IA
+- Fase 5: Carrito y PayPal
+- Fase 6: Pruebas
+- Fase 7: Lanzamiento

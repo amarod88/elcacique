@@ -1,0 +1,8 @@
+{
+  "name": "El Cacique - Fábrica de Uniformes",
+  "description": "Landing web premium con chatbot de atención al cliente y ventas para El Cacique, Fábrica de Uniformes en Nicaragua.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000 -H 0.0.0.0",
+    "build": "NODE_ENV=production next build",
+    "start": "next start -p 3000 -H 0.0.0.0",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@el-cacique/shared": "workspace:*",
+    "@paypal/paypal-server-sdk": "^0.6.1",
+    "@paypal/react-paypal-js": "^8.8.2",
+    "groq-sdk": "^0.15.0",
+    "next": "^16.4.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.4.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,3700 @@
+[
+  {
+    "id": "MED-TOP-001",
+    "slug": "top-medico-esencial",
+    "categoria": "medicos",
+    "subcategoria": "Tops y casacas",
+    "nombre": "Top Médico Esencial",
+    "descripcion": "Filipina médica esencial confeccionada en tela antifluido de alto rendimiento. Diseño ergonómico con cuello en V y múltiples bolsillos funcionales.",
+    "sinonimos": [
+      "filipina medica",
+      "top medico",
+      "blusa clinica",
+      "scrub top",
+      "camisola medica"
+    ],
+    "telas": [
+      "Antifluido Clororresistente",
+      "Poliéster / Algodón"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Celeste Clínico",
+      "Verde Quirúrgico",
+      "Vino",
+      "Negro",
+      "Blanco"
+    ],
+    "moq": 1,
+    "precio_retail": 690,
+    "precio_mayor": 600,
+    "personalizacion": [
+      "Bordado computarizado de logo",
+      "Bordado de nombre y especialidad"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "antifluido",
+      "esencial",
+      "clinico",
+      "scrub"
+    ]
+  },
+  {
+    "id": "MED-TOP-002",
+    "slug": "top-medico-premium",
+    "categoria": "medicos",
+    "subcategoria": "Tops y casacas",
+    "nombre": "Top Médico Premium",
+    "descripcion": "Top médico de alta tecnología textil con elasticidad en 4 direcciones, tratamiento repelente a fluidos y acabado suave al tacto para largas jornadas de guardia.",
+    "sinonimos": [
+      "top medico stretch",
+      "filipina premium",
+      "scrub premium",
+      "top antifluido stretch"
+    ],
+    "telas": [
+      "Spandex Antifluido 4-Way Stretch",
+      "Microfibra Quirúrgica"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Real",
+      "Vino Tinto",
+      "Verde Esmeralda",
+      "Gris Plomo",
+      "Azul Marino",
+      "Negro"
+    ],
+    "moq": 1,
+    "precio_retail": 977.5,
+    "precio_mayor": 850,
+    "personalizacion": [
+      "Bordado computarizado de alta definición",
+      "Bordado de monograma institucional"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "premium",
+      "stretch",
+      "antifluido",
+      "confort"
+    ]
+  },
+  {
+    "id": "MED-TOP-003",
+    "slug": "top-medico-alta-gama-a-medida",
+    "categoria": "medicos",
+    "subcategoria": "Tops y casacas",
+    "nombre": "Top Médico Alta Gama a Medida",
+    "descripcion": "Top clínico confeccionado exclusivamente a la medida del profesional. Selección personalizada de telas importadas antimicrobianas y detalles de sastrería médica.",
+    "sinonimos": [
+      "top medico sastreria",
+      "filipina a medida",
+      "scrub a medida",
+      "top medico alta gama"
+    ],
+    "telas": [
+      "Tela Quirúrgica Importada Antimicrobiana",
+      "Spandex Antifluido Premium"
+    ],
+    "tallas": [
+      "A medida"
+    ],
+    "colores": [
+      "Personalizado",
+      "Azul Marino",
+      "Vino",
+      "Grafito",
+      "Verde Quirúrgico"
+    ],
+    "moq": 1,
+    "precio_retail": null,
+    "precio_mayor": null,
+    "precio_min": 1100,
+    "precio_max": 1300,
+    "personalizacion": [
+      "Confección a medida",
+      "Bordado computarizado incluido",
+      "Bolsillos personalizados"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "5–15 días",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "a medida",
+      "alta gama",
+      "antimicrobiano",
+      "personalizado"
+    ]
+  },
+  {
+    "id": "MED-PAN-001",
+    "slug": "pantalon-medico-recto-esencial",
+    "categoria": "medicos",
+    "subcategoria": "Pantalones",
+    "nombre": "Pantalón Médico Recto Esencial",
+    "descripcion": "Pantalón clínico de corte recto clásico con pretina elástica y cordón ajustable. Resistente a lavados frecuentes y repelente a salpicaduras.",
+    "sinonimos": [
+      "pantalon scrub recto",
+      "pantalon medico basico",
+      "pantalon clinico"
+    ],
+    "telas": [
+      "Antifluido Clororresistente",
+      "Poliéster / Algodón"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Celeste Clínico",
+      "Verde Quirúrgico",
+      "Vino",
+      "Negro",
+      "Blanco"
+    ],
+    "moq": 1,
+    "precio_retail": 690,
+    "precio_mayor": 600,
+    "personalizacion": [
+      "Bordado de logotipo institucional en bolsillo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "esencial",
+      "recto",
+      "antifluido"
+    ]
+  },
+  {
+    "id": "MED-PAN-002",
+    "slug": "pantalon-medico-jogger-premium",
+    "categoria": "medicos",
+    "subcategoria": "Pantalones",
+    "nombre": "Pantalón Médico Jogger Premium",
+    "descripcion": "Pantalón estilo jogger moderno con tobilleras acanaladas elásticas, bolsillos tipo cargo y tela stretch de alto confort y secado rápido.",
+    "sinonimos": [
+      "jogger medico",
+      "pantalon jogger clinico",
+      "scrub jogger",
+      "pantalon medico cargo"
+    ],
+    "telas": [
+      "Spandex Antifluido 4-Way Stretch"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Real",
+      "Vino Tinto",
+      "Gris Plomo",
+      "Azul Marino",
+      "Negro"
+    ],
+    "moq": 1,
+    "precio_retail": 977.5,
+    "precio_mayor": 850,
+    "personalizacion": [
+      "Bordado de logo",
+      "Personalización de etiqueta"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "jogger",
+      "premium",
+      "stretch",
+      "moderno"
+    ]
+  },
+  {
+    "id": "MED-PAN-003",
+    "slug": "pantalon-medico-cargo-alta-gama",
+    "categoria": "medicos",
+    "subcategoria": "Pantalones",
+    "nombre": "Pantalón Médico Cargo Alta Gama",
+    "descripcion": "Pantalón médico confeccionado a medida o en corte de alta especificación, equipado con múltiples compartimentos para instrumentos médicos y tela antifluido superior.",
+    "sinonimos": [
+      "pantalon clinico alta gama",
+      "pantalon cargo medico a medida"
+    ],
+    "telas": [
+      "Spandex Antifluido Premium",
+      "Tela Quirúrgica Importada"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Vino",
+      "Grafito",
+      "Negro",
+      "Verde Esmeralda"
+    ],
+    "moq": 1,
+    "precio_retail": null,
+    "precio_mayor": null,
+    "precio_min": 1000,
+    "precio_max": 1200,
+    "personalizacion": [
+      "Ajuste a medida",
+      "Bordado computarizado",
+      "Distribución personalizada de bolsillos"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "5–15 días",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "alta gama",
+      "cargo",
+      "a medida"
+    ]
+  },
+  {
+    "id": "MED-SET-001",
+    "slug": "conjunto-medico-esencial",
+    "categoria": "medicos",
+    "subcategoria": "Conjuntos",
+    "nombre": "Conjunto Médico Esencial",
+    "descripcion": "Uniforme médico completo compuesto por top con cuello V y pantalón de corte recto en tela antifluido certificada. La opción predilecta para clínicas y hospitales.",
+    "sinonimos": [
+      "scrub completo",
+      "conjunto clinico esencial",
+      "uniforme medico esencial",
+      "par de scrub"
+    ],
+    "telas": [
+      "Antifluido Clororresistente"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Celeste Clínico",
+      "Verde Quirúrgico",
+      "Vino",
+      "Negro",
+      "Blanco"
+    ],
+    "moq": 1,
+    "precio_retail": 1380,
+    "precio_mayor": 1200,
+    "personalizacion": [
+      "Bordado de logo en filipina",
+      "Bordado de nombre y apellido"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "conjunto",
+      "esencial",
+      "antifluido",
+      "mas vendido"
+    ]
+  },
+  {
+    "id": "MED-SET-002",
+    "slug": "conjunto-medico-premium",
+    "categoria": "medicos",
+    "subcategoria": "Conjuntos",
+    "nombre": "Conjunto Médico Premium",
+    "descripcion": "Conjunto médico premium que combina filipina ergonómica y pantalón jogger en tejido stretch antifluido. Máxima frescura, elasticidad y estilo contemporáneo.",
+    "sinonimos": [
+      "scrub premium completo",
+      "conjunto jogger medico",
+      "uniforme medico stretch"
+    ],
+    "telas": [
+      "Spandex Antifluido 4-Way Stretch"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Real",
+      "Vino Tinto",
+      "Gris Plomo",
+      "Azul Marino",
+      "Negro"
+    ],
+    "moq": 1,
+    "precio_retail": 1840,
+    "precio_mayor": 1600,
+    "personalizacion": [
+      "Bordado computarizado HD",
+      "Bordado de especialidad médica"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "conjunto",
+      "premium",
+      "stretch",
+      "jogger"
+    ]
+  },
+  {
+    "id": "MED-SET-003",
+    "slug": "conjunto-medico-alta-gama-a-medida",
+    "categoria": "medicos",
+    "subcategoria": "Conjuntos",
+    "nombre": "Conjunto Médico Alta Gama a Medida",
+    "descripcion": "Conjunto médico de máxima distinción con corte y confección artesanal a la medida exacta del profesional de la salud. Techo máximo de precio C$2,160.",
+    "sinonimos": [
+      "scrub a medida completo",
+      "uniforme medico alta gama",
+      "conjunto quirurgico a medida"
+    ],
+    "telas": [
+      "Spandex Antifluido Premium Importado",
+      "Tejido Quirúrgico Antimicrobiano"
+    ],
+    "tallas": [
+      "A medida"
+    ],
+    "colores": [
+      "Personalizado",
+      "Azul Marino",
+      "Vino",
+      "Grafito",
+      "Verde Esmeralda"
+    ],
+    "moq": 1,
+    "precio_retail": null,
+    "precio_mayor": null,
+    "precio_min": 1800,
+    "precio_max": 2160,
+    "personalizacion": [
+      "Patronaje a medida",
+      "Bordado computarizado de alta gama incluido",
+      "Detalles exclusivos"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "5–15 días",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "a medida",
+      "alta gama",
+      "techo C$2160",
+      "exclusivo"
+    ]
+  },
+  {
+    "id": "MED-GAB-001",
+    "slug": "gabacha-medica-estandar",
+    "categoria": "medicos",
+    "subcategoria": "Gabachas y batas",
+    "nombre": "Gabacha Médica Estándar",
+    "descripcion": "Gabacha médica clásica blanca de corte limpio con tres bolsillos frontales y abertura trasera para fácil movimiento. Tela resistente y fresca.",
+    "sinonimos": [
+      "gabacha blanca",
+      "bata corta",
+      "gabacha clinica"
+    ],
+    "telas": [
+      "Dacrón Hospitalario",
+      "Poliéster / Algodón"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Blanco",
+      "Azul Cielo"
+    ],
+    "moq": 1,
+    "precio_retail": 747.5,
+    "precio_mayor": 650,
+    "personalizacion": [
+      "Bordado de logotipo institucional",
+      "Bordado de nombre"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "gabacha",
+      "blanca",
+      "clinica"
+    ]
+  },
+  {
+    "id": "MED-BAT-001",
+    "slug": "bata-de-laboratorio-37",
+    "categoria": "medicos",
+    "subcategoria": "Gabachas y batas",
+    "nombre": "Bata de Laboratorio 37\"",
+    "descripcion": "Bata de laboratorio de 37 pulgadas de longitud con botones reforzados, cuello sastre y aberturas laterales para acceso a bolsillos interiores.",
+    "sinonimos": [
+      "bata de laboratorio",
+      "bata medica larga",
+      "bata blanca 37"
+    ],
+    "telas": [
+      "Gabardina Ligera",
+      "Algodón / Poliéster Hospitalario"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Blanco"
+    ],
+    "moq": 1,
+    "precio_retail": 977.5,
+    "precio_mayor": 850,
+    "personalizacion": [
+      "Bordado de escudo universitario o clínica",
+      "Bordado de nombre"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "bata",
+      "laboratorio",
+      "blanca"
+    ]
+  },
+  {
+    "id": "MED-BAT-002",
+    "slug": "bata-alta-gama-antifluido-a-medida",
+    "categoria": "medicos",
+    "subcategoria": "Gabachas y batas",
+    "nombre": "Bata Alta Gama Antifluido a Medida",
+    "descripcion": "Bata clínica y de laboratorio confeccionada a medida en tejido antifluido de alta gama. Acabados de sastrería médica con forro interno parcial y botones de nácar.",
+    "sinonimos": [
+      "bata medica a medida",
+      "bata alta gama",
+      "bata antifluido personalizada"
+    ],
+    "telas": [
+      "Antifluido Premium Repelente",
+      "Gabardina Importada"
+    ],
+    "tallas": [
+      "A medida"
+    ],
+    "colores": [
+      "Blanco Óptico",
+      "Azul Marino",
+      "Gris Claro"
+    ],
+    "moq": 1,
+    "precio_retail": null,
+    "precio_mayor": null,
+    "precio_min": 1100,
+    "precio_max": 1300,
+    "personalizacion": [
+      "Confección a medida",
+      "Bordado computarizado de alta gama",
+      "Detalles en vivos"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "5–15 días",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "bata",
+      "alta gama",
+      "a medida",
+      "antifluido"
+    ]
+  },
+  {
+    "id": "MED-CHA-001",
+    "slug": "chaqueta-clinica-esencial",
+    "categoria": "medicos",
+    "subcategoria": "Chaquetas clínicas",
+    "nombre": "Chaqueta Clínica Esencial",
+    "descripcion": "Chaqueta de abrigo clínico con cierre frontal, puños elásticos y tela antifluido ligera ideal para quirófano y salas de recuperación con aire acondicionado.",
+    "sinonimos": [
+      "chaqueta medica",
+      "warm-up jacket",
+      "chaqueta clinica basica"
+    ],
+    "telas": [
+      "Antifluido Liviano",
+      "Poliéster Clínico"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Celeste Clínico",
+      "Verde Quirúrgico",
+      "Vino",
+      "Negro"
+    ],
+    "moq": 1,
+    "precio_retail": 977.5,
+    "precio_mayor": 850,
+    "personalizacion": [
+      "Bordado de logo",
+      "Bordado de nombre"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaqueta",
+      "clinica",
+      "esencial"
+    ]
+  },
+  {
+    "id": "MED-CHA-002",
+    "slug": "chaqueta-clinica-premium",
+    "categoria": "medicos",
+    "subcategoria": "Chaquetas clínicas",
+    "nombre": "Chaqueta Clínica Premium",
+    "descripcion": "Chaqueta médica térmica y transpirable con detalles de cuello bomber acanalado, cremallera metálica pulida y tejido stretch repelente a salpicaduras.",
+    "sinonimos": [
+      "chaqueta clinica bomber",
+      "chaqueta medica premium",
+      "jacket medica stretch"
+    ],
+    "telas": [
+      "Spandex Antifluido",
+      "Tejido Softshell Clínico"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Negro",
+      "Vino Tinto",
+      "Gris Plomo"
+    ],
+    "moq": 1,
+    "precio_retail": 1150,
+    "precio_mayor": 1000,
+    "personalizacion": [
+      "Bordado computarizado HD",
+      "Personalización de tirador de cierre"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaqueta",
+      "premium",
+      "bomber",
+      "stretch"
+    ]
+  },
+  {
+    "id": "MED-CHA-003",
+    "slug": "chaqueta-clinica-alta-gama-a-medida",
+    "categoria": "medicos",
+    "subcategoria": "Chaquetas clínicas",
+    "nombre": "Chaqueta Clínica Alta Gama a Medida",
+    "descripcion": "Chaqueta médica exclusiva elaborada bajo patrón individualizado con telas técnicas de alto estándar térmico y repelente.",
+    "sinonimos": [
+      "chaqueta medica a medida",
+      "chaqueta clinica personalizada"
+    ],
+    "telas": [
+      "Tejido Técnico Quirúrgico",
+      "Spandex Antifluido Premium"
+    ],
+    "tallas": [
+      "A medida"
+    ],
+    "colores": [
+      "Personalizado",
+      "Azul Marino",
+      "Negro",
+      "Vino"
+    ],
+    "moq": 1,
+    "precio_retail": null,
+    "precio_mayor": null,
+    "precio_min": 1250,
+    "precio_max": 1450,
+    "personalizacion": [
+      "Patronaje a medida",
+      "Bordado completo",
+      "Bolsillos térmicos"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "5–15 días",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaqueta",
+      "alta gama",
+      "a medida"
+    ]
+  },
+  {
+    "id": "MED-GOR-001",
+    "slug": "gorro-quirurgico",
+    "categoria": "medicos",
+    "subcategoria": "Accesorios médicos",
+    "nombre": "Gorro Quirúrgico",
+    "descripcion": "Gorro quirúrgico unisex con tiras de amarre posterior y toalla interna frontal para absorción de sudor durante procedimientos.",
+    "sinonimos": [
+      "gorro de cirugia",
+      "gorro clinico",
+      "surgical cap"
+    ],
+    "telas": [
+      "Algodón 100%",
+      "Antifluido Quirúrgico"
+    ],
+    "tallas": [
+      "Talla única ajustable"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Celeste",
+      "Verde Quirúrgico",
+      "Vino",
+      "Negro"
+    ],
+    "moq": 1,
+    "precio_retail": 172.5,
+    "precio_mayor": 150,
+    "personalizacion": [
+      "Bordado de logotipo pequeño"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "gorro",
+      "quirurgico",
+      "accesorio"
+    ]
+  },
+  {
+    "id": "MED-GOR-002",
+    "slug": "gorro-quirurgico-personalizado",
+    "categoria": "medicos",
+    "subcategoria": "Accesorios médicos",
+    "nombre": "Gorro Quirúrgico Personalizado",
+    "descripcion": "Gorro quirúrgico con bordado computarizado incluido de logotipo, nombre o especialidad médica. Ajuste seguro y transpirable.",
+    "sinonimos": [
+      "gorro medico bordado",
+      "gorro quirurgico con nombre"
+    ],
+    "telas": [
+      "Antifluido Quirúrgico",
+      "Algodón Estampado / Liso"
+    ],
+    "tallas": [
+      "Talla única ajustable"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Celeste",
+      "Verde",
+      "Vino",
+      "Negro",
+      "Estampados Clínicos"
+    ],
+    "moq": 1,
+    "precio_retail": 230,
+    "precio_mayor": 200,
+    "personalizacion": [
+      "Bordado computarizado de nombre y logo incluido"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "gorro",
+      "personalizado",
+      "bordado incluido"
+    ]
+  },
+  {
+    "id": "COR-CAM-001",
+    "slug": "camisa-oxford-estandar",
+    "categoria": "corporativos",
+    "subcategoria": "Camisería formal",
+    "nombre": "Camisa Oxford Estándar",
+    "descripcion": "Camisa ejecutiva clásica en tejido Oxford suave y transpirable. Disponible en cortes para caballero y dama con costuras reforzadas y botones de cuatro ojales.",
+    "sinonimos": [
+      "camisa oxford",
+      "camisa formal",
+      "camisa ejecutiva",
+      "camisa de botones"
+    ],
+    "telas": [
+      "Oxford 60/40 Algodón Poliéster"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "colores": [
+      "Blanco",
+      "Azul Cielo",
+      "Celeste Rayado",
+      "Rosa Pálido",
+      "Gris Claro"
+    ],
+    "moq": 1,
+    "precio_retail": 897,
+    "precio_mayor": 780,
+    "personalizacion": [
+      "Bordado computarizado en pecho",
+      "Bordado en puño o cuello"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "oxford",
+      "formal",
+      "ejecutivo",
+      "corporativo"
+    ]
+  },
+  {
+    "id": "COR-CAM-002",
+    "slug": "camisa-antimanchas-premium",
+    "categoria": "corporativos",
+    "subcategoria": "Camisería formal",
+    "nombre": "Camisa Antimanchas Premium",
+    "descripcion": "Camisa ejecutiva de alta gama con tratamiento nanotecnológico repelente a líquidos y manchas sin perder la transpirabilidad natural del algodón.",
+    "sinonimos": [
+      "camisa antimanchas",
+      "camisa premium corporativa",
+      "camisa non-iron"
+    ],
+    "telas": [
+      "Algodón Egipcio Tratado Repelente",
+      "Nanotex Oxford"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "colores": [
+      "Blanco Impecable",
+      "Azul Francés",
+      "Gris Perla"
+    ],
+    "moq": 1,
+    "precio_retail": 2502.4,
+    "precio_mayor": 2176,
+    "personalizacion": [
+      "Bordado de alta definición",
+      "Monograma personalizado"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "antimanchas",
+      "premium",
+      "alta gama"
+    ]
+  },
+  {
+    "id": "COR-POL-001",
+    "slug": "polo-corporativo-pique",
+    "categoria": "corporativos",
+    "subcategoria": "Camisería casual",
+    "nombre": "Polo Corporativo Piqué",
+    "descripcion": "Camiseta tipo polo en tejido piqué resistente con cuello y puños tejidos antienrollamiento. Ideal para personal de ventas, operaciones y eventos corporativos.",
+    "sinonimos": [
+      "camisa polo",
+      "polo pique",
+      "polo corporativa",
+      "chomba corporativa"
+    ],
+    "telas": [
+      "Piqué 65/35 Poliéster Algodón"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Blanco",
+      "Negro",
+      "Rojo",
+      "Azul Royal",
+      "Verde Bosque",
+      "Gris Jaspe"
+    ],
+    "moq": 1,
+    "precio_retail": 400.2,
+    "precio_mayor": 348,
+    "personalizacion": [
+      "Bordado computarizado de logotipo en pecho",
+      "Bordado en manga o espalda"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "polo",
+      "pique",
+      "corporativo",
+      "mas vendido"
+    ]
+  },
+  {
+    "id": "COR-POL-002",
+    "slug": "polo-algodon-dama",
+    "categoria": "corporativos",
+    "subcategoria": "Camisería casual",
+    "nombre": "Polo Algodón Dama",
+    "descripcion": "Polo casual con corte entallado femenino confeccionada en 100% algodón peinado de tacto ultra suave y cuello estilizado.",
+    "sinonimos": [
+      "polo dama",
+      "polo de mujer corporativo",
+      "polo entallado algodon"
+    ],
+    "telas": [
+      "100% Algodón Peinado 20/1"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Blanco",
+      "Negro",
+      "Azul Marino",
+      "Rosa",
+      "Celeste",
+      "Coral"
+    ],
+    "moq": 1,
+    "precio_retail": 548.55,
+    "precio_mayor": 477,
+    "personalizacion": [
+      "Bordado de logo en pecho"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "polo",
+      "dama",
+      "algodon"
+    ]
+  },
+  {
+    "id": "COR-POL-003",
+    "slug": "polo-algodon-caballero",
+    "categoria": "corporativos",
+    "subcategoria": "Camisería casual",
+    "nombre": "Polo Algodón Caballero",
+    "descripcion": "Polo en algodón 100% peinado para caballero con calce regular, botones a tono y acabado pre-encogido para máxima durabilidad.",
+    "sinonimos": [
+      "polo caballero",
+      "polo hombre corporativo",
+      "polo algodon regular"
+    ],
+    "telas": [
+      "100% Algodón Peinado 20/1"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Blanco",
+      "Negro",
+      "Azul Marino",
+      "Gris",
+      "Vino",
+      "Verde Militar"
+    ],
+    "moq": 1,
+    "precio_retail": 548.55,
+    "precio_mayor": 477,
+    "personalizacion": [
+      "Bordado computarizado de logo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "polo",
+      "caballero",
+      "algodon"
+    ]
+  },
+  {
+    "id": "COR-POL-004",
+    "slug": "polo-waffit-nino",
+    "categoria": "corporativos",
+    "subcategoria": "Camisería casual",
+    "nombre": "Polo Waffit Niño",
+    "descripcion": "Camiseta polo para niño en tejido Waffit texturizado de secado rápido, resistente a desgarres y muy fresco.",
+    "sinonimos": [
+      "polo waffit nino",
+      "polo infantil",
+      "polo textura nino"
+    ],
+    "telas": [
+      "Waffit Poliéster Transpirable"
+    ],
+    "tallas": [
+      "4",
+      "6",
+      "8",
+      "10",
+      "12",
+      "14",
+      "16"
+    ],
+    "colores": [
+      "Blanco",
+      "Azul Marino",
+      "Rojo",
+      "Verde",
+      "Amarillo"
+    ],
+    "moq": 1,
+    "precio_retail": 402.5,
+    "precio_mayor": 350,
+    "personalizacion": [
+      "Bordado de escudo o logo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "polo",
+      "nino",
+      "waffit"
+    ]
+  },
+  {
+    "id": "COR-CAM-003",
+    "slug": "camisa-polo-safari",
+    "categoria": "corporativos",
+    "subcategoria": "Camisería casual",
+    "nombre": "Camisa Polo Safari",
+    "descripcion": "Camisa híbrida estilo safari con charreteras en hombros, solapa con botones y bolsillos frontales con tapeta. Ideal para supervisión y trabajo de campo.",
+    "sinonimos": [
+      "polo safari",
+      "camisa safari",
+      "polo de campo"
+    ],
+    "telas": [
+      "Gabardina Suave",
+      "Piqué Reforzado"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "colores": [
+      "Caqui",
+      "Verde Olivo",
+      "Beige",
+      "Azul Marino"
+    ],
+    "moq": 1,
+    "precio_retail": 510.6,
+    "precio_mayor": 444,
+    "personalizacion": [
+      "Bordado de logo",
+      "Bordado de bandera o parche"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "safari",
+      "campo",
+      "casual"
+    ]
+  },
+  {
+    "id": "COR-CAM-004",
+    "slug": "camisa-waffit",
+    "categoria": "corporativos",
+    "subcategoria": "Camisería casual",
+    "nombre": "Camisa Waffit",
+    "descripcion": "Camisa casual en textura Waffit microalveolada que proporciona excelente ventilación y resistencia a arrugas.",
+    "sinonimos": [
+      "camisa waffit corporativa",
+      "camisa texturizada"
+    ],
+    "telas": [
+      "Waffit Dry-Comfort"
+    ],
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "colores": [
+      "Blanco",
+      "Gris",
+      "Azul Cielo",
+      "Azul Marino"
+    ],
+    "moq": 1,
+    "precio_retail": 510.6,
+    "precio_mayor": 444,
+    "personalizacion": [
+      "Bordado en pecho"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "waffit",
+      "casual",
+      "transpirable"
+    ]
+  },
+  {
+    "id": "COR-PAN-001",
+    "slug": "pantalon-de-vestir-caballero",
+    "categoria": "corporativos",
+    "subcategoria": "Pantalones de vestir",
+    "nombre": "Pantalón de Vestir Caballero",
+    "descripcion": "Pantalón formal clásico de corte recto con pinzas o frente plano, pretina con trabillas y forro interior en bolsillos de alta durabilidad.",
+    "sinonimos": [
+      "pantalon de vestir hombre",
+      "pantalon formal ejecutivo",
+      "pantalon de tela caballero"
+    ],
+    "telas": [
+      "Casimir Poliéster Rayón",
+      "Tergal Ejecutivo"
+    ],
+    "tallas": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "colores": [
+      "Negro",
+      "Azul Marino",
+      "Gris Oscuro",
+      "Gris Claro",
+      "Café"
+    ],
+    "moq": 1,
+    "precio_retail": 862.5,
+    "precio_mayor": 750,
+    "personalizacion": [
+      "Ajuste de dobladillo",
+      "Bordado sutil en pretina"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "pantalon",
+      "formal",
+      "caballero",
+      "ejecutivo"
+    ]
+  },
+  {
+    "id": "COR-PAN-002",
+    "slug": "pantalon-de-vestir-dama",
+    "categoria": "corporativos",
+    "subcategoria": "Pantalones de vestir",
+    "nombre": "Pantalón de Vestir Dama",
+    "descripcion": "Pantalón formal para dama con silueta elegante recta o semi-tubo, pretina ancha moldeadora y tejido con caída perfecta que no se arruga.",
+    "sinonimos": [
+      "pantalon formal mujer",
+      "pantalon de vestir dama",
+      "pantalon ejecutivo dama"
+    ],
+    "telas": [
+      "Casimir con Spandex",
+      "Bielástico Ejecutivo"
+    ],
+    "tallas": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "colores": [
+      "Negro",
+      "Azul Marino",
+      "Gris Plomo",
+      "Beige"
+    ],
+    "moq": 1,
+    "precio_retail": 862.5,
+    "precio_mayor": 750,
+    "personalizacion": [
+      "Ajuste de dobladillo",
+      "Corte a medida"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "pantalon",
+      "formal",
+      "dama",
+      "ejecutivo"
+    ]
+  },
+  {
+    "id": "COR-CHA-001",
+    "slug": "chaqueta-u-flight",
+    "categoria": "corporativos",
+    "subcategoria": "Chaquetas corporativas",
+    "nombre": "Chaqueta U-FLIGHT",
+    "descripcion": "Chaqueta corporativa estilo bomber aviador acolchada, con cuello, puños y cintura acanalados, bolsillos térmicos y cremallera frontal reforzada.",
+    "sinonimos": [
+      "chaqueta bomber corporativa",
+      "chaqueta flight",
+      "campera u-flight"
+    ],
+    "telas": [
+      "Nailon Impermeable",
+      "Forro Térmico de Poliéster"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Negro",
+      "Verde Militar"
+    ],
+    "moq": 1,
+    "precio_retail": 1725,
+    "precio_mayor": 1500,
+    "personalizacion": [
+      "Bordado de escudo en pecho y manga",
+      "Tirador de cierre personalizado"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "chaqueta",
+      "bomber",
+      "u-flight",
+      "termica"
+    ]
+  },
+  {
+    "id": "COR-CHA-002",
+    "slug": "chaqueta-jean",
+    "categoria": "corporativos",
+    "subcategoria": "Chaquetas corporativas",
+    "nombre": "Chaqueta Jean",
+    "descripcion": "Chaqueta de mezclilla denim resistente de 12 oz, corte clásico con botones metálicos de presión y bolsillos frontales con solapa.",
+    "sinonimos": [
+      "chaqueta de mezclilla",
+      "chumpa jean corporativa",
+      "denim jacket"
+    ],
+    "telas": [
+      "Denim 100% Algodón 12 oz"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Denim Clásico",
+      "Azul Oscuro Stone",
+      "Negro"
+    ],
+    "moq": 1,
+    "precio_retail": 1357,
+    "precio_mayor": 1180,
+    "personalizacion": [
+      "Bordado computarizado en espalda y pecho"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaqueta",
+      "jean",
+      "denim",
+      "corporativo"
+    ]
+  },
+  {
+    "id": "COR-CHA-003",
+    "slug": "chaqueta-impermeable-con-capucha",
+    "categoria": "corporativos",
+    "subcategoria": "Chaquetas corporativas",
+    "nombre": "Chaqueta Impermeable con Capucha",
+    "descripcion": "Chaqueta rompevientos impermeable ligera con capucha ajustable, forro interno de malla transpirable y costuras termoselladas.",
+    "sinonimos": [
+      "cortavientos corporativo",
+      "chaqueta impermeable",
+      "chumpa con capucha"
+    ],
+    "telas": [
+      "Taslan Repelente al Agua",
+      "Forro Malla Mesh"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino / Gris",
+      "Negro",
+      "Azul Royal",
+      "Rojo / Negro"
+    ],
+    "moq": 1,
+    "precio_retail": 1063.75,
+    "precio_mayor": 925,
+    "personalizacion": [
+      "Bordado impermeable",
+      "Estampado reflectivo de logo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaqueta",
+      "impermeable",
+      "capucha",
+      "rompeviento"
+    ]
+  },
+  {
+    "id": "SAS-BLA-001",
+    "slug": "blazer-a-medida",
+    "categoria": "sastreria",
+    "subcategoria": "Sastrería ejecutiva",
+    "nombre": "Blazer a Medida",
+    "descripcion": "Blazer confeccionado artesanalmente a las medidas exactas del cliente, con entretelas termo-fusionadas de origen europeo, forro de acetato y solapas impecables.",
+    "sinonimos": [
+      "blazer sastre",
+      "blazer ejecutivo",
+      "saco sport a medida"
+    ],
+    "telas": [
+      "Lana Tropical Italiana",
+      "Casimir Super 120s",
+      "Lino Puro"
+    ],
+    "tallas": [
+      "A medida"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Negro",
+      "Gris Oxford",
+      "Camel",
+      "Príncipe de Gales"
+    ],
+    "moq": 1,
+    "precio_retail": null,
+    "precio_mayor": null,
+    "precio_min": 2500,
+    "precio_max": 4500,
+    "personalizacion": [
+      "Patronaje exclusivo a medida",
+      "Bordado de iniciales en forro",
+      "Selección de botones y solapa"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "7–20 días",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "sastreria",
+      "blazer",
+      "a medida",
+      "ejecutivo",
+      "rango C$2500-4500"
+    ]
+  },
+  {
+    "id": "SAS-TRA-001",
+    "slug": "traje-ejecutivo-completo-a-medida",
+    "categoria": "sastreria",
+    "subcategoria": "Sastrería ejecutiva",
+    "nombre": "Traje Ejecutivo Completo a Medida",
+    "descripcion": "Conjunto formal completo de saco y pantalón de vestir elaborado a medida con acabados a mano. Máxima distinción para directivos, abogados y ocasiones de gala.",
+    "sinonimos": [
+      "traje a medida",
+      "terno sastre",
+      "traje ejecutivo completo",
+      "smoking a medida"
+    ],
+    "telas": [
+      "Lana Fría Super 130s",
+      "Casimir Inglés",
+      "Mezcla Lana Poliéster Premium"
+    ],
+    "tallas": [
+      "A medida"
+    ],
+    "colores": [
+      "Azul Medianoche",
+      "Negro Profundo",
+      "Gris Carbón",
+      "Azul Rey Ejecutivo"
+    ],
+    "moq": 1,
+    "precio_retail": null,
+    "precio_mayor": null,
+    "precio_min": 4000,
+    "precio_max": 7000,
+    "personalizacion": [
+      "Pruebas de calce personalizadas",
+      "Confección integral a mano",
+      "Monograma interior"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "7–20 días",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "sastreria",
+      "traje completo",
+      "a medida",
+      "gala",
+      "rango C$4000-7000"
+    ]
+  },
+  {
+    "id": "SAS-SAC-001",
+    "slug": "saco-ejecutivo-a-medida",
+    "categoria": "sastreria",
+    "subcategoria": "Sastrería ejecutiva",
+    "nombre": "Saco Ejecutivo a Medida",
+    "descripcion": "Saco formal de dos botones o cruzado diseñado sobre patrón personal. Estructura armada en pecho y hombros para un porte estilizado y profesional.",
+    "sinonimos": [
+      "saco de vestir a medida",
+      "saco sastre",
+      "chaqueta formal sastre"
+    ],
+    "telas": [
+      "Casimir Ejecutivo",
+      "Lana Peinada"
+    ],
+    "tallas": [
+      "A medida"
+    ],
+    "colores": [
+      "Negro",
+      "Azul Marino",
+      "Gris Plomo",
+      "Vino Obscuro"
+    ],
+    "moq": 1,
+    "precio_retail": null,
+    "precio_mayor": null,
+    "precio_min": 2500,
+    "precio_max": 4000,
+    "personalizacion": [
+      "Confección individualizada",
+      "Ojales cosidos a mano"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "7–20 días",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "sastreria",
+      "saco",
+      "a medida",
+      "rango C$2500-4000"
+    ]
+  },
+  {
+    "id": "SAS-CHA-001",
+    "slug": "chaleco-ejecutivo-a-medida",
+    "categoria": "sastreria",
+    "subcategoria": "Sastrería ejecutiva",
+    "nombre": "Chaleco Ejecutivo a Medida",
+    "descripcion": "Chaleco de vestir formal a medida con espalda de satén ajustable mediante hebilla metálica y corte entallado al torso.",
+    "sinonimos": [
+      "chaleco de traje",
+      "chaleco formal a medida",
+      "chaleco sastre"
+    ],
+    "telas": [
+      "Casimir a juego",
+      "Raso de Seda / Acetato en espalda"
+    ],
+    "tallas": [
+      "A medida"
+    ],
+    "colores": [
+      "Negro",
+      "Azul Marino",
+      "Gris",
+      "Perla",
+      "Vino"
+    ],
+    "moq": 1,
+    "precio_retail": null,
+    "precio_mayor": null,
+    "precio_min": 1200,
+    "precio_max": 2000,
+    "personalizacion": [
+      "Ajuste milimétrico a medida",
+      "Bordado de iniciales"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "7–20 días",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "sastreria",
+      "chaleco",
+      "a medida",
+      "rango C$1200-2000"
+    ]
+  },
+  {
+    "id": "IND-OVE-001",
+    "slug": "overol-industrial-heavy-duty",
+    "categoria": "industriales",
+    "subcategoria": "Overoles",
+    "nombre": "Overol Industrial Heavy Duty",
+    "descripcion": "Overol enterizo de alta resistencia para talleres mecánicos, construcción y minería. Cierre bidireccional reforzado, elástico en espalda y múltiples bolsillos portaherramientas.",
+    "sinonimos": [
+      "overol mecanico",
+      "mameluco industrial",
+      "mono de trabajo heavy duty"
+    ],
+    "telas": [
+      "Dril 100% Algodón 10 oz",
+      "Sarga Reforzada"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Naranja Mecánico",
+      "Gris Rata",
+      "Verde Petróleo"
+    ],
+    "moq": 12,
+    "precio_retail": 2754.25,
+    "precio_mayor": 2395,
+    "personalizacion": [
+      "Bordado de logotipo en pecho y espalda",
+      "Cintas reflectivas adicionales"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "overol",
+      "heavy duty",
+      "industrial",
+      "taller"
+    ]
+  },
+  {
+    "id": "IND-OVE-002",
+    "slug": "overol-industrial-premium",
+    "categoria": "industriales",
+    "subcategoria": "Overoles",
+    "nombre": "Overol Industrial Premium",
+    "descripcion": "Overol de alta gama con costuras triples de seguridad, refuerzos en rodillas y codos, ventilación axilar y cintas reflectivas 3M de 2 pulgadas de alta visibilidad.",
+    "sinonimos": [
+      "overol con reflectivo",
+      "overol industrial premium",
+      "mono de trabajo reflectivo"
+    ],
+    "telas": [
+      "Dril Ignífugo Tratado / Algodón Premium 11 oz"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL"
+    ],
+    "colores": [
+      "Azul Marino con Naranja",
+      "Rojo Industrial",
+      "Naranja Alta Visibilidad"
+    ],
+    "moq": 12,
+    "precio_retail": 3191.25,
+    "precio_mayor": 2775,
+    "personalizacion": [
+      "Bordado ignífugo / estándar",
+      "Parches de seguridad y nombre"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "overol",
+      "premium",
+      "reflectivo 3M",
+      "triple costura"
+    ]
+  },
+  {
+    "id": "IND-CHA-001",
+    "slug": "chaleco-industrial-lisa",
+    "categoria": "industriales",
+    "subcategoria": "Chalecos reflectivos",
+    "nombre": "Chaleco Industrial Lisa",
+    "descripcion": "Chaleco brigadista industrial en color liso con cintas reflectivas de 2 pulgadas en pecho y cintura. Cierre frontal con cremallera, porta-gafete transparente y bolsillos cargo.",
+    "sinonimos": [
+      "chaleco brigadista",
+      "chaleco de seguridad liso",
+      "chaleco reflectivo industrial"
+    ],
+    "telas": [
+      "Gabardina Pesada 80/20",
+      "Cintas Reflectivas Clase 2"
+    ],
+    "tallas": [
+      "Talla única",
+      "S/M",
+      "L/XL",
+      "2XL/3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Naranja",
+      "Verde Neón",
+      "Rojo"
+    ],
+    "moq": 12,
+    "precio_retail": 862.5,
+    "precio_mayor": 750,
+    "personalizacion": [
+      "Bordado computarizado de logo",
+      "Estampado reflectivo de empresa"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "chaleco",
+      "reflectivo",
+      "industrial",
+      "liso"
+    ]
+  },
+  {
+    "id": "IND-CHA-002",
+    "slug": "chaleco-combinado-azul-royal-con-azul-oscuro",
+    "categoria": "industriales",
+    "subcategoria": "Chalecos reflectivos",
+    "nombre": "Chaleco Combinado Azul Royal con Azul Oscuro",
+    "descripcion": "Chaleco de seguridad bimodal en Azul Royal con contraste Azul Oscuro, equipado con cintas reflectivas perimetrales y bolsillos modulares.",
+    "sinonimos": [
+      "chaleco bicolor azul",
+      "chaleco combinado reflectivo azul"
+    ],
+    "telas": [
+      "Gabardina Industrial",
+      "Cintas Reflectivas de Alta Luminosidad"
+    ],
+    "tallas": [
+      "Talla única",
+      "S/M",
+      "L/XL",
+      "2XL/3XL"
+    ],
+    "colores": [
+      "Azul Royal / Azul Oscuro"
+    ],
+    "moq": 12,
+    "precio_retail": 862.5,
+    "precio_mayor": 750,
+    "personalizacion": [
+      "Bordado computarizado",
+      "Bolsillos especiales"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaleco",
+      "combinado",
+      "reflectivo",
+      "azul"
+    ]
+  },
+  {
+    "id": "IND-CHA-003",
+    "slug": "chaleco-combinado-naranja-con-azul-oscuro",
+    "categoria": "industriales",
+    "subcategoria": "Chalecos reflectivos",
+    "nombre": "Chaleco Combinado Naranja con Azul Oscuro",
+    "descripcion": "Chaleco brigadista de alta visibilidad combinando cuerpo Naranja flúor con refuerzo inferior en Azul Oscuro para disimular manchas de trabajo.",
+    "sinonimos": [
+      "chaleco bicolor naranja azul",
+      "chaleco de seguridad naranja combinado"
+    ],
+    "telas": [
+      "Gabardina Fluorescente",
+      "Cintas Reflectivas Grado Seguridad"
+    ],
+    "tallas": [
+      "Talla única",
+      "S/M",
+      "L/XL",
+      "2XL/3XL"
+    ],
+    "colores": [
+      "Naranja / Azul Oscuro"
+    ],
+    "moq": 12,
+    "precio_retail": 862.5,
+    "precio_mayor": 750,
+    "personalizacion": [
+      "Bordado de logo",
+      "Porta-carnet"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaleco",
+      "combinado",
+      "alta visibilidad",
+      "naranja"
+    ]
+  },
+  {
+    "id": "IND-CHA-004",
+    "slug": "chaleco-combinado-verde-neon-con-azul-oscuro",
+    "categoria": "industriales",
+    "subcategoria": "Chalecos reflectivos",
+    "nombre": "Chaleco Combinado Verde Neón con Azul Oscuro",
+    "descripcion": "Chaleco industrial de tránsito y vialidad con Verde Neón brillante y bajo en Azul Oscuro, cintas microprismáticas de máxima refracción.",
+    "sinonimos": [
+      "chaleco verde neon azul",
+      "chaleco vial reflectivo combinado"
+    ],
+    "telas": [
+      "Gabardina de Alta Visibilidad",
+      "Cinta Reflectiva 2 Pulgadas"
+    ],
+    "tallas": [
+      "Talla única",
+      "S/M",
+      "L/XL",
+      "2XL/3XL"
+    ],
+    "colores": [
+      "Verde Neón / Azul Oscuro"
+    ],
+    "moq": 12,
+    "precio_retail": 862.5,
+    "precio_mayor": 750,
+    "personalizacion": [
+      "Bordado computarizado",
+      "Identificación brigadista"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaleco",
+      "combinado",
+      "verde neon",
+      "vial"
+    ]
+  },
+  {
+    "id": "IND-CHA-005",
+    "slug": "chaleco-especial-cuello-alto",
+    "categoria": "industriales",
+    "subcategoria": "Chalecos reflectivos",
+    "nombre": "Chaleco Especial Cuello Alto",
+    "descripcion": "Chaleco de ingeniería y supervisión con cuello mandarín alto acolchado, forro polar interior ligero y cinta reflectiva continua.",
+    "sinonimos": [
+      "chaleco cuello alto reflectivo",
+      "chaleco de ingeniero cuello alto"
+    ],
+    "telas": [
+      "Taslan Repelente",
+      "Forro Polar",
+      "Cintas Reflectivas"
+    ],
+    "tallas": [
+      "Talla única",
+      "S/M",
+      "L/XL",
+      "2XL/3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Negro",
+      "Naranja"
+    ],
+    "moq": 12,
+    "precio_retail": 1276.5,
+    "precio_mayor": 1110,
+    "personalizacion": [
+      "Bordado corporativo en pecho y cuello"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaleco especial",
+      "cuello alto",
+      "ingeniero",
+      "reflectivo"
+    ]
+  },
+  {
+    "id": "IND-CHA-006",
+    "slug": "chaleco-especial-negro",
+    "categoria": "industriales",
+    "subcategoria": "Chalecos reflectivos",
+    "nombre": "Chaleco Especial Negro",
+    "descripcion": "Chaleco táctico y de seguridad privada en color negro con cintas reflectivas oscurecidas o de alta reflexión, bolsillos portarreceptores y anillas en D.",
+    "sinonimos": [
+      "chaleco de seguridad negra",
+      "chaleco tactico reflectivo",
+      "chaleco vigilante"
+    ],
+    "telas": [
+      "Cordura / Gabardina Pesada Negra",
+      "Cinta Reflectiva Silver"
+    ],
+    "tallas": [
+      "Talla única",
+      "S/M",
+      "L/XL",
+      "2XL/3XL"
+    ],
+    "colores": [
+      "Negro"
+    ],
+    "moq": 12,
+    "precio_retail": 1276.5,
+    "precio_mayor": 1110,
+    "personalizacion": [
+      "Bordado de empresa de seguridad",
+      "Portaplacas"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaleco",
+      "tactico",
+      "negro",
+      "seguridad"
+    ]
+  },
+  {
+    "id": "IND-CHA-007",
+    "slug": "chaleco-naranja-pol-v2",
+    "categoria": "industriales",
+    "subcategoria": "Chalecos reflectivos",
+    "nombre": "Chaleco Naranja Pol V2",
+    "descripcion": "Chaleco de señalización vial en malla de poliéster naranja respirable versión 2, con ribete reforzado y dos franjas reflectivas horizontales.",
+    "sinonimos": [
+      "chaleco naranja v2",
+      "chaleco vial naranja",
+      "chaleco de malla naranja"
+    ],
+    "telas": [
+      "Malla de Poliéster Respirable",
+      "Cintas Reflectivas Estándar"
+    ],
+    "tallas": [
+      "Talla única"
+    ],
+    "colores": [
+      "Naranja Fluorescente"
+    ],
+    "moq": 12,
+    "precio_retail": 483,
+    "precio_mayor": 420,
+    "personalizacion": [
+      "Bordado de logo sencillo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaleco",
+      "vial",
+      "malla",
+      "naranja"
+    ]
+  },
+  {
+    "id": "IND-CHA-008",
+    "slug": "chaleco-verde-poliester-v2",
+    "categoria": "industriales",
+    "subcategoria": "Chalecos reflectivos",
+    "nombre": "Chaleco Verde Poliéster V2",
+    "descripcion": "Chaleco vial en poliéster verde neón de alta visibilidad versión 2 con cierre de velcro delantero y doble banda reflectante.",
+    "sinonimos": [
+      "chaleco verde v2",
+      "chaleco verde neon reflectivo",
+      "chaleco transito verde"
+    ],
+    "telas": [
+      "Poliéster 100% Fluorescente",
+      "Cinta Reflectiva"
+    ],
+    "tallas": [
+      "Talla única"
+    ],
+    "colores": [
+      "Verde Neón"
+    ],
+    "moq": 12,
+    "precio_retail": 483,
+    "precio_mayor": 420,
+    "personalizacion": [
+      "Bordado de insignia institucional"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaleco",
+      "verde",
+      "poliester",
+      "vial"
+    ]
+  },
+  {
+    "id": "IND-CHA-009",
+    "slug": "chaleco-verde-poliester",
+    "categoria": "industriales",
+    "subcategoria": "Chalecos reflectivos",
+    "nombre": "Chaleco Verde Poliéster",
+    "descripcion": "Chaleco básico económico de señalización en color verde fluorescente con cintas reflectivas. Liviano y de rápida colocación con ajuste de velcro.",
+    "sinonimos": [
+      "chaleco reflectivo economico",
+      "chaleco verde basico"
+    ],
+    "telas": [
+      "Poliéster Liviano"
+    ],
+    "tallas": [
+      "Talla única"
+    ],
+    "colores": [
+      "Verde Neón"
+    ],
+    "moq": 12,
+    "precio_retail": 224.25,
+    "precio_mayor": 195,
+    "personalizacion": [
+      "Bordado simple"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaleco",
+      "economico",
+      "verde"
+    ]
+  },
+  {
+    "id": "IND-CHA-010",
+    "slug": "chaleco-naranja-poliester",
+    "categoria": "industriales",
+    "subcategoria": "Chalecos reflectivos",
+    "nombre": "Chaleco Naranja Poliéster",
+    "descripcion": "Chaleco de seguridad vial básico en tela de poliéster naranja con dos franjas reflectivas horizontales de 2 pulgadas.",
+    "sinonimos": [
+      "chaleco naranja basico",
+      "chaleco reflectivo naranja economico"
+    ],
+    "telas": [
+      "Poliéster Liviano"
+    ],
+    "tallas": [
+      "Talla única"
+    ],
+    "colores": [
+      "Naranja Fluorescente"
+    ],
+    "moq": 12,
+    "precio_retail": 224.25,
+    "precio_mayor": 195,
+    "personalizacion": [
+      "Bordado simple"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "chaleco",
+      "economico",
+      "naranja"
+    ]
+  },
+  {
+    "id": "IND-CAM-001",
+    "slug": "camisa-industrial-lisa",
+    "categoria": "industriales",
+    "subcategoria": "Camisas industriales",
+    "nombre": "Camisa Industrial Lisa",
+    "descripcion": "Camisa de trabajo industrial en color liso confeccionada en dril resistente, equipada con cinta reflectiva de 2 pulgadas en mangas y torso para protección en planta y campo.",
+    "sinonimos": [
+      "camisa industrial con reflectivo",
+      "camisa de trabajo lisa",
+      "camisa operativo reflectiva"
+    ],
+    "telas": [
+      "Dril 100% Algodón",
+      "Gabardina Trabajo"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Gris",
+      "Caqui"
+    ],
+    "moq": 12,
+    "precio_retail": 1127,
+    "precio_mayor": 980,
+    "personalizacion": [
+      "Bordado de logotipo en bolsillo",
+      "Bordado de bandera o nombre"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "camisa industrial",
+      "lisa",
+      "reflectivo"
+    ]
+  },
+  {
+    "id": "IND-CAM-002",
+    "slug": "camisa-industrial-combinada",
+    "categoria": "industriales",
+    "subcategoria": "Camisas industriales",
+    "nombre": "Camisa Industrial Combinada",
+    "descripcion": "Camisa industrial bicolor con cinta reflectiva de 2 pulgadas. Diseñada con canesú superior en contraste de color y tejido reforzado en puños y codos.",
+    "sinonimos": [
+      "camisa industrial bicolor",
+      "camisa de trabajo combinada reflectiva"
+    ],
+    "telas": [
+      "Dril Algodón Resistente"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Azul Marino con Naranja",
+      "Azul Marino con Amarillo Neón",
+      "Gris con Azul Royal"
+    ],
+    "moq": 12,
+    "precio_retail": 1127,
+    "precio_mayor": 980,
+    "personalizacion": [
+      "Bordado computarizado institucional"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "camisa industrial",
+      "combinada",
+      "bicolor",
+      "reflectivo"
+    ]
+  },
+  {
+    "id": "IND-CAM-003",
+    "slug": "camisa-tecnica-de-campo-columbia",
+    "categoria": "industriales",
+    "subcategoria": "Camisas industriales",
+    "nombre": "Camisa Técnica de Campo (Columbia)",
+    "descripcion": "Camisa técnica para agrónomos, ingenieros y supervisores de campo estilo Columbia. Protección solar UV, apertura trasera con malla para ventilación y mangas ajustables a 3/4.",
+    "sinonimos": [
+      "camisa columbia",
+      "camisa de campo",
+      "camisa agronomo",
+      "camisa tecnica outdoor"
+    ],
+    "telas": [
+      "Nylon Ripstop con Protección UV",
+      "Malla Interior Transpirable"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Beige Arena",
+      "Azul Cielo",
+      "Verde Caqui",
+      "Blanco"
+    ],
+    "moq": 12,
+    "precio_retail": 1104,
+    "precio_mayor": 960,
+    "personalizacion": [
+      "Bordado de logo en pecho",
+      "Bordado en manga"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "columbia",
+      "campo",
+      "uv",
+      "outdoor",
+      "tecnica"
+    ]
+  },
+  {
+    "id": "IND-PAN-001",
+    "slug": "pantalon-estilo-comando-sin-cinta",
+    "categoria": "industriales",
+    "subcategoria": "Pantalones operativos",
+    "nombre": "Pantalón Estilo Comando Sin Cinta",
+    "descripcion": "Pantalón táctico comando en tela ripstop antidesgarro con seis bolsillos funcionales, refuerzos en entrepierna y rodillas. Corte ergonómico sin cintas reflectivas.",
+    "sinonimos": [
+      "pantalon comando",
+      "pantalon cargo tactico",
+      "pantalon comando sin reflectivo"
+    ],
+    "telas": [
+      "Ripstop Antidesgarro 65/35",
+      "Dril Pesado"
+    ],
+    "tallas": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "colores": [
+      "Negro",
+      "Azul Marino",
+      "Verde Olivo",
+      "Caqui"
+    ],
+    "moq": 12,
+    "precio_retail": 977.5,
+    "precio_mayor": 850,
+    "personalizacion": [
+      "Bordado discreto en solapa"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "comando",
+      "cargo",
+      "tactico",
+      "sin cinta"
+    ]
+  },
+  {
+    "id": "IND-PAN-002",
+    "slug": "pantalon-comando-con-cinta",
+    "categoria": "industriales",
+    "subcategoria": "Pantalones operativos",
+    "nombre": "Pantalón Comando Con Cinta",
+    "descripcion": "Pantalón comando industrial reforzado con cintas reflectivas de 2 pulgadas en las piernas para máxima visibilidad nocturna y bolsillos fuelle con velcro.",
+    "sinonimos": [
+      "pantalon comando reflectivo",
+      "pantalon de trabajo con cinta reflectiva"
+    ],
+    "telas": [
+      "Ripstop Reforzado",
+      "Cintas Reflectivas 3M"
+    ],
+    "tallas": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Naranja",
+      "Negro"
+    ],
+    "moq": 12,
+    "precio_retail": 1276.5,
+    "precio_mayor": 1110,
+    "personalizacion": [
+      "Bordado en bolsillo cargo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "comando",
+      "con cinta",
+      "reflectivo",
+      "industrial"
+    ]
+  },
+  {
+    "id": "IND-PAN-003",
+    "slug": "pantalon-jingo-con-cinta",
+    "categoria": "industriales",
+    "subcategoria": "Pantalones operativos",
+    "nombre": "Pantalón Jingo con Cinta",
+    "descripcion": "Pantalón de trabajo estilo Jingo con cinta reflectiva en botamangas, costuras dobles y tejido de alta tenacidad para trabajos exigentes.",
+    "sinonimos": [
+      "pantalon jingo reflectivo",
+      "pantalon jingo de trabajo"
+    ],
+    "telas": [
+      "Dril Jingo Industrial",
+      "Cinta Reflectiva"
+    ],
+    "tallas": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Gris Plomo",
+      "Caqui"
+    ],
+    "moq": 12,
+    "precio_retail": 799.25,
+    "precio_mayor": 695,
+    "personalizacion": [
+      "Bordado de marca empresarial"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "jingo",
+      "con cinta",
+      "operativo"
+    ]
+  },
+  {
+    "id": "IND-PAN-004",
+    "slug": "pantalon-jingo-industrial",
+    "categoria": "industriales",
+    "subcategoria": "Pantalones operativos",
+    "nombre": "Pantalón Jingo Industrial",
+    "descripcion": "Pantalón industrial corte Jingo clásico sin reflectivo, económico y durable para cuadrillas y personal de planta operativa.",
+    "sinonimos": [
+      "pantalon jingo basico",
+      "pantalon de dril jingo"
+    ],
+    "telas": [
+      "Dril Jingo 100% Algodón"
+    ],
+    "tallas": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Gris",
+      "Caqui"
+    ],
+    "moq": 12,
+    "precio_retail": 557.75,
+    "precio_mayor": 485,
+    "personalizacion": [
+      "Bordado en bolsillo trasero"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "jingo",
+      "industrial",
+      "economico"
+    ]
+  },
+  {
+    "id": "IND-PAN-005",
+    "slug": "pantalon-jeans-levis-dama",
+    "categoria": "industriales",
+    "subcategoria": "Pantalones operativos",
+    "nombre": "Pantalón Jeans Levis Dama",
+    "descripcion": "Pantalón de mezclilla industrial corte para dama estilo Levis, con tiro medio, costuras reforzadas con remaches de cobre y mezclilla denim de 13 oz.",
+    "sinonimos": [
+      "jeans dama industrial",
+      "pantalon vaquero trabajo mujer"
+    ],
+    "telas": [
+      "Denim 100% Algodón 13 oz"
+    ],
+    "tallas": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "colores": [
+      "Azul Denim",
+      "Azul Oscuro Stone Wash"
+    ],
+    "moq": 12,
+    "precio_retail": 983.25,
+    "precio_mayor": 855,
+    "personalizacion": [
+      "Bordado de logo en bolsillo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "jeans",
+      "dama",
+      "denim",
+      "levis"
+    ]
+  },
+  {
+    "id": "IND-PAN-006",
+    "slug": "pantalon-jeans-levis-caballero",
+    "categoria": "industriales",
+    "subcategoria": "Pantalones operativos",
+    "nombre": "Pantalón Jeans Levis Caballero",
+    "descripcion": "Pantalón jeans de trabajo rudo para caballero estilo clásico 5 bolsillos con mezclilla pesada de 14 oz y remaches metálicos de seguridad.",
+    "sinonimos": [
+      "jeans caballero industrial",
+      "pantalon vaquero trabajo hombre"
+    ],
+    "telas": [
+      "Denim Rudo 100% Algodón 14 oz"
+    ],
+    "tallas": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "colores": [
+      "Azul Índigo",
+      "Azul Oscuro Stone",
+      "Negro"
+    ],
+    "moq": 12,
+    "precio_retail": 983.25,
+    "precio_mayor": 855,
+    "personalizacion": [
+      "Bordado computarizado en bolsillo relojero o trasero"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "jeans",
+      "caballero",
+      "denim",
+      "levis"
+    ]
+  },
+  {
+    "id": "GAS-FIL-001",
+    "slug": "filipina-de-chef-basica",
+    "categoria": "gastronomia",
+    "subcategoria": "Filipinas de chef",
+    "nombre": "Filipina de Chef Básica",
+    "descripcion": "Filipina clásica de cocina con doble botonadura cruzada, botones de nudo desmontables y bolsillo para termómetro en manga.",
+    "sinonimos": [
+      "filipina blanca chef",
+      "chaqueta de cocinero basica",
+      "filipina de cocina"
+    ],
+    "telas": [
+      "Gabardina Ligera 65/35 Poliéster Algodón"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Blanco",
+      "Negro"
+    ],
+    "moq": 1,
+    "precio_retail": 1150,
+    "precio_mayor": 1000,
+    "personalizacion": [
+      "Bordado de nombre y logo de restaurante"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "chef",
+      "filipina",
+      "gastronomia",
+      "basica"
+    ]
+  },
+  {
+    "id": "GAS-FIL-002",
+    "slug": "filipina-de-chef-premium",
+    "categoria": "gastronomia",
+    "subcategoria": "Filipinas de chef",
+    "nombre": "Filipina de Chef Premium",
+    "descripcion": "Filipina ejecutiva de chef con paneles de ventilación Cool-Vent en espalda y laterales, botones ocultos y vivos decorativos a contraste.",
+    "sinonimos": [
+      "filipina chef ejecutiva",
+      "chaqueta de chef premium"
+    ],
+    "telas": [
+      "Algodón Pima / Poliéster Cool-Vent"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Negro con Rojo",
+      "Blanco con Negro",
+      "Gris Grafito"
+    ],
+    "moq": 1,
+    "precio_retail": 1610,
+    "precio_mayor": 1400,
+    "personalizacion": [
+      "Bordado de bandera nacional y nombre del chef en alta definición"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "chef",
+      "premium",
+      "coolvent",
+      "gastronomia"
+    ]
+  },
+  {
+    "id": "GAS-FIL-003",
+    "slug": "filipina-de-chef-a-medida",
+    "categoria": "gastronomia",
+    "subcategoria": "Filipinas de chef",
+    "nombre": "Filipina de Chef a Medida",
+    "descripcion": "Filipina culinaria de alta gama confeccionada artesanalmente a la medida exacta del chef. Selección personalizada de telas transpirables y detalles exclusivos.",
+    "sinonimos": [
+      "filipina personalizada chef",
+      "chaqueta de chef a medida"
+    ],
+    "telas": [
+      "Algodón Egipcio Transpirable",
+      "Telas Técnicas Culinares"
+    ],
+    "tallas": [
+      "A medida"
+    ],
+    "colores": [
+      "Personalizado",
+      "Negro",
+      "Blanco",
+      "Vino",
+      "Azul Petróleo"
+    ],
+    "moq": 1,
+    "precio_retail": null,
+    "precio_mayor": null,
+    "precio_min": 1800,
+    "precio_max": 2160,
+    "personalizacion": [
+      "Confección a medida",
+      "Bordado completo incluido",
+      "Detalles exclusivos de botones"
+    ],
+    "garantia": "6 meses",
+    "tiempo_entrega": "5–15 días",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "chef",
+      "a medida",
+      "alta gama",
+      "rango C$1800-2160"
+    ]
+  },
+  {
+    "id": "GAS-FIL-004",
+    "slug": "camisa-filipina-para-chef-de-broche",
+    "categoria": "gastronomia",
+    "subcategoria": "Filipinas de chef",
+    "nombre": "Camisa Filipina para Chef de Broche",
+    "descripcion": "Filipina ligera con broches de presión metálicos ocultos para apertura rápida y segura, cuello mao y corte ergonómico.",
+    "sinonimos": [
+      "filipina de broches",
+      "camisa filipina con clips"
+    ],
+    "telas": [
+      "Popelina Pesada Antiarrugas"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Blanco",
+      "Negro",
+      "Gris Jaspe"
+    ],
+    "moq": 1,
+    "precio_retail": 977.5,
+    "precio_mayor": 850,
+    "personalizacion": [
+      "Bordado de logo en pecho"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "filipina",
+      "broche",
+      "chef",
+      "practica"
+    ]
+  },
+  {
+    "id": "GAS-PAN-001",
+    "slug": "pantalon-de-cocina",
+    "categoria": "gastronomia",
+    "subcategoria": "Pantalones y gorros de cocina",
+    "nombre": "Pantalón de Cocina",
+    "descripcion": "Pantalón holgado para cocinero con cintura elástica y cordón de ajuste, bolsillos laterales profundos y tejido resistente a derrames.",
+    "sinonimos": [
+      "pantalon de chef",
+      "pantalon cocinero",
+      "pantalon de cocina comodo"
+    ],
+    "telas": [
+      "Sarga 100% Algodón",
+      "Polialgodón"
+    ],
+    "tallas": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "colores": [
+      "Negro",
+      "Pata de Gallo / Cuadros",
+      "Gris Oscuro"
+    ],
+    "moq": 1,
+    "precio_retail": 1092.5,
+    "precio_mayor": 950,
+    "personalizacion": [
+      "Bordado sutil en bolsillo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "pantalon",
+      "cocina",
+      "chef"
+    ]
+  },
+  {
+    "id": "GAS-GOR-001",
+    "slug": "gorro-de-cocina-negro",
+    "categoria": "gastronomia",
+    "subcategoria": "Pantalones y gorros de cocina",
+    "nombre": "Gorro de Cocina Negro",
+    "descripcion": "Gorro de cocina tipo hongo / toque en color negro elegante con banda absorbente y velcro posterior ajustable.",
+    "sinonimos": [
+      "gorro de chef negro",
+      "toque de cocina negro"
+    ],
+    "telas": [
+      "Gabardina Poliéster Algodón"
+    ],
+    "tallas": [
+      "Talla única ajustable"
+    ],
+    "colores": [
+      "Negro"
+    ],
+    "moq": 1,
+    "precio_retail": 172.5,
+    "precio_mayor": 150,
+    "personalizacion": [
+      "Bordado de logotipo frontal"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "gorro",
+      "cocina",
+      "negro",
+      "chef"
+    ]
+  },
+  {
+    "id": "GAS-GOR-002",
+    "slug": "6-pack-gorros-de-cocina",
+    "categoria": "gastronomia",
+    "subcategoria": "Pantalones y gorros de cocina",
+    "nombre": "6 Pack Gorros de Cocina",
+    "descripcion": "Paquete de 6 gorros de cocina higiénicos y ajustables en tejido transpirable lavable para brigadas culinarias y restaurantes.",
+    "sinonimos": [
+      "pack gorros chef",
+      "paquete 6 gorros cocina"
+    ],
+    "telas": [
+      "Polialgodón Higiénico"
+    ],
+    "tallas": [
+      "Talla única ajustable"
+    ],
+    "colores": [
+      "Negro",
+      "Blanco"
+    ],
+    "moq": 1,
+    "precio_retail": 828,
+    "precio_mayor": 720,
+    "personalizacion": [
+      "Bordado de logo en lote"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "pack",
+      "gorros",
+      "cocina",
+      "ahorro"
+    ]
+  },
+  {
+    "id": "ESC-POL-001",
+    "slug": "polo-escolar-bordado",
+    "categoria": "escolares",
+    "subcategoria": "Uniformes escolares",
+    "nombre": "Polo Escolar Bordado",
+    "descripcion": "Camiseta polo escolar en tejido piqué blanco o colores escolares, confeccionada con hilo de alta resistencia y bordado institucional del colegio.",
+    "sinonimos": [
+      "polo de colegio",
+      "chomba escolar",
+      "polo uniforme escolar"
+    ],
+    "telas": [
+      "Piqué Escolar 65/35 Antipilling"
+    ],
+    "tallas": [
+      "4",
+      "6",
+      "8",
+      "10",
+      "12",
+      "14",
+      "16",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "colores": [
+      "Blanco",
+      "Azul Marino",
+      "Celeste",
+      "Vino",
+      "Verde"
+    ],
+    "moq": 12,
+    "precio_retail": 438,
+    "precio_mayor": 380,
+    "personalizacion": [
+      "Bordado de insignia de colegio incluido"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "5–10 días",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "escolar",
+      "polo",
+      "colegio",
+      "bordado"
+    ]
+  },
+  {
+    "id": "ESC-PAN-001",
+    "slug": "pantalon-escolar-azul-marino",
+    "categoria": "escolares",
+    "subcategoria": "Uniformes escolares",
+    "nombre": "Pantalón Escolar Azul Marino",
+    "descripcion": "Pantalón escolar formal en gabardina azul marino con refuerzo en rodillas, tiro alto y pretina con elástico regulable para niños y jóvenes.",
+    "sinonimos": [
+      "pantalon de colegio azul",
+      "pantalon escolar azul marino"
+    ],
+    "telas": [
+      "Gabardina Escolar Poliéster Viscosa"
+    ],
+    "tallas": [
+      "4",
+      "6",
+      "8",
+      "10",
+      "12",
+      "14",
+      "16",
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ],
+    "colores": [
+      "Azul Marino"
+    ],
+    "moq": 12,
+    "precio_retail": 680,
+    "precio_mayor": 590,
+    "personalizacion": [
+      "Ajuste de bastilla"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "5–10 días",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "escolar",
+      "pantalon",
+      "azul marino"
+    ]
+  },
+  {
+    "id": "ESC-SET-001",
+    "slug": "set-formal-escolar",
+    "categoria": "escolares",
+    "subcategoria": "Uniformes escolares",
+    "nombre": "Set Formal Escolar",
+    "descripcion": "Juego completo de uniforme formal de colegio que incluye polo con bordado de insignia y pantalón o falda escolar en gabardina azul marino.",
+    "sinonimos": [
+      "conjunto escolar",
+      "uniforme de colegio completo",
+      "set formal colegio"
+    ],
+    "telas": [
+      "Piqué Escolar y Gabardina Azul Marino"
+    ],
+    "tallas": [
+      "4",
+      "6",
+      "8",
+      "10",
+      "12",
+      "14",
+      "16",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "colores": [
+      "Polo Blanco / Pantalón Azul Marino"
+    ],
+    "moq": 12,
+    "precio_retail": 1118,
+    "precio_mayor": 970,
+    "personalizacion": [
+      "Bordado de escudo escolar incluido"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "5–10 días",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "escolar",
+      "set",
+      "completo",
+      "formal"
+    ]
+  },
+  {
+    "id": "ESC-DEP-001",
+    "slug": "set-deportivo-escolar",
+    "categoria": "escolares",
+    "subcategoria": "Uniformes escolares",
+    "nombre": "Set Deportivo Escolar",
+    "descripcion": "Conjunto deportivo para educación física compuesto por camiseta deportiva transpirable y buzo o short con elásticos reforzados.",
+    "sinonimos": [
+      "uniforme educacion fisica",
+      "buzo escolar",
+      "conjunto deportivo colegio"
+    ],
+    "telas": [
+      "Interlock Poliéster",
+      "Algodón Deportivo"
+    ],
+    "tallas": [
+      "4",
+      "6",
+      "8",
+      "10",
+      "12",
+      "14",
+      "16",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "colores": [
+      "Azul Marino con Blanco",
+      "Gris con Rojo",
+      "Verde con Blanco"
+    ],
+    "moq": 12,
+    "precio_retail": 510,
+    "precio_mayor": 445,
+    "personalizacion": [
+      "Bordado o estampado de insignia escolar"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "5–10 días",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "escolar",
+      "deportivo",
+      "educacion fisica"
+    ]
+  },
+  {
+    "id": "DEP-EQU-001",
+    "slug": "equipacion-de-futbol-completa",
+    "categoria": "deportivos",
+    "subcategoria": "Indumentaria deportiva",
+    "nombre": "Equipación de Fútbol Completa",
+    "descripcion": "Uniforme completo de fútbol que incluye camiseta transpirable DryFit, pantaloneta con forro y medias deportivas con elásticos de compresión.",
+    "sinonimos": [
+      "uniforme de futbol",
+      "equipacion completa futbol",
+      "conjunto deportivo soccer"
+    ],
+    "telas": [
+      "Poliéster DryFit Microperforado"
+    ],
+    "tallas": [
+      "6",
+      "8",
+      "10",
+      "12",
+      "14",
+      "16",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Personalizado por equipo",
+      "Azul y Blanco",
+      "Rojo y Negro",
+      "Verde y Blanco"
+    ],
+    "moq": 12,
+    "precio_retail": 437,
+    "precio_mayor": 380,
+    "personalizacion": [
+      "Bordado de escudo del equipo",
+      "Numeración y nombres"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "5–10 días",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "deportivo",
+      "futbol",
+      "equipacion",
+      "dryfit"
+    ]
+  },
+  {
+    "id": "DEP-CAM-001",
+    "slug": "camiseta-dryfit",
+    "categoria": "deportivos",
+    "subcategoria": "Indumentaria deportiva",
+    "nombre": "Camiseta DryFit",
+    "descripcion": "Camiseta deportiva ligera de cuello redondo en tecnología DryFit de absorción y evaporación acelerada de sudor.",
+    "sinonimos": [
+      "remera dryfit",
+      "camiseta deportiva",
+      "t-shirt running"
+    ],
+    "telas": [
+      "100% Microfibra DryFit"
+    ],
+    "tallas": [
+      "6",
+      "8",
+      "10",
+      "12",
+      "14",
+      "16",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Blanco",
+      "Negro",
+      "Azul Royal",
+      "Rojo",
+      "Verde Flúor",
+      "Gris"
+    ],
+    "moq": 12,
+    "precio_retail": 207,
+    "precio_mayor": 180,
+    "personalizacion": [
+      "Bordado de logo",
+      "Estampado vinilo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "dryfit",
+      "camiseta",
+      "deporte",
+      "ligero"
+    ]
+  },
+  {
+    "id": "DEP-SUD-001",
+    "slug": "sudadera-dryfit",
+    "categoria": "deportivos",
+    "subcategoria": "Sudaderas",
+    "nombre": "Sudadera DryFit",
+    "descripcion": "Sudadera deportiva de manga larga con capucha y tecnología DryFit para calentamiento, entrenamiento o trabajo activo en exteriores.",
+    "sinonimos": [
+      "hoodie dryfit",
+      "sudadera deportiva",
+      "sueter deportivo dryfit"
+    ],
+    "telas": [
+      "Poliéster DryFit Térmico Transpirable"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Negro",
+      "Azul Marino",
+      "Gris Jaspe",
+      "Rojo"
+    ],
+    "moq": 1,
+    "precio_retail": 258.75,
+    "precio_mayor": 225,
+    "personalizacion": [
+      "Bordado frontal en pecho"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "sudadera",
+      "dryfit",
+      "deportivo"
+    ]
+  },
+  {
+    "id": "DEP-SUD-002",
+    "slug": "3-pack-sudadera-con-cinta-reflectiva",
+    "categoria": "deportivos",
+    "subcategoria": "Sudaderas",
+    "nombre": "3 Pack Sudadera con Cinta Reflectiva",
+    "descripcion": "Paquete de 3 sudaderas de alta visibilidad equipadas con cinta reflectiva de 2 pulgadas para deportistas nocturnos o trabajadores en pista y bodega.",
+    "sinonimos": [
+      "pack sudaderas reflectivas",
+      "3 pack sueteres con cinta",
+      "combo sudaderas reflectivas"
+    ],
+    "telas": [
+      "Poliéster DryFit Pesado",
+      "Cintas Reflectivas de Alta Visibilidad"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Naranja Alta Visibilidad",
+      "Verde Neón",
+      "Azul Marino"
+    ],
+    "moq": 1,
+    "precio_retail": 1474.88,
+    "precio_mayor": 1282.5,
+    "personalizacion": [
+      "Bordado en pecho de cada prenda"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "pack",
+      "sudadera",
+      "reflectivo",
+      "3 pack",
+      "ahorro"
+    ]
+  },
+  {
+    "id": "DEP-SUD-003",
+    "slug": "3-pack-sudadera-lisa",
+    "categoria": "deportivos",
+    "subcategoria": "Sudaderas",
+    "nombre": "3 Pack Sudadera Lisa",
+    "descripcion": "Paquete de 3 sudaderas deportivas lisas de corte clásico en colores combinables, cálidas y confortables para entrenamiento diario.",
+    "sinonimos": [
+      "pack sudaderas lisas",
+      "3 pack hoodies basicos",
+      "combo sudaderas"
+    ],
+    "telas": [
+      "Algodón / Poliéster Fleece"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Gris / Negro / Azul Marino",
+      "Monocromo"
+    ],
+    "moq": 1,
+    "precio_retail": 977.5,
+    "precio_mayor": 850,
+    "personalizacion": [
+      "Bordado en las 3 sudaderas"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "pack",
+      "sudadera",
+      "lisa",
+      "3 pack"
+    ]
+  },
+  {
+    "id": "DEP-SUD-004",
+    "slug": "sudadera-con-cinta",
+    "categoria": "deportivos",
+    "subcategoria": "Sudaderas",
+    "nombre": "Sudadera con Cinta",
+    "descripcion": "Sudadera individual de seguridad con franjas reflectivas en brazos y torso para entrenamientos matutinos o labores con baja iluminación.",
+    "sinonimos": [
+      "sudadera reflectiva individual",
+      "sueter con cinta reflectiva"
+    ],
+    "telas": [
+      "Poliéster DryFit Reforzado",
+      "Cinta Reflectiva 2 Pulgadas"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Naranja Fluorescente",
+      "Verde Neón",
+      "Azul Marino",
+      "Negro"
+    ],
+    "moq": 1,
+    "precio_retail": 546.25,
+    "precio_mayor": 475,
+    "personalizacion": [
+      "Bordado de logotipo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "sudadera",
+      "con cinta",
+      "reflectivo"
+    ]
+  },
+  {
+    "id": "ACC-GOR-001",
+    "slug": "gorra-bordada-estandar",
+    "categoria": "accesorios",
+    "subcategoria": "Gorras",
+    "nombre": "Gorra Bordada Estándar",
+    "descripcion": "Gorra clásica de 6 paneles en gabardina de algodón con visera curvada y broche metálico ajustable. Incluye bordado computarizado frontal.",
+    "sinonimos": [
+      "gorra publicitaria",
+      "gorra corporativa bordada",
+      "cachucha bordada"
+    ],
+    "telas": [
+      "Gabardina 100% Algodón"
+    ],
+    "tallas": [
+      "Talla única ajustable"
+    ],
+    "colores": [
+      "Azul Marino",
+      "Negro",
+      "Blanco",
+      "Rojo",
+      "Caqui",
+      "Verde Botella"
+    ],
+    "moq": 12,
+    "precio_retail": 402.5,
+    "precio_mayor": 350,
+    "personalizacion": [
+      "Bordado computarizado frontal 3D o plano incluido"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "gorra",
+      "bordada",
+      "accesorio",
+      "corporativo"
+    ]
+  },
+  {
+    "id": "ACC-GOR-002",
+    "slug": "gorra-solar",
+    "categoria": "accesorios",
+    "subcategoria": "Gorras",
+    "nombre": "Gorra Solar",
+    "descripcion": "Gorra con solapa cubre nuca desmontable para máxima protección contra rayos solares en faenas agrícolas, construcción y eventos abiertos.",
+    "sinonimos": [
+      "gorra con cubrenuca",
+      "gorra legionaria",
+      "gorra para sol trabajo"
+    ],
+    "telas": [
+      "Microfibra con Filtro UV 50+"
+    ],
+    "tallas": [
+      "Talla única ajustable"
+    ],
+    "colores": [
+      "Beige",
+      "Azul Marino",
+      "Verde Militar",
+      "Gris"
+    ],
+    "moq": 12,
+    "precio_retail": 402.5,
+    "precio_mayor": 350,
+    "personalizacion": [
+      "Bordado de logo en frontal"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "gorra",
+      "solar",
+      "uv",
+      "cubrenuca"
+    ]
+  },
+  {
+    "id": "ACC-GOR-003",
+    "slug": "gorra-sport-cap",
+    "categoria": "accesorios",
+    "subcategoria": "Gorras",
+    "nombre": "Gorra Sport Cap",
+    "descripcion": "Gorra deportiva ultraligera con paneles microperforados de ventilación y tejido hidrofóbico de secado instantáneo.",
+    "sinonimos": [
+      "gorra deportiva",
+      "running cap",
+      "gorra transpirable"
+    ],
+    "telas": [
+      "Poliéster DryFit Ultraliviano"
+    ],
+    "tallas": [
+      "Talla única ajustable"
+    ],
+    "colores": [
+      "Blanco",
+      "Negro",
+      "Azul Royal",
+      "Gris"
+    ],
+    "moq": 12,
+    "precio_retail": 339.25,
+    "precio_mayor": 295,
+    "personalizacion": [
+      "Bordado o transfer deportivo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "gorra",
+      "sport",
+      "deporte",
+      "transpirable"
+    ]
+  },
+  {
+    "id": "ACC-GOR-004",
+    "slug": "gorra-maya-fina",
+    "categoria": "accesorios",
+    "subcategoria": "Gorras",
+    "nombre": "Gorra Maya Fina",
+    "descripcion": "Gorra estilo camionero (trucker) con frente de algodón estructurado y laterales/trasera en malla fina de alta densidad fresca y resistente.",
+    "sinonimos": [
+      "gorra trucker",
+      "gorra con malla fina",
+      "gorra camionera"
+    ],
+    "telas": [
+      "Algodón Peinado y Malla de Nylon Suave"
+    ],
+    "tallas": [
+      "Talla única ajustable"
+    ],
+    "colores": [
+      "Negro / Blanco",
+      "Azul Marino / Blanco",
+      "Rojo / Blanco",
+      "Total Black"
+    ],
+    "moq": 12,
+    "precio_retail": 517.5,
+    "precio_mayor": 450,
+    "personalizacion": [
+      "Bordado 3D en panel frontal"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "gorra",
+      "maya",
+      "trucker",
+      "malla fina"
+    ]
+  },
+  {
+    "id": "ACC-GOR-005",
+    "slug": "gorra-flex",
+    "categoria": "accesorios",
+    "subcategoria": "Gorras",
+    "nombre": "Gorra Flex",
+    "descripcion": "Gorra cerrada con banda elástica interna Flexfit que se adapta anatómicamente a la cabeza sin necesidad de broches ni velcros traseros.",
+    "sinonimos": [
+      "gorra cerrada flex",
+      "gorra flexfit corporativa",
+      "gorra cerrada elastica"
+    ],
+    "telas": [
+      "Poliéster / Algodón con Spandex Flex"
+    ],
+    "tallas": [
+      "S/M",
+      "L/XL"
+    ],
+    "colores": [
+      "Negro",
+      "Azul Marino",
+      "Gris Plomo",
+      "Vino"
+    ],
+    "moq": 12,
+    "precio_retail": 402.5,
+    "precio_mayor": 350,
+    "personalizacion": [
+      "Bordado frontal y posterior"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "gorra",
+      "flex",
+      "cerrada",
+      "premium"
+    ]
+  },
+  {
+    "id": "ACC-CAM-001",
+    "slug": "camiseta-basica-algodon",
+    "categoria": "accesorios",
+    "subcategoria": "Camisetas y básicos",
+    "nombre": "Camiseta Básica Algodón",
+    "descripcion": "Camiseta clásica de cuello redondo en 100% algodón suave, gramaje 160g, costuras tubulares y cuello rib con elastano.",
+    "sinonimos": [
+      "camiseta basica",
+      "playera de algodon",
+      "t-shirt algodon"
+    ],
+    "telas": [
+      "100% Algodón Jersey"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Blanco",
+      "Negro",
+      "Azul Marino",
+      "Gris Jaspe",
+      "Rojo"
+    ],
+    "moq": 12,
+    "precio_retail": 207,
+    "precio_mayor": 180,
+    "personalizacion": [
+      "Bordado en pecho"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "camiseta",
+      "basica",
+      "algodon"
+    ]
+  },
+  {
+    "id": "ACC-CAM-002",
+    "slug": "camiseta-con-cinta",
+    "categoria": "accesorios",
+    "subcategoria": "Camisetas y básicos",
+    "nombre": "Camiseta con Cinta",
+    "descripcion": "Camiseta básica de algodón con franjas reflectivas termoselladas de 2 pulgadas para brigadas de bodega o logística que requieren frescura y visibilidad.",
+    "sinonimos": [
+      "camiseta reflectiva",
+      "playera con cinta de seguridad"
+    ],
+    "telas": [
+      "Algodón / Poliéster con Cintas Reflectivas"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Naranja",
+      "Verde Neón",
+      "Azul Marino",
+      "Negro"
+    ],
+    "moq": 12,
+    "precio_retail": 339.25,
+    "precio_mayor": 295,
+    "personalizacion": [
+      "Bordado de logotipo"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": false,
+    "tags": [
+      "camiseta",
+      "con cinta",
+      "reflectivo"
+    ]
+  },
+  {
+    "id": "ACC-CAM-003",
+    "slug": "3-pack-camiseta-basica",
+    "categoria": "accesorios",
+    "subcategoria": "Camisetas y básicos",
+    "nombre": "3 Pack Camiseta Básica",
+    "descripcion": "Paquete de 3 camisetas básicas de algodón en colores esenciales (blanco, negro, azul marino), de corte regular y máxima comodidad.",
+    "sinonimos": [
+      "pack camisetas algodon",
+      "3 pack remeras",
+      "combo camisetas"
+    ],
+    "telas": [
+      "100% Algodón Jersey Suave"
+    ],
+    "tallas": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colores": [
+      "Blanco / Negro / Azul Marino"
+    ],
+    "moq": 1,
+    "precio_retail": 575,
+    "precio_mayor": 500,
+    "personalizacion": [
+      "Bordado en lote"
+    ],
+    "garantia": "3 meses",
+    "tiempo_entrega": "48–72 horas",
+    "delivery_gratis": true,
+    "destacado": true,
+    "tags": [
+      "pack",
+      "camiseta",
+      "3 pack",
+      "ahorro"
+    ]
+  }
+]
