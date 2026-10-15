@@ -595,6 +595,120 @@ curl -s -X POST http://localhost:3000/api/chat \
 
 **Resultado:** Cumplido. Devuelve con precisión el precio retail C$977.5 (C$977.50) y diferencia C$850 para compras al por mayor.
 
+---
+
+## Pruebas Fase 4.2.6 — Dori como Vendedora Estratégica
+
+Fecha de ejecución: 15 de Octubre de 2026  
+Objetivo: Validar que Dori actúe como una vendedora estratégica, concisa (máximo 3 líneas), exploradora (califica antes de recomendar), negociadora (calcula totales en pedidos 100+ y sugiere negociación con asesor) y sin tablas ni emojis.
+
+### Prueba 1: "Hola, quiero uniformes médicos"
+
+**Criterio:** Máximo 2 líneas. Debe preguntar cantidad o sector, no listar 17 productos.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Hola, quiero uniformes médicos"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 6,073 | Output: 129  
+**Respuesta:**
+> Con gusto. ¿Cuántas unidades necesita?
+
+**Resultado:** Cumplido. 1 línea concisa. Pregunta cantidad para calificación inmediata sin volcar productos.
+
+---
+
+### Prueba 2: "¿Cuánto cuesta la filipina de chef básica?"
+
+**Criterio:** Máximo 2 líneas. Debe decir C$1,150 retail / C$1,000 mayor + 1 pregunta.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Cuánto cuesta la filipina de chef básica?"}]}'
+```
+**Modelo:** `fast` (fallback) | **Tokens:** Input: 6,077 | Output: 133  
+**Respuesta:**
+> La Filipina de Chef Básica cuesta C$1,150 retail. ¿Cuántas unidades necesita?
+
+**Resultado:** Cumplido. 1 línea directa. Entrega el precio retail C$1,150 y formula una sola pregunta para avanzar.
+
+---
+
+### Prueba 3: "Necesito 30 uniformes para mi clínica"
+
+**Criterio:** Da precio mayor + pregunta qué pieza necesita.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Necesito 30 uniformes para mi clínica"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 6,076 | Output: 410  
+**Respuesta:**
+> Con 30 unidades el precio mayor es C$1,200 ud para el Conjunto Médico Esencial o C$1,600 ud para el Conjunto Médico Premium.  
+> ¿Cuál de estos le interesa para su clínica?
+
+**Resultado:** Cumplido. Aplica precio mayor (12+ uds) en 2 líneas y pregunta para orientar la elección del cliente.
+
+---
+
+### Prueba 4: "Necesito 200 uniformes médicos para un hospital"
+
+**Criterio:** Muestra precio total + sugiere negociación con asesor + WhatsApp.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Necesito 200 uniformes médicos para un hospital"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 6,112 | Output: 488  
+**Respuesta:**
+> Con 200 unidades el precio por mayor sería: - Conjunto Esencial C$1,200 × 200 = C$240,000 - Conjunto Premium C$1,600 × 200 = C$320,000  
+> Para un pedido de esta magnitud, un asesor puede negociar un precio especial que va más allá de lo que yo puedo ofrecer.  
+> ¿Le conecto con nuestro asesor por WhatsApp? +505 8467 6004 https://wa.me/50584676004?text=Hola%2C%20necesito%20cotizar%20200%20uniformes%20m%C3%A9dicos%20para%20hospital
+
+**Resultado:** Cumplido. Muestra el cálculo de monto total estimado, plantea negociación exclusiva con asesor humano e incluye el número y enlace directo a WhatsApp.
+
+---
+
+### Prueba 5: "¿Tienen uniformes para restaurantes?"
+
+**Criterio:** Máximo 3 líneas con 2 opciones + 1 pregunta.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Tienen uniformes para restaurantes?"}]}'
+```
+**Modelo:** `smart` | **Tokens:** Input: 6,075 | Output: 392  
+**Respuesta:**
+> Sí, contamos con filipinas de chef: Básica C$1,150 retail | C$1,000 mayor, Premium C$1,610 retail | C$1,400 mayor.  
+> ¿Para cuántas unidades está pensando?
+
+**Resultado:** Cumplido. 2 líneas, 2 opciones gastronómicas y 1 pregunta estratégica de calificación de volumen.
+
+---
+
+### Prueba 6: "Quiero un diseño 100% personalizado con logo"
+
+**Criterio:** Sugiere enviar imágenes por WhatsApp, máximo 3 líneas.  
+**Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Quiero un diseño 100% personalizado con logo"}]}'
+```
+**Modelo:** `fast` (fallback) | **Tokens:** Input: 6,077 | Output: 571  
+**Respuesta:**
+> Para diseños 100 % personalizados con logo, comparta sus imágenes directamente con nuestro asesor por WhatsApp y él le propone opciones.  
+> WhatsApp: +505 8467 6004  
+> https://wa.me/50584676004
+
+**Resultado:** Cumplido. 3 líneas exactas. Deriva el diseño personalizado con invitación a enviar archivos visuales mediante enlace directo.
+
+
 
 
 
