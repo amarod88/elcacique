@@ -45,26 +45,36 @@ function buildProductoActual(slug?: string): string {
 
 function buildCatalogSummary(): string {
   const categorias = getCategorias();
-  const lineas: string[] = ['CATÁLOGO EL CACIQUE'];
+  const lineas: string[] = ['CATÁLOGO EL CACIQUE (resumen)'];
 
   for (const cat of categorias) {
-    lineas.push(`\n${cat.nombre.toUpperCase()} (${cat.count}):`);
     const prods = productos.filter((p) => p.categoria === cat.id);
-    for (const p of prods) {
-      if (p.precio_retail !== undefined && p.precio_retail !== null) {
-        lineas.push(
-          `- ${p.nombre}: retail C$${p.precio_retail}, mayor C$${p.precio_mayor}, MOQ ${p.moq}`
-        );
-      } else {
-        lineas.push(
-          `- ${p.nombre}: rango C$${p.precio_min ?? 0}-${p.precio_max ?? 0}, MOQ ${p.moq}`
-        );
-      }
+    const precios = prods
+      .filter((p) => p.precio_retail !== null && p.precio_retail !== undefined)
+      .map((p) => p.precio_retail as number);
+    const preciosMayor = prods
+      .filter((p) => p.precio_mayor !== null && p.precio_mayor !== undefined)
+      .map((p) => p.precio_mayor as number);
+
+    if (precios.length > 0) {
+      const min = Math.min(...precios);
+      const max = Math.max(...precios);
+      const minMayor = preciosMayor.length > 0 ? Math.min(...preciosMayor) : min;
+      const maxMayor = preciosMayor.length > 0 ? Math.max(...preciosMayor) : max;
+
+      lineas.push(
+        `${cat.nombre}: ${cat.count} productos. Retail C$${min}-${max}. Mayor C$${minMayor}-${maxMayor}.`
+      );
+    } else {
+      lineas.push(`${cat.nombre}: ${cat.count} productos a medida (cotización por rango).`);
     }
   }
 
+  lineas.push('\nPara precios exactos de un producto, usar la función getProductoBySlug.');
+
   return lineas.join('\n');
 }
+
 
 export function buildSystemPrompt(context: ContextInput = {}): string {
   const productoActualBlock = buildProductoActual(context.currentProductSlug);

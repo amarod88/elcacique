@@ -792,6 +792,89 @@ Objetivo: Implementar y validar la metodología closer comercial: "Responder →
 > ¿Le conecto con un asesor para una cotización personalizada? WhatsApp: +505 8467 6004 https://wa.me/50584676004
 - **Resultado:** Cumplido. Calcula el monto total según precio mayorista (C$180,000 / C$240,000), sugiere negociación de precio especial con asesor humano y facilita el contacto directo por WhatsApp con link.
 
+---
+
+## Pruebas Fase 4.2.8 — Optimización de Tokens y Seguridad Bancaria
+
+Fecha de ejecución: 16 de Octubre de 2026  
+Objetivo: Reducir drásticamente el consumo de tokens compactando el catálogo en `context.ts` (de ~3,000 tokens a ~200 tokens por inyección de catálogo), proteger la información bancaria sensible derivando al asesor humano por WhatsApp, prevenir la repetición de datos y mantener el historial completo de 20 mensajes sin sufrir rate limits en Groq.
+
+### Resultados de las 5 Pruebas de Verificación
+
+#### Caso 1: Solicitud de Información Bancaria
+- **Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Me da el número de cuenta para transferencia?"}]}'
+```
+- **Criterio:** Deriva al asesor, NO da cuenta.
+- **Modelo:** `smart` | **Tokens:** Input: 5,729 | Output: 447
+- **Respuesta:**
+> Los datos bancarios los comparte directamente nuestro asesor para mayor seguridad. Puede contactarlo por WhatsApp: +505 8467 6004 (https://wa.me/50584676004).  
+> Entiendo que necesita la información para efectuar el pago.  
+> ¿Le preparo una cotización formal?
+- **Resultado:** Cumplido. No proporciona ningún número de cuenta sensible y deriva con protocolo de seguridad a WhatsApp (+505 8467 6004).
+
+---
+
+#### Caso 2: Especificación de Cantidad y Tallas de Gabachas
+- **Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Necesito 2 gabachas médicas XS y M"}]}'
+```
+- **Criterio:** NO repite "2 gabachas" más de una vez.
+- **Modelo:** `fast` (fallback) | **Tokens:** Input: 5,730 | Output: 688
+- **Respuesta:**
+> Cada gabacha médica estándar cuesta C$747.50. Con 2 unidades, el total sería C$1,495.00.  
+> Dos gabachas.  
+> ¿Le preparo una cotización formal?
+- **Resultado:** Cumplido. Menciona el precio unitario y el total calculado para 2 unidades sin caer en bucles ni reiteraciones excesivas.
+
+---
+
+#### Caso 3: Consulta de Precio Directo (Filipina Básica)
+- **Request:**
+```bash
+curl -s -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"¿Cuánto cuesta la filipina de chef básica?"}]}'
+```
+- **Criterio:** Precio correcto (C$1,150 retail / C$1,000 mayor).
+- **Modelo:** `smart` | **Tokens:** Input: 5,729 | Output: 410
+- **Respuesta:**
+> Cuesta C$1,150 retail; si lleva 12 o más unidades baja a C$1,000.  
+> Precio básico solicitado.  
+> ¿Cuántas unidades necesita?
+- **Resultado:** Cumplido. Mantiene los precios oficiales exactos (retail C$1,150 y mayor C$1,000) a pesar del catálogo resumido.
+
+---
+
+#### Caso 4: Conversación Larga de 10 Mensajes Seguidos
+- **Historial simulado:** Diálogo progresivo de 10 mensajes sobre personal de cocina (8 cocineros), filipinas premium con vivos, bordado con logo "Sabor Nica" y consulta final: `"Oye, ¿cuánto sería el total aproximado de las filipinas que elegimos antes?"`.
+- **Criterio:** Dori mantiene el hilo contextual y recuerda productos previos.
+- **Modelo:** `fast` (fallback) | **Tokens:** Input: 5,984 | Output: 253
+- **Respuesta:**
+> Cuesta C$1,610 cada filipina premium, por lo que 8 unidades suman C$12,880.  
+> Con 8 cocineros, el bordado de “Sabor Nica” se incluye en la proforma.  
+> ¿Le preparo una cotización formal?
+- **Resultado:** Cumplido. Retiene con precisión el producto (Filipina Premium a C$1,610), la cantidad (8 cocineros = C$12,880) y el logo personalizado ("Sabor Nica").
+
+---
+
+#### Caso 5: Consulta Multi-Producto en la Misma Sesión
+- **Historial simulado:** El cliente indaga sucesivamente por: 1) Filipina de chef básica, 2) Blazer a medida, 3) Camisa Oxford, y solicita: `"Perfecto. ¿Puedes hacerme un resumen de los precios de los 3 productos que te pregunté?"`.
+- **Criterio:** Dori recuerda los 3 sin confundirse ni cruzar precios.
+- **Modelo:** `smart` | **Tokens:** Input: 5,900 | Output: 604
+- **Respuesta:**
+> Filipina Chef Básica C$1,150 retail | C$1,000 mayor; Blazer a medida C$2,500‑C$4,500 según paño/acabado; Camisa Oxford C$897 retail | C$780 mayor.  
+> Resumen listo.  
+> ¿Le preparo una cotización formal?
+- **Resultado:** Cumplido. Recuerda exactamente los 3 productos con sus precios correspondientes sin alterar categorías ni inventar cifras.
+
+
 
 
 
