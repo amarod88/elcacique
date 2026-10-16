@@ -708,6 +708,90 @@ curl -s -X POST http://localhost:3000/api/chat \
 
 **Resultado:** Cumplido. 3 líneas exactas. Deriva el diseño personalizado con invitación a enviar archivos visuales mediante enlace directo.
 
+---
+
+## Pruebas Fase 4.2.7 — Dori como Closer Comercial
+
+Fecha de ejecución: 16 de Octubre de 2026  
+Objetivo: Implementar y validar la metodología closer comercial: "Responder → Retroalimentar → Calificar → Avanzar". Eliminar preguntas de interrogatorio directo como "¿para cuándo lo necesita?" o "¿cuál es su presupuesto?", leer la necesidad implícita, respetar la reciprocidad (dar valor antes de pedir datos) y guiar fluidamente hacia el cierre o proforma.
+
+### Conversación de Verificación (7 Pasos)
+
+#### Turno 1: Saludo Inicial
+- **Mensaje cliente:** "Hola"
+- **Criterio:** Saluda de vuelta, NO pregunta cantidad.
+- **Modelo:** `fast` | **Tokens:** Input: 6,977 | Output: 113
+- **Respuesta:**
+> ¡Hola! Soy Dori, tu asistente de El Cacique. ¿En qué tipo de uniforme estás pensando?
+- **Resultado:** Cumplido. Saluda cordialmente presentándose como Dori y pregunta por el tipo de uniforme sin disparar preguntas de cantidad ni de compra.
+
+---
+
+#### Turno 2: Consulta Abierta sobre Empresa
+- **Mensaje cliente:** "Necesito uniformes para mi empresa"
+- **Criterio:** Pregunta cantidad (información crítica).
+- **Modelo:** `smart` | **Tokens:** Input: 7,018 | Output: 327
+- **Respuesta:**
+> Para empresas ofrecemos camisas Oxford, polos Piqué y chaquetas U‑Flight.  
+> Perfecto, uniformes corporativos.  
+> ¿Cuántas personas necesita uniformar?
+- **Resultado:** Cumplido. Responde primero con 3 opciones corporativas (Responder), reconoce el contexto "uniformes corporativos" (Retroalimentar) y pregunta cantidad como dato crítico (Calificar).
+
+---
+
+#### Turno 3: Aportación de Volumen y Contexto
+- **Mensaje cliente:** "Son 25 personas, para oficina"
+- **Criterio:** Reconoce "25, oficina" + aplica precio mayor + ofrece cotización.
+- **Modelo:** `smart` | **Tokens:** Input: 7,069 | Output: 566
+- **Respuesta:**
+> Perfecto, 25 personas para oficina. Precio mayor: Camisa Oxford C$780, Polo Piqué C$348, Chaqueta U‑Flight C$1500. ¿Le preparo una cotización formal?
+- **Resultado:** Cumplido. Retroalimenta "Perfecto, 25 personas para oficina", aplica precio mayor (12+ uds) en las prendas clave y ofrece proforma ("¿Le preparo una cotización formal?").
+
+---
+
+#### Turno 4: Aceptación de Cotización
+- **Mensaje cliente:** "Sí, prepárame una cotización"
+- **Criterio:** Confirma intención + pregunta delivery naturalmente.
+- **Modelo:** `fast` (fallback) | **Tokens:** Input: 7,131 | Output: 429
+- **Respuesta:**
+> Cotización: 25 Camisa Oxford C$780, 25 Polo Piqué C$348, 25 Chaqueta U‑Flight C$1500. Total: C$65 700. ¿La entrega sería en Managua o fuera?
+- **Resultado:** Cumplido. Confirma la intención del cliente, totaliza la cotización e indaga naturalmente sobre el punto de entrega.
+
+---
+
+#### Turno 5: Confirmación de Delivery y Personalización
+- **Mensaje cliente:** "Es para Managua, y con logo bordado"
+- **Criterio:** Confirma delivery + reconoce bordado.
+- **Modelo:** `smart` | **Tokens:** Input: 7,200 | Output: 421
+- **Respuesta:**
+> Con bordado computarizado, el costo adicional se incluye en la proforma y la entrega en Managua es gratuita.  
+> Perfecto, 25 personas en oficina con logo bordado.  
+> ¿Le preparo la proforma con los detalles?
+- **Resultado:** Cumplido. Confirma entrega gratuita en Managua y bordado computarizado, retroalimenta el requerimiento final y avanza al cierre de proforma.
+
+---
+
+#### Turno 6: Consulta de Precio Directo
+- **Mensaje cliente:** "¿Cuánto cuesta el conjunto médico esencial?"
+- **Criterio:** Da precio + 1 pregunta.
+- **Modelo:** `fast` (fallback) | **Tokens:** Input: 6,984 | Output: 178
+- **Respuesta:**
+> Cuesta C$1,380 retail. Si lleva 12 o más, baja a C$1,200.  
+> ¿Le preparo una cotización?
+- **Resultado:** Cumplido. Da precio retail exacto (C$1,380), indica precio mayor (C$1,200) y realiza 1 pregunta de calificación de intención sin rodeos.
+
+---
+
+#### Turno 7: Cotización Institucional de Gran Volumen
+- **Mensaje cliente:** "Necesito cotizar 150 uniformes para un hospital"
+- **Criterio:** Calcula total + negocia + WhatsApp.
+- **Modelo:** `smart` | **Tokens:** Input: 6,987 | Output: 554
+- **Respuesta:**
+> Para 150 conjuntos médicos, el precio mayor es C$1,200 (esencial) o C$1,600 (premium), lo que equivale a C$180,000 o C$240,000 respectivamente.  
+> Gran pedido hospitalario.  
+> ¿Le conecto con un asesor para una cotización personalizada? WhatsApp: +505 8467 6004 https://wa.me/50584676004
+- **Resultado:** Cumplido. Calcula el monto total según precio mayorista (C$180,000 / C$240,000), sugiere negociación de precio especial con asesor humano y facilita el contacto directo por WhatsApp con link.
+
 
 
 
