@@ -155,7 +155,8 @@ export default function ChatWindow({ onClose, onMinimize }: ChatWindowProps) {
       setMessages(finalMessages);
       saveSession(finalSession);
     } catch (error) {
-      console.warn('Error al comunicarse con /api/chat:', error);
+      const errMsg = error instanceof Error ? error.message : String(error);
+      console.warn(`Error al comunicarse con /api/chat: ${errMsg}`);
       const errorMessage: ChatMessageItem = {
         role: 'assistant',
         content:

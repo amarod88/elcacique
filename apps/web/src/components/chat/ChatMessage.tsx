@@ -10,7 +10,8 @@ export interface ChatMessageProps {
 /**
  * Sanitiza el símbolo $ para evitar cortes indebidos en el parser de líneas.
  */
-function sanitizeContent(content: string): string {
+function sanitizeContent(content?: string): string {
+  if (!content || typeof content !== 'string') return '';
   return content.replace(/\$/g, '___DOLLAR___');
 }
 

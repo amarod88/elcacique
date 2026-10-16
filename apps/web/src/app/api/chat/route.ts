@@ -43,9 +43,10 @@ export async function POST(req: NextRequest) {
         tokens: result.tokens,
       });
     } catch (primaryError) {
-      // Fallback al otro modelo
+      // Fallback al otro modelo si el primario falla
       const fallbackModel = model === 'fast' ? 'smart' : 'fast';
-      console.warn('[chat] fallback a', fallbackModel, primaryError);
+      const errMsg = primaryError instanceof Error ? primaryError.message : String(primaryError);
+      console.warn(`[chat] fallback a ${fallbackModel}: ${errMsg}`);
 
       const result = await callGroq(groqMessages, fallbackModel);
       return NextResponse.json({
@@ -55,10 +56,11 @@ export async function POST(req: NextRequest) {
       });
     }
   } catch (error) {
-    console.error('[chat] error:', error);
+    const errMsg = error instanceof Error ? error.message : String(error);
+    console.error(`[chat] error: ${errMsg}`);
     return NextResponse.json({
       message:
-        'Estoy teniendo problemas técnicos. Por favor intenta de nuevo o escribe a nuestro WhatsApp al +505 8888-8888.',
+        'Estoy teniendo problemas técnicos. Por favor intenta de nuevo o escribe a nuestro WhatsApp al +505 8467 6004.',
       model: 'fast',
       tokens: { input: 0, output: 0 },
     });

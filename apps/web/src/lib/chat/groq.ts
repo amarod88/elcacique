@@ -20,7 +20,8 @@ export async function callGroq(
       : process.env.GROQ_MODEL_SMART || 'openai/gpt-oss-120b';
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15000);
+  const timeoutMs = model === 'smart' ? 25000 : 15000;
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
     const completion = await groq.chat.completions.create(
@@ -53,13 +54,13 @@ export function selectModel(
 ): 'fast' | 'smart' {
   const last = messages[messages.length - 1]?.content.toLowerCase() ?? '';
 
-  // Saludos simples y consultas muy cortas van al fast
-  const simpleGreetings = ['hola', 'buenos días', 'buenas tardes', 'buenas noches', 'hi', 'hello'];
-  const isJustGreeting = simpleGreetings.some((g) => last.trim() === g || last.trim() === `${g}!`);
+  // Consultas sobre pliegos o licitaciones complejas se derivan a smart
+  const complexKeywords = ['licitación', 'licitacion', 'pliego técnico', 'pliego de bases'];
+  const isComplex = complexKeywords.some((k) => last.includes(k));
 
-  if (isJustGreeting && messages.length <= 2) return 'fast';
+  if (isComplex) return 'smart';
 
-  // Todo lo demás va al smart (más natural y conversacional)
-  // El fast solo se usa como fallback si smart falla
-  return 'smart';
+  // Usar 'fast' (openai/gpt-oss-20b) por defecto para respuestas rápidas (<1s),
+  // evitando timeouts de 15s y sobrecarga de tokens en Groq.
+  return 'fast';
 }

@@ -40,7 +40,8 @@ export function getSession(): ChatSession | null {
 
     return session;
   } catch (error) {
-    console.warn('Error al leer la sesión de chat:', error);
+    const errMsg = error instanceof Error ? error.message : String(error);
+    console.warn(`Error al leer la sesión de chat: ${errMsg}`);
     return null;
   }
 }
@@ -58,7 +59,8 @@ export function saveSession(session: ChatSession): void {
     };
     localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(updatedSession));
   } catch (error) {
-    console.warn('Error al guardar la sesión de chat:', error);
+    const errMsg = error instanceof Error ? error.message : String(error);
+    console.warn(`Error al guardar la sesión de chat: ${errMsg}`);
   }
 }
 
@@ -71,7 +73,8 @@ export function clearSession(): void {
   try {
     localStorage.removeItem(SESSION_STORAGE_KEY);
   } catch (error) {
-    console.warn('Error al eliminar la sesión de chat:', error);
+    const errMsg = error instanceof Error ? error.message : String(error);
+    console.warn(`Error al eliminar la sesión de chat: ${errMsg}`);
   }
 }
 
@@ -156,7 +159,8 @@ export async function compactSessionIfNeeded(
     saveSession(compacted);
     return compacted;
   } catch (error) {
-    console.warn('Error durante la compactación de la sesión:', error);
+    const errMsg = error instanceof Error ? error.message : String(error);
+    console.warn(`Error durante la compactación de la sesión: ${errMsg}`);
     return compactSession(session);
   }
 }
