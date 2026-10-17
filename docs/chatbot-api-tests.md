@@ -928,6 +928,73 @@ Objetivo: Validar que Dori pregunte la cantidad antes de volcar precios en consu
 > Con esa información le preparo la cotización.
 - **Resultado:** Cumplido. 3 líneas exactas. Informa precio unitario retail (C$1,150), descuento por mayor (C$1,000 a partir de 12 uds) y una sola pregunta de calificación.
 
+---
+
+## Pruebas Fase 4.2.12 — Inferir Productos Según Actividad del Cliente
+
+Fecha de ejecución: 17 de Octubre de 2026  
+Objetivo: Validar que Dori infiera correctamente los productos correspondientes a la actividad o sector descrito por el cliente (trabajo motorizado, obras de construcción, restaurantes, etc.) antes de solicitar la cantidad y antes de responder prematuramente con "No dispongo de esa información confirmada", reservando dicha frase únicamente para productos ajenos al catálogo (como zapatos).
+
+### Resultados de las 5 Pruebas de Verificación
+
+#### Caso 1: Consulta por actividad ("trabajo motorizado")
+- **Mensaje cliente:** "Uniforme trabajo motorizado"
+- **Criterio:** Dori recomienda chaleco reflectivo + camiseta + gorra ANTES de preguntar cantidad.
+- **Modelo:** `fast` | **Tokens:** Input: 6,442 | Output: 269
+- **Respuesta:**
+> Para trabajo motorizado le recomiendo:  
+> - Chaleco reflectivo  
+> - Camiseta con cinta reflectiva  
+> - Gorra solar con cubre nuca  
+> ¿Cuántas personas necesita uniformar?
+- **Resultado:** Cumplido. Infiere la necesidad textil de protección vial y recomienda el conjunto adecuado antes de pedir la cantidad.
+
+---
+
+#### Caso 2: Especificación de volumen posterior (10 unidades)
+- **Mensaje cliente:** "10"
+- **Criterio:** Muestra precios correspondientes y ofrece cotización sin emitir "No dispongo".
+- **Modelo:** `smart` | **Tokens:** Input: 6,494 | Output: 442
+- **Respuesta:**
+> Chaleco reflectivo: C$862.50 × 10 = C$8,625.00  
+> Camiseta con cinta: C$339.25 × 10 = C$3,392.50  
+> Gorra solar: C$402.50 × 10 = C$4,025.00. ¿Le preparo cotización?
+- **Resultado:** Cumplido. Desglosa los totales por ítem para las 10 unidades sin rechazos ni pérdida de contexto.
+
+---
+
+#### Caso 3: Obra de construcción
+- **Mensaje cliente:** "Es para una obra de construcción"
+- **Criterio:** Dori recomienda overol + chaleco + camisa industrial.
+- **Modelo:** `fast` | **Tokens:** Input: 6,442 | Output: 281
+- **Respuesta:**
+> Para obra de construcción le recomiendo: Overol industrial, chaleco reflectivo y camisa industrial.  
+> ¿Cuántas personas necesita uniformar?
+- **Resultado:** Cumplido. Mapea la actividad a prendas industriales de alta resistencia y califica con la cantidad requerida.
+
+---
+
+#### Caso 4: Sector gastronómico ("restaurante")
+- **Mensaje cliente:** "Para mi restaurante"
+- **Criterio:** Dori recomienda filipina + pantalón + gorro.
+- **Modelo:** `fast` | **Tokens:** Input: 6,439 | Output: 456
+- **Respuesta:**
+> Para un restaurante le recomiendo: Filipina de chef, pantalón de cocina y gorro de cocina.  
+> ¿Cuántas piezas necesita?
+- **Resultado:** Cumplido. Mapeo instantáneo a la línea gastronómica y pregunta por volumen de confección.
+
+---
+
+#### Caso 5: Producto no perteneciente al catálogo ("zapatos")
+- **Mensaje cliente:** "¿Venden zapatos?"
+- **Criterio:** Dori indica "No dispongo de esa información confirmada" aclarando especialización textil.
+- **Modelo:** `fast` | **Tokens:** Input: 6,441 | Output: 458
+- **Respuesta:**
+> No dispongo de esa información confirmada.  
+> Nos especializamos en uniformes y prendas textiles.
+- **Resultado:** Cumplido. Emplea correctamente "No dispongo" como último recurso ante un producto que no forma parte del catálogo textil.
+
+
 
 
 
