@@ -874,6 +874,61 @@ curl -s -X POST http://localhost:3000/api/chat \
 > ¿Le preparo una cotización formal?
 - **Resultado:** Cumplido. Recuerda exactamente los 3 productos con sus precios correspondientes sin alterar categorías ni inventar cifras.
 
+---
+
+## Pruebas Fase 4.2.10 — Eliminar Reconocimiento Redundante y Precios Prematuros
+
+Fecha de ejecución: 17 de Octubre de 2026  
+Objetivo: Validar que Dori pregunte la cantidad antes de volcar precios en consultas generales, elimine reconocimientos redundantes que no agregan valor (como "Entiendo, uniformes corporativos"), aplique precios mayoristas únicamente tras conocer el volumen, y respete estrictamente el límite de 3 líneas por respuesta.
+
+### Resultados de las 4 Pruebas de Verificación
+
+#### Turno 1: Cliente no especifica cantidad
+- **Mensaje cliente:** "Necesito uniformes para mi empresa"
+- **Criterio:** Pregunta cantidad SIN mostrar precios primero. Máximo 3 líneas.
+- **Modelo:** `fast` | **Tokens:** Input: 5,402 | Output: 191
+- **Respuesta:**
+> ¡Hola! Soy Dori de El Cacique.  
+> ¿Cuántas personas necesita uniformar?
+- **Resultado:** Cumplido. 2 líneas. No vuelca precios prematuros y pregunta directamente por la cantidad.
+
+---
+
+#### Turno 2: Cliente especifica volumen (25 personas)
+- **Mensaje cliente:** "25 personas"
+- **Criterio:** Ahora sí muestra precios (mayor, porque 25 ≥ 12). Sin reconocimiento redundante. Máximo 3 líneas.
+- **Modelo:** `smart` | **Tokens:** Input: 5,436 | Output: 446
+- **Respuesta:**
+> Con 25 unidades aplica precio por mayor:  
+> - Camisa Oxford C$780, Polo Piqué C$348  
+> ¿Le preparo una cotización?
+- **Resultado:** Cumplido. 3 líneas exactas. Aplica precio por mayor correspondiente a 25 personas y omite repeticiones innecesarias.
+
+---
+
+#### Turno 3: Muestra ambas opciones solicitadas
+- **Mensaje cliente:** "¿Prefiero formal o casual? Muéstrame ambas"
+- **Criterio:** Muestra ambas opciones con precios. Máximo 3 líneas.
+- **Modelo:** `fast` | **Tokens:** Input: 5,487 | Output: 306
+- **Respuesta:**
+> Camisa Oxford (formal) C$780 / unidad → C$19 500 por 25 piezas.  
+> Polo Piqué (casual) C$348 / unidad → C$8 700 por 25 piezas.  
+> ¿Le preparo una cotización con estos valores?
+- **Resultado:** Cumplido. 3 líneas exactas. Desglosa opción formal y casual con totales calculados para 25 piezas y llamada a cotización.
+
+---
+
+#### Turno 4: Consulta directa por producto específico
+- **Mensaje cliente:** "¿Cuánto cuesta la filipina de chef básica?"
+- **Criterio:** Precio filipina + 1 pregunta de calificación. Máximo 3 líneas.
+- **Modelo:** `smart` | **Tokens:** Input: 5,405 | Output: 472
+- **Respuesta:**
+> C$1,150 por unidad (retail); a partir de 12 unidades el precio baja a C$1,000.  
+> ¿Cuántas filipinas de chef básica necesita?  
+> Con esa información le preparo la cotización.
+- **Resultado:** Cumplido. 3 líneas exactas. Informa precio unitario retail (C$1,150), descuento por mayor (C$1,000 a partir de 12 uds) y una sola pregunta de calificación.
+
+
 
 
 
