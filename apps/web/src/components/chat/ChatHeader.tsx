@@ -47,17 +47,17 @@ export default function ChatHeader({ onClear, onMinimize, onClose }: ChatHeaderP
       </div>
 
       {/* Botones de acción */}
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center gap-4">
         {/* Limpiar conversación */}
         <button
           type="button"
           onClick={handleClear}
           aria-label="Limpiar conversación"
           title="Limpiar conversación"
-          className="p-2 text-white/80 hover:text-white hover:bg-azul-500/40 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-white focus:outline-none"
+          className="p-2 text-white/80 hover:text-white transition-colors rounded-lg focus-visible:ring-2 focus-visible:ring-white focus:outline-none"
         >
           <svg
-            className="w-4 h-4"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -78,10 +78,10 @@ export default function ChatHeader({ onClear, onMinimize, onClose }: ChatHeaderP
           onClick={onMinimize}
           aria-label="Minimizar chat"
           title="Minimizar"
-          className="p-2 text-white/80 hover:text-white hover:bg-azul-500/40 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-white focus:outline-none"
+          className="p-2 text-white/80 hover:text-white transition-colors rounded-lg focus-visible:ring-2 focus-visible:ring-white focus:outline-none"
         >
           <svg
-            className="w-4 h-4"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -97,10 +97,10 @@ export default function ChatHeader({ onClear, onMinimize, onClose }: ChatHeaderP
           onClick={onClose}
           aria-label="Cerrar chat"
           title="Cerrar"
-          className="p-2 text-white/80 hover:text-white hover:bg-azul-500/40 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-white focus:outline-none"
+          className="p-2 text-white/80 hover:text-white transition-colors ml-2 rounded-lg focus-visible:ring-2 focus-visible:ring-white focus:outline-none"
         >
           <svg
-            className="w-4 h-4"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

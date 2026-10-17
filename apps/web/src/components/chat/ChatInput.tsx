@@ -55,7 +55,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
   const canSend = text.trim().length > 0 && !isOverLimit && !disabled;
 
   return (
-    <div className="border-t border-gris-200 bg-white p-3 shrink-0">
+    <div className="p-4 border-t border-beige-200 bg-white pb-[calc(1rem+env(safe-area-inset-bottom))] shrink-0">
       {/* Contador superior derecho */}
       <div className="flex justify-end pr-1 mb-1">
         <span

@@ -874,6 +874,128 @@ curl -s -X POST http://localhost:3000/api/chat \
 > ¿Le preparo una cotización formal?
 - **Resultado:** Cumplido. Recuerda exactamente los 3 productos con sus precios correspondientes sin alterar categorías ni inventar cifras.
 
+---
+
+## Pruebas Fase 4.2.10 — Eliminar Reconocimiento Redundante y Precios Prematuros
+
+Fecha de ejecución: 17 de Octubre de 2026  
+Objetivo: Validar que Dori pregunte la cantidad antes de volcar precios en consultas generales, elimine reconocimientos redundantes que no agregan valor (como "Entiendo, uniformes corporativos"), aplique precios mayoristas únicamente tras conocer el volumen, y respete estrictamente el límite de 3 líneas por respuesta.
+
+### Resultados de las 4 Pruebas de Verificación
+
+#### Turno 1: Cliente no especifica cantidad
+- **Mensaje cliente:** "Necesito uniformes para mi empresa"
+- **Criterio:** Pregunta cantidad SIN mostrar precios primero. Máximo 3 líneas.
+- **Modelo:** `fast` | **Tokens:** Input: 5,402 | Output: 191
+- **Respuesta:**
+> ¡Hola! Soy Dori de El Cacique.  
+> ¿Cuántas personas necesita uniformar?
+- **Resultado:** Cumplido. 2 líneas. No vuelca precios prematuros y pregunta directamente por la cantidad.
+
+---
+
+#### Turno 2: Cliente especifica volumen (25 personas)
+- **Mensaje cliente:** "25 personas"
+- **Criterio:** Ahora sí muestra precios (mayor, porque 25 ≥ 12). Sin reconocimiento redundante. Máximo 3 líneas.
+- **Modelo:** `smart` | **Tokens:** Input: 5,436 | Output: 446
+- **Respuesta:**
+> Con 25 unidades aplica precio por mayor:  
+> - Camisa Oxford C$780, Polo Piqué C$348  
+> ¿Le preparo una cotización?
+- **Resultado:** Cumplido. 3 líneas exactas. Aplica precio por mayor correspondiente a 25 personas y omite repeticiones innecesarias.
+
+---
+
+#### Turno 3: Muestra ambas opciones solicitadas
+- **Mensaje cliente:** "¿Prefiero formal o casual? Muéstrame ambas"
+- **Criterio:** Muestra ambas opciones con precios. Máximo 3 líneas.
+- **Modelo:** `fast` | **Tokens:** Input: 5,487 | Output: 306
+- **Respuesta:**
+> Camisa Oxford (formal) C$780 / unidad → C$19 500 por 25 piezas.  
+> Polo Piqué (casual) C$348 / unidad → C$8 700 por 25 piezas.  
+> ¿Le preparo una cotización con estos valores?
+- **Resultado:** Cumplido. 3 líneas exactas. Desglosa opción formal y casual con totales calculados para 25 piezas y llamada a cotización.
+
+---
+
+#### Turno 4: Consulta directa por producto específico
+- **Mensaje cliente:** "¿Cuánto cuesta la filipina de chef básica?"
+- **Criterio:** Precio filipina + 1 pregunta de calificación. Máximo 3 líneas.
+- **Modelo:** `smart` | **Tokens:** Input: 5,405 | Output: 472
+- **Respuesta:**
+> C$1,150 por unidad (retail); a partir de 12 unidades el precio baja a C$1,000.  
+> ¿Cuántas filipinas de chef básica necesita?  
+> Con esa información le preparo la cotización.
+- **Resultado:** Cumplido. 3 líneas exactas. Informa precio unitario retail (C$1,150), descuento por mayor (C$1,000 a partir de 12 uds) y una sola pregunta de calificación.
+
+---
+
+## Pruebas Fase 4.2.12 — Inferir Productos Según Actividad del Cliente
+
+Fecha de ejecución: 17 de Octubre de 2026  
+Objetivo: Validar que Dori infiera correctamente los productos correspondientes a la actividad o sector descrito por el cliente (trabajo motorizado, obras de construcción, restaurantes, etc.) antes de solicitar la cantidad y antes de responder prematuramente con "No dispongo de esa información confirmada", reservando dicha frase únicamente para productos ajenos al catálogo (como zapatos).
+
+### Resultados de las 5 Pruebas de Verificación
+
+#### Caso 1: Consulta por actividad ("trabajo motorizado")
+- **Mensaje cliente:** "Uniforme trabajo motorizado"
+- **Criterio:** Dori recomienda chaleco reflectivo + camiseta + gorra ANTES de preguntar cantidad.
+- **Modelo:** `fast` | **Tokens:** Input: 6,442 | Output: 269
+- **Respuesta:**
+> Para trabajo motorizado le recomiendo:  
+> - Chaleco reflectivo  
+> - Camiseta con cinta reflectiva  
+> - Gorra solar con cubre nuca  
+> ¿Cuántas personas necesita uniformar?
+- **Resultado:** Cumplido. Infiere la necesidad textil de protección vial y recomienda el conjunto adecuado antes de pedir la cantidad.
+
+---
+
+#### Caso 2: Especificación de volumen posterior (10 unidades)
+- **Mensaje cliente:** "10"
+- **Criterio:** Muestra precios correspondientes y ofrece cotización sin emitir "No dispongo".
+- **Modelo:** `smart` | **Tokens:** Input: 6,494 | Output: 442
+- **Respuesta:**
+> Chaleco reflectivo: C$862.50 × 10 = C$8,625.00  
+> Camiseta con cinta: C$339.25 × 10 = C$3,392.50  
+> Gorra solar: C$402.50 × 10 = C$4,025.00. ¿Le preparo cotización?
+- **Resultado:** Cumplido. Desglosa los totales por ítem para las 10 unidades sin rechazos ni pérdida de contexto.
+
+---
+
+#### Caso 3: Obra de construcción
+- **Mensaje cliente:** "Es para una obra de construcción"
+- **Criterio:** Dori recomienda overol + chaleco + camisa industrial.
+- **Modelo:** `fast` | **Tokens:** Input: 6,442 | Output: 281
+- **Respuesta:**
+> Para obra de construcción le recomiendo: Overol industrial, chaleco reflectivo y camisa industrial.  
+> ¿Cuántas personas necesita uniformar?
+- **Resultado:** Cumplido. Mapea la actividad a prendas industriales de alta resistencia y califica con la cantidad requerida.
+
+---
+
+#### Caso 4: Sector gastronómico ("restaurante")
+- **Mensaje cliente:** "Para mi restaurante"
+- **Criterio:** Dori recomienda filipina + pantalón + gorro.
+- **Modelo:** `fast` | **Tokens:** Input: 6,439 | Output: 456
+- **Respuesta:**
+> Para un restaurante le recomiendo: Filipina de chef, pantalón de cocina y gorro de cocina.  
+> ¿Cuántas piezas necesita?
+- **Resultado:** Cumplido. Mapeo instantáneo a la línea gastronómica y pregunta por volumen de confección.
+
+---
+
+#### Caso 5: Producto no perteneciente al catálogo ("zapatos")
+- **Mensaje cliente:** "¿Venden zapatos?"
+- **Criterio:** Dori indica "No dispongo de esa información confirmada" aclarando especialización textil.
+- **Modelo:** `fast` | **Tokens:** Input: 6,441 | Output: 458
+- **Respuesta:**
+> No dispongo de esa información confirmada.  
+> Nos especializamos en uniformes y prendas textiles.
+- **Resultado:** Cumplido. Emplea correctamente "No dispongo" como último recurso ante un producto que no forma parte del catálogo textil.
+
+
+
 
 
 
