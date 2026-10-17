@@ -185,7 +185,7 @@ export default function ChatWindow({ onClose, onMinimize }: ChatWindowProps) {
 
   return (
     <div
-      className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-6 z-50 w-full sm:w-96 h-full sm:h-[600px] bg-white sm:rounded-2xl shadow-xl flex flex-col border sm:border-gris-200 overflow-hidden animate-fade-in-delayed transition-all duration-200"
+      className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-6 z-50 w-full sm:w-96 h-full sm:h-[600px] sm:max-h-[80vh] bg-blanco sm:rounded-2xl sm:shadow-2xl flex flex-col overflow-hidden animate-fade-in-delayed transition-all duration-200"
       role="dialog"
       aria-modal="true"
       aria-label="Ventana de chat con Dori"
