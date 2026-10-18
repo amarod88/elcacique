@@ -2237,7 +2237,7 @@
     "categoria": "industriales",
     "subcategoria": "Camisas industriales",
     "nombre": "Camisa Técnica de Campo (Columbia)",
-    "descripcion": "Camisa técnica para agrónomos, ingenieros y supervisores de campo estilo Columbia. Protección solar UV, apertura trasera con malla para ventilación y mangas ajustables a 3/4.",
+    "descripcion": "Camisa técnica para agrónomos, ingenieros y supervisores de campo estilo Columbia. Protección solar UV, ventilación y mangas ajustables. Patrones de camuflaje disponibles bajo pedido (costo extra).",
     "sinonimos": [
       "camisa columbia",
       "camisa de campo",
@@ -2260,7 +2260,8 @@
       "Beige Arena",
       "Azul Cielo",
       "Verde Caqui",
-      "Blanco"
+      "Blanco",
+      "Camuflaje (bajo pedido)"
     ],
     "moq": 12,
     "precio_retail": 1104,
@@ -2278,7 +2279,8 @@
       "campo",
       "uv",
       "outdoor",
-      "tecnica"
+      "tecnica",
+      "camuflaje"
     ]
   },
   {
