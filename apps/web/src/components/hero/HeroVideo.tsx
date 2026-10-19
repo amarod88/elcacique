@@ -72,7 +72,7 @@ export function HeroVideo() {
 
       {/* Contenido con retardo de 4s (o inmediato en reduced motion) y transición suave */}
       <div
-        className={`relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center transition-all duration-800 ${
+        className={`relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-40 pb-20 text-center transition-all duration-800 ${
           showContent
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-6 pointer-events-none'
@@ -82,11 +82,11 @@ export function HeroVideo() {
           Fábrica de Uniformes en Managua
         </span>
 
-        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-blanco leading-[1.1] tracking-tight mb-6 text-balance drop-shadow-md">
+        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] tracking-tight mb-6 text-balance drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
           Uniformes que proyectan presencia. Confeccionados a su medida.
         </h1>
 
-        <p className="font-body text-base sm:text-lg md:text-xl text-beige-100/90 max-w-2xl mx-auto leading-relaxed mb-10 text-balance drop-shadow-xs">
+        <p className="font-body text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto leading-relaxed mb-10 text-balance drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
           Fábrica de uniformes con atención personalizada, bordado computarizado y entrega local en 48–72 horas.
         </p>
 
