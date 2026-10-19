@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Container } from '../../components/ui/Container';
 import { SectionTitle } from '../../components/ui/SectionTitle';
 import { ProductCard } from '../../components/catalog/ProductCard';
@@ -9,15 +9,17 @@ import { Button } from '../../components/ui/Button';
 import { productos, getCategorias, searchProductos, normalizeText } from '@el-cacique/shared';
 
 function CatalogoContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('categoria') || 'todos';
+  const initialQuery = searchParams.get('q') || '';
 
   const categorias = useMemo(() => getCategorias(), []);
 
   // Estados de filtros
   const [selectedCategoria, setSelectedCategoria] = useState<string>(initialCategory);
-  const [searchInput, setSearchInput] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [searchInput, setSearchInput] = useState(initialQuery);
+  const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
   const [suggestions, setSuggestions] = useState<typeof productos>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [sortBy, setSortBy] = useState<'relevancia' | 'precio-asc' | 'precio-desc' | 'nombre'>('relevancia');
@@ -37,6 +39,14 @@ function CatalogoContent() {
   if (initialCategory !== prevCategoryParam) {
     setPrevCategoryParam(initialCategory);
     setSelectedCategoria(initialCategory);
+    setPage(1);
+  }
+
+  const [prevQueryParam, setPrevQueryParam] = useState(initialQuery);
+  if (initialQuery !== prevQueryParam) {
+    setPrevQueryParam(initialQuery);
+    setSearchInput(initialQuery);
+    setDebouncedQuery(initialQuery);
     setPage(1);
   }
 
@@ -220,7 +230,8 @@ function CatalogoContent() {
                     <button
                       type="button"
                       onClick={() => {
-                        window.location.href = `/producto/${prod.slug}`;
+                        setShowSuggestions(false);
+                        router.push(`/producto/${prod.slug}`);
                       }}
                       className="w-full text-left px-4 py-3 hover:bg-beige-50 transition-colors flex flex-col cursor-pointer"
                     >

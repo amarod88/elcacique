@@ -10,6 +10,7 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { CategoryCard } from '../components/catalog/CategoryCard';
 import { ProductCard } from '../components/catalog/ProductCard';
+import { SearchBar } from '../components/ui/SearchBar';
 import { getCategorias, getProductosDestacados } from '@el-cacique/shared';
 
 export default function Home() {
@@ -66,6 +67,15 @@ export default function Home() {
     <div className="flex flex-col w-full">
       {/* 1. Hero con Video */}
       <HeroVideo />
+
+      {/* Buscador Predictivo */}
+      <section className="bg-beige-100/70 border-b border-azul/10 py-6 sm:py-8 shadow-xs">
+        <Container>
+          <div className="max-w-2xl mx-auto text-center flex flex-col items-center gap-2">
+            <SearchBar placeholder="¿Qué uniforme necesita hoy? Busque aquí..." />
+          </div>
+        </Container>
+      </section>
 
       {/* 2. Barra de Confianza (4 Pilares) */}
       <section className="bg-blanco border-y border-azul/10 py-8 shadow-xs">
