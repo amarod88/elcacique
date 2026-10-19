@@ -70,7 +70,7 @@ export default function Home() {
         <HeroVideo />
         
         {/* Buscador posicionado sobre el video */}
-        <div className="absolute top-24 sm:top-28 left-0 right-0 z-30 px-4">
+        <div className="absolute top-16 sm:top-20 left-0 right-0 z-30 px-4">
           <div className="max-w-2xl mx-auto">
             <SearchBar placeholder="¿Qué uniforme busca hoy?" />
           </div>

@@ -82,11 +82,11 @@ export function HeroVideo() {
           Fábrica de Uniformes en Managua
         </span>
 
-        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] tracking-tight mb-6 text-balance drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl !text-white text-white leading-[1.1] tracking-tight mb-6 text-balance drop-shadow-lg">
           Uniformes que proyectan presencia. Confeccionados a su medida.
         </h1>
 
-        <p className="font-body text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto leading-relaxed mb-10 text-balance drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+        <p className="font-body text-base sm:text-lg md:text-xl !text-white text-white max-w-2xl mx-auto leading-relaxed mb-10 text-balance drop-shadow-md">
           Fábrica de uniformes con atención personalizada, bordado computarizado y entrega local en 48–72 horas.
         </p>
 
