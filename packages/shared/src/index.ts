@@ -79,23 +79,32 @@ export function getProductosByCategoria(categoria: string): Producto[] {
 }
 
 /**
+ * Normaliza texto eliminando acentos/tildes y convirtiendo a minúsculas.
+ */
+export function normalizeText(text: string): string {
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+/**
  * Búsqueda de productos por texto libre (nombre, sinónimos, tags y descripción).
  */
 export function searchProductos(query: string): Producto[] {
   if (!query || !query.trim()) return [];
-  const cleanQuery = query.toLowerCase().trim();
+  const cleanQuery = normalizeText(query.trim());
   const words = cleanQuery.split(/\s+/).filter(Boolean);
 
   return productos.filter((p) => {
-    const textPool = [
-      p.nombre,
-      p.slug,
-      p.subcategoria,
-      p.descripcion,
-      ...p.sinonimos,
-      ...p.tags,
-      ...p.telas,
-    ].join(' ').toLowerCase();
+    const textPool = normalizeText(
+      [
+        p.nombre,
+        p.slug,
+        p.subcategoria,
+        p.descripcion,
+        ...p.sinonimos,
+        ...p.tags,
+        ...p.telas,
+      ].join(' ')
+    );
 
     return words.every((word) => textPool.includes(word));
   });

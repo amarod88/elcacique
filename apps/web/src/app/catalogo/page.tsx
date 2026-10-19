@@ -6,7 +6,7 @@ import { Container } from '../../components/ui/Container';
 import { SectionTitle } from '../../components/ui/SectionTitle';
 import { ProductCard } from '../../components/catalog/ProductCard';
 import { Button } from '../../components/ui/Button';
-import { productos, getCategorias } from '@el-cacique/shared';
+import { productos, getCategorias, searchProductos, normalizeText } from '@el-cacique/shared';
 
 function CatalogoContent() {
   const searchParams = useSearchParams();
@@ -18,6 +18,8 @@ function CatalogoContent() {
   const [selectedCategoria, setSelectedCategoria] = useState<string>(initialCategory);
   const [searchInput, setSearchInput] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [suggestions, setSuggestions] = useState<typeof productos>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [sortBy, setSortBy] = useState<'relevancia' | 'precio-asc' | 'precio-desc' | 'nombre'>('relevancia');
   const [onlyBordado, setOnlyBordado] = useState(false);
   const [onlyDestacados, setOnlyDestacados] = useState(false);
@@ -58,23 +60,23 @@ function CatalogoContent() {
       );
     }
 
-    // 2. Filtro por texto debounced
+    // 2. Filtro por texto debounced (con normalización de tildes)
     if (debouncedQuery.trim()) {
-      const q = debouncedQuery.toLowerCase().trim();
+      const q = normalizeText(debouncedQuery.trim());
       const words = q.split(/\s+/).filter(Boolean);
 
       result = result.filter((p) => {
-        const textPool = [
-          p.nombre,
-          p.id,
-          p.subcategoria,
-          p.descripcion,
-          ...p.sinonimos,
-          ...p.tags,
-          ...p.telas,
-        ]
-          .join(' ')
-          .toLowerCase();
+        const textPool = normalizeText(
+          [
+            p.nombre,
+            p.id,
+            p.subcategoria,
+            p.descripcion,
+            ...p.sinonimos,
+            ...p.tags,
+            ...p.telas,
+          ].join(' ')
+        );
 
         return words.every((word) => textPool.includes(word));
       });
@@ -134,6 +136,8 @@ function CatalogoContent() {
   const resetFilters = () => {
     setSelectedCategoria('todos');
     setSearchInput('');
+    setSuggestions([]);
+    setShowSuggestions(false);
     setDebouncedQuery('');
     setMinPrice(0);
     setMaxPrice(7000);
@@ -158,17 +162,36 @@ function CatalogoContent() {
 
         {/* Barra superior de Búsqueda y Ordenamiento */}
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 mb-8 bg-blanco p-4 rounded-xl border border-azul/10 shadow-xs">
-          {/* Input de Búsqueda con indicador de Debounce */}
-          <div className="relative flex-1 max-w-lg">
+          {/* Input de Búsqueda con buscador predictivo */}
+          <div className="relative w-full max-w-lg">
             <input
               type="text"
               placeholder="Buscar por prenda, código, tela (ej: scrub, Oxford, reflectivo)..."
               value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                setSearchInput(val);
+                if (val.trim().length > 1) {
+                  const results = searchProductos(val);
+                  setSuggestions(results.slice(0, 5));
+                  setShowSuggestions(true);
+                } else {
+                  setSuggestions([]);
+                  setShowSuggestions(false);
+                }
+              }}
+              onFocus={() => {
+                if (searchInput.trim().length > 1 && suggestions.length > 0) {
+                  setShowSuggestions(true);
+                }
+              }}
+              onBlur={() => {
+                setTimeout(() => setShowSuggestions(false), 200);
+              }}
               className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm bg-beige-100 border border-beige-200 text-marron placeholder:text-marron-400 focus:outline-none focus:border-azul"
             />
             <svg
-              className="w-4 h-4 absolute left-3.5 top-3.5 text-marron-400"
+              className="w-4 h-4 absolute left-3.5 top-3.5 text-marron-400 pointer-events-none"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -178,11 +201,37 @@ function CatalogoContent() {
             {searchInput && (
               <button
                 type="button"
-                onClick={() => setSearchInput('')}
+                onClick={() => {
+                  setSearchInput('');
+                  setSuggestions([]);
+                  setShowSuggestions(false);
+                }}
                 className="absolute right-3 top-3 text-xs text-marron-400 hover:text-azul"
               >
                 Limpiar
               </button>
+            )}
+
+            {/* Dropdown predictivo condicional */}
+            {showSuggestions && suggestions.length > 0 && (
+              <ul className="absolute z-50 w-full mt-1 bg-white border border-beige-200 rounded-lg shadow-xl overflow-hidden top-full">
+                {suggestions.map((prod) => (
+                  <li key={prod.id} className="border-b border-beige-100 last:border-0">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        window.location.href = `/producto/${prod.slug}`;
+                      }}
+                      className="w-full text-left px-4 py-3 hover:bg-beige-50 transition-colors flex flex-col cursor-pointer"
+                    >
+                      <span className="font-semibold text-azul text-sm">{prod.nombre}</span>
+                      <span className="text-xs text-marron">
+                        Desde C${prod.precio_retail || prod.precio_min || 0}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
 
@@ -191,7 +240,9 @@ function CatalogoContent() {
             <span className="font-medium whitespace-nowrap">Ordenar por:</span>
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
+              onChange={(e) =>
+                setSortBy(e.target.value as 'relevancia' | 'precio-asc' | 'precio-desc' | 'nombre')
+              }
               className="bg-beige-100 border border-beige-200 rounded-lg px-3 py-2 text-xs text-azul font-semibold focus:outline-none focus:border-azul cursor-pointer"
             >
               <option value="relevancia">Relevancia (Destacados)</option>
