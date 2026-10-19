@@ -65,17 +65,17 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-full">
-      {/* 1. Hero con Video */}
-      <HeroVideo />
-
-      {/* Buscador Predictivo */}
-      <section className="bg-beige-100/70 border-b border-azul/10 py-6 sm:py-8 shadow-xs">
-        <Container>
-          <div className="max-w-2xl mx-auto text-center flex flex-col items-center gap-2">
+      {/* 1. Hero con Video y Lupa Flotante */}
+      <div className="relative w-full">
+        <HeroVideo />
+        
+        {/* Buscador posicionado sobre el video */}
+        <div className="absolute top-32 sm:top-40 left-0 right-0 z-20 px-4">
+          <div className="max-w-2xl mx-auto">
             <SearchBar placeholder="¿Qué uniforme necesita hoy? Busque aquí..." />
           </div>
-        </Container>
-      </section>
+        </div>
+      </div>
 
       {/* 2. Barra de Confianza (4 Pilares) */}
       <section className="bg-blanco border-y border-azul/10 py-8 shadow-xs">
