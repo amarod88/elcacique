@@ -23,9 +23,13 @@ export function buildImageUrl(
   rutaRelativa: string,
   transformacion: 'card' | 'detalle' | 'thumbnail' | 'hero' = 'card'
 ): string {
-  const base = manifiestoImagenes.base_url.replace(/\/$/, '');
+  // Si la URL ya es absoluta, la devolvemos tal cual
+  if (rutaRelativa.startsWith('http')) {
+    return rutaRelativa;
+  }
+  const base = manifiestoImagenes.base_url?.replace(/\/$/, '') || '';
   const ruta = rutaRelativa.replace(/^\//, '');
-  const tr = manifiestoImagenes.transformaciones[transformacion] || '';
+  const tr = (manifiestoImagenes.transformaciones as Record<string, string>)?.[transformacion] || '';
   return `${base}/${ruta}${tr}`;
 }
 

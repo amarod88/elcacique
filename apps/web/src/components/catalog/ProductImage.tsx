@@ -1,8 +1,9 @@
-import React from 'react';
-import Image from 'next/image';
+'use client';
+
+import React, { useState } from 'react';
 import { getUrlsProducto, getImagenProducto } from '@el-cacique/shared';
 
-export interface ProductImageProps {
+interface Props {
   productoId: string;
   nombre: string;
   categoria: string;
@@ -18,36 +19,32 @@ export function ProductImage({
   transformacion = 'card',
   className = '',
   priority = false,
-}: ProductImageProps) {
+}: Props) {
+  const [error, setError] = useState(false);
   const urls = getUrlsProducto(productoId, transformacion);
   const entrada = getImagenProducto(productoId);
 
-  // Fallback elegante si no hay imagen
-  if (urls.length === 0) {
+  // Fallback elegante si no hay imagen o si falla la carga (link roto)
+  if (urls.length === 0 || error) {
     return (
-      <div
-        className={`relative aspect-4/5 w-full bg-beige-200 flex flex-col items-center justify-center border border-celeste/30 select-none overflow-hidden ${className}`.trim()}
-      >
+      <div className={`relative aspect-[4/5] bg-beige-200 flex flex-col items-center justify-center border border-celeste/30 ${className}`}>
         <span className="font-display text-6xl text-azul/20">C</span>
-        <span className="font-body text-xs text-azul/40 mt-2 px-4 text-center line-clamp-1">
-          {nombre}
-        </span>
-        <span className="font-body text-[10px] uppercase tracking-widest text-marron/40 mt-1">
-          {categoria}
-        </span>
+        <span className="font-body text-xs text-azul/40 mt-2 px-4 text-center">{nombre}</span>
+        <span className="font-body text-[10px] uppercase tracking-widest text-marron/40 mt-1">{categoria}</span>
       </div>
     );
   }
 
   return (
-    <div className={`relative aspect-4/5 w-full overflow-hidden ${className}`.trim()}>
-      <Image
+    <div className={`relative aspect-[4/5] overflow-hidden bg-white ${className}`}>
+      {/* Usamos img estándar para saltar la restricción de dominios de Next.js con hotlinks temporales */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
         src={urls[0]}
         alt={entrada?.alt ?? nombre}
-        fill
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className="object-cover"
-        priority={priority}
+        className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+        onError={() => setError(true)}
+        loading={priority ? 'eager' : 'lazy'}
       />
     </div>
   );

@@ -1,109 +1,2338 @@
 {
-  "version": "1.0.0",
-  "base_url": "https://ik.imagekit.io/klfr4wofz/el-cacique",
-  "transformaciones": {
-    "card": "?tr=w-600,q-80,f-auto",
-    "detalle": "?tr=w-1200,q-85,f-auto",
-    "thumbnail": "?tr=w-200,q-70,f-auto",
-    "hero": "?tr=w-1920,q-80,f-auto"
-  },
-  "instrucciones": {
-    "estado": {
-      "hotlink": "Imagen ya subida a ImageKit. Llenar el array 'imagenes' con las rutas relativas.",
-      "ia": "Imagen generada con IA. Llenar el array 'imagenes' una vez generada.",
-      "mockup": "Imagen de mockup profesional. Llenar el array 'imagenes' una vez generada.",
-      "pendiente_foto": "Falta foto real del producto. Pendiente de producir.",
-      "pendiente_ia": "Falta imagen. Se generará con IA usando 'prompt_ia'."
-    },
-    "formato_ruta": "Solo la ruta relativa, sin base_url ni transformaciones. Ejemplo: 'productos/med-top-001-1.jpg'"
-  },
+  "version": "2.0.0",
+  "base_url": "",
+  "transformaciones": {},
+  "nombre": "Catálogo de imágenes de referencia curadas — El Cacique",
+  "proposito": "Mapa de hotlinks directos seleccionados para cada SKU según descripción, con prioridad a vista frontal y trasera cuando se encontró un archivo que las muestra.",
+  "cantidad_productos": 80,
+  "cantidad_hotlinks": 160,
+  "advertencia": "Se abrieron visualmente 17 hotlinks directos representativos el 19/10/2026 (con previsualización del archivo de imagen). Los demás son candidatos directos curados por similitud o procedencia de resultados visuales, pero no se verificaron todos individualmente en el navegador de la aplicación. Los URL externos pueden fallar por protección hotlink, región o cambios de servidor. Las imágenes son de referencia y no oficiales; sus rasgos visibles no prueban propiedades técnicas ni derechos de uso.",
+  "reglas_integracion": [
+    "Usa el primer elemento de imagenes como candidato principal. Si vista indica frontal_y_trasera_en_mismo_archivo o vistas_multiples_frente_espalda, el archivo ya contiene varias vistas.",
+    "Usa el segundo elemento como vista trasera solo cuando el campo vista indique trasera_producto, frontal_y_trasera_en_mismo_archivo, vistas_multiples_frente_espalda o frontal_y_trasera_en_mismo_archivo. En los demás casos es alternativa visual, no trasera confirmada.",
+    "Antes de publicar, prueba cada URL en el navegador y conserva solo enlaces funcionales. La vista previa HTML muestra un aviso por imagen que falle al cargar.",
+    "No presentar estas imágenes como fotos oficiales ni dar por confirmados atributos técnicos sin una ficha de producto; comprobar licencias antes de uso público."
+  ],
   "productos": {
-    "MED-TOP-001": { "imagenes": [], "alt": "Top médico esencial azul marino con cuello en V y 3 bolsillos", "estado": "pendiente_foto" },
-    "MED-TOP-002": { "imagenes": [], "alt": "Top médico premium con elasticidad 4-way stretch y antifluido", "estado": "pendiente_foto" },
-    "MED-TOP-003": { "imagenes": [], "alt": "Top médico alta gama a medida con tela antimicrobiana", "estado": "pendiente_foto" },
-    "MED-PAN-001": { "imagenes": [], "alt": "Pantalón médico recto esencial antifluido", "estado": "pendiente_foto" },
-    "MED-PAN-002": { "imagenes": [], "alt": "Pantalón médico jogger premium con puños elásticos", "estado": "pendiente_foto" },
-    "MED-PAN-003": { "imagenes": [], "alt": "Pantalón médico cargo alta gama con múltiples bolsillos", "estado": "pendiente_foto" },
-    "MED-SET-001": { "imagenes": [], "alt": "Conjunto médico esencial top y pantalón antifluido", "estado": "pendiente_foto" },
-    "MED-SET-002": { "imagenes": [], "alt": "Conjunto médico premium top y jogger en 4-way stretch", "estado": "pendiente_foto" },
-    "MED-SET-003": { "imagenes": [], "alt": "Conjunto médico alta gama a medida con bordado premium", "estado": "pendiente_foto" },
-    "MED-GAB-001": { "imagenes": [], "alt": "Gabacha médica estándar blanca con tres bolsillos", "estado": "pendiente_foto" },
-    "MED-BAT-001": { "imagenes": [], "alt": "Bata de laboratorio 37 pulgadas blanca con botones reforzados", "estado": "pendiente_foto" },
-    "MED-BAT-002": { "imagenes": [], "alt": "Bata alta gama antifluido a medida con forro parcial", "estado": "pendiente_foto" },
-    "MED-CHA-001": { "imagenes": [], "alt": "Chaqueta clínica esencial con cierre frontal y puños elásticos", "estado": "pendiente_foto" },
-    "MED-CHA-002": { "imagenes": [], "alt": "Chaqueta clínica premium estilo bomber con cremallera metálica", "estado": "pendiente_foto" },
-    "MED-CHA-003": { "imagenes": [], "alt": "Chaqueta clínica alta gama a medida con telas técnicas", "estado": "pendiente_foto" },
-    "MED-GOR-001": { "imagenes": [], "alt": "Gorro quirúrgico unisex con tiras de amarre posterior", "estado": "pendiente_foto" },
-    "MED-GOR-002": { "imagenes": [], "alt": "Gorro quirúrgico personalizado con bordado de nombre", "estado": "pendiente_foto" },
-
-    "COR-CAM-001": { "imagenes": [], "alt": "Camisa Oxford estándar ejecutiva en algodón poliéster 60/40", "estado": "pendiente_foto" },
-    "COR-CAM-002": { "imagenes": [], "alt": "Camisa antimanchas premium con tratamiento nanotecnológico", "estado": "pendiente_foto" },
-    "COR-POL-001": { "imagenes": [], "alt": "Polo corporativo piqué con cuello y puños antienrollamiento", "estado": "pendiente_foto" },
-    "COR-POL-002": { "imagenes": [], "alt": "Polo algodón dama corte entallado femenino", "estado": "pendiente_foto" },
-    "COR-POL-003": { "imagenes": [], "alt": "Polo algodón caballero corte regular pre-encogido", "estado": "pendiente_foto" },
-    "COR-POL-004": { "imagenes": [], "alt": "Polo Waffit niño texturizado de secado rápido", "estado": "pendiente_foto" },
-    "COR-CAM-003": { "imagenes": [], "alt": "Camisa polo safari con charreteras y bolsillos frontales", "estado": "pendiente_foto" },
-    "COR-CAM-004": { "imagenes": [], "alt": "Camisa Waffit casual con textura microalveolada", "estado": "pendiente_foto" },
-    "COR-PAN-001": { "imagenes": [], "alt": "Pantalón de vestir caballero corte recto formal", "estado": "pendiente_foto" },
-    "COR-PAN-002": { "imagenes": [], "alt": "Pantalón de vestir dama silueta elegante recta", "estado": "pendiente_foto" },
-    "COR-CHA-001": { "imagenes": [], "alt": "Chaqueta U-FLIGHT estilo bomber aviador acolchada", "estado": "pendiente_foto" },
-    "COR-CHA-002": { "imagenes": [], "alt": "Chaqueta jean denim 12 oz con botones de presión", "estado": "pendiente_foto" },
-    "COR-CHA-003": { "imagenes": [], "alt": "Chaqueta impermeable con capucha ajustable y costuras termoselladas", "estado": "pendiente_foto" },
-
-    "SAS-BLA-001": { "imagenes": [], "alt": "Blazer a medida en lana tropical italiana", "estado": "pendiente_foto", "prompt_ia": "Tailored executive blazer, navy blue, front view on invisible mannequin, premium fabric, studio lighting, catalog photo." },
-    "SAS-TRA-001": { "imagenes": [], "alt": "Traje ejecutivo completo a medida saco y pantalón", "estado": "pendiente_foto", "prompt_ia": "Complete executive suit, navy blue, front view on invisible mannequin, premium fabric, studio lighting, catalog photo." },
-    "SAS-SAC-001": { "imagenes": [], "alt": "Saco ejecutivo a medida con estructura armada", "estado": "pendiente_foto", "prompt_ia": "Formal suit jacket, dark grey, front view on invisible mannequin, premium fabric, studio lighting, catalog photo." },
-    "SAS-CHA-001": { "imagenes": [], "alt": "Chaleco ejecutivo a medida con espalda de satén", "estado": "pendiente_foto", "prompt_ia": "Formal vest, navy blue with satin back, front view on invisible mannequin, premium fabric, studio lighting, catalog photo." },
-
-    "IND-OVE-001": { "imagenes": [], "alt": "Overol industrial heavy duty con cierre bidireccional reforzado", "estado": "pendiente_ia", "prompt_ia": "Heavy duty industrial coverall, navy blue, front view on invisible mannequin, white studio background, catalog photo, high detail." },
-    "IND-OVE-002": { "imagenes": [], "alt": "Overol industrial premium con cintas reflectivas 3M", "estado": "pendiente_ia", "prompt_ia": "Premium industrial coverall with 3M reflective stripes, orange and navy, front view, white studio background, catalog photo." },
-    "IND-CHA-001": { "imagenes": [], "alt": "Chaleco industrial reflectivo liso con cintas de 2 pulgadas", "estado": "pendiente_ia", "prompt_ia": "Industrial safety vest, navy blue solid, with 2-inch reflective stripes, front view, white studio background, catalog photo." },
-    "IND-CHA-002": { "imagenes": [], "alt": "Chaleco combinado azul royal con azul oscuro reflectivo", "estado": "pendiente_ia", "prompt_ia": "Industrial safety vest, royal blue and dark blue combination, with reflective stripes, front view, white studio background." },
-    "IND-CHA-003": { "imagenes": [], "alt": "Chaleco combinado naranja con azul oscuro reflectivo", "estado": "pendiente_ia", "prompt_ia": "Industrial safety vest, orange and dark blue combination, with reflective stripes, front view, white studio background." },
-    "IND-CHA-004": { "imagenes": [], "alt": "Chaleco combinado verde neón con azul oscuro reflectivo", "estado": "pendiente_ia", "prompt_ia": "Industrial safety vest, neon green and dark blue combination, with reflective stripes, front view, white studio background." },
-    "IND-CHA-005": { "imagenes": [], "alt": "Chaleco especial cuello alto con forro polar interior", "estado": "pendiente_ia", "prompt_ia": "Industrial safety vest with high collar and fleece lining, navy blue, front view, white studio background." },
-    "IND-CHA-006": { "imagenes": [], "alt": "Chaleco especial negro táctico para seguridad privada", "estado": "pendiente_ia", "prompt_ia": "Tactical black security vest with silver reflective stripes, front view, white studio background, catalog photo." },
-    "IND-CHA-007": { "imagenes": [], "alt": "Chaleco naranja poliéster V2 de señalización vial", "estado": "pendiente_ia", "prompt_ia": "Orange safety vest, polyester mesh, with reflective stripes, front view, white studio background." },
-    "IND-CHA-008": { "imagenes": [], "alt": "Chaleco verde poliéster V2 reflectivo", "estado": "pendiente_ia", "prompt_ia": "Neon green safety vest, polyester, with reflective stripes, front view, white studio background." },
-    "IND-CHA-009": { "imagenes": [], "alt": "Chaleco verde poliéster reflectivo básico", "estado": "pendiente_ia", "prompt_ia": "Basic neon green safety vest, polyester, with reflective stripes, front view, white studio background." },
-    "IND-CHA-010": { "imagenes": [], "alt": "Chaleco naranja poliéster reflectivo básico", "estado": "pendiente_ia", "prompt_ia": "Basic orange safety vest, polyester, with reflective stripes, front view, white studio background." },
-    "IND-CAM-001": { "imagenes": [], "alt": "Camisa industrial lisa con cinta reflectiva en mangas y torso", "estado": "pendiente_ia", "prompt_ia": "Industrial work shirt, navy blue solid, with reflective tape on sleeves and torso, front view, white studio background." },
-    "IND-CAM-002": { "imagenes": [], "alt": "Camisa industrial combinada bicolor con cinta reflectiva", "estado": "pendiente_ia", "prompt_ia": "Industrial work shirt, two-tone navy and orange, with reflective tape, front view, white studio background." },
-    "IND-CAM-003": { "imagenes": [], "alt": "Camisa técnica de campo estilo Columbia con protección UV", "estado": "pendiente_ia", "prompt_ia": "Technical field shirt, beige, with UV protection and back ventilation, front view, white studio background." },
-    "IND-PAN-001": { "imagenes": [], "alt": "Pantalón estilo comando sin cinta reflectiva ripstop", "estado": "pendiente_ia", "prompt_ia": "Tactical cargo pants, black ripstop, six pockets, no reflective tape, front view, white studio background." },
-    "IND-PAN-002": { "imagenes": [], "alt": "Pantalón comando con cinta reflectiva de 2 pulgadas", "estado": "pendiente_ia", "prompt_ia": "Tactical cargo pants, navy blue, with 2-inch reflective tape on legs, front view, white studio background." },
-    "IND-PAN-003": { "imagenes": [], "alt": "Pantalón Jingo con cinta reflectiva en botamangas", "estado": "pendiente_ia", "prompt_ia": "Work pants, navy blue, with reflective tape at hems, front view, white studio background." },
-    "IND-PAN-004": { "imagenes": [], "alt": "Pantalón Jingo industrial clásico sin reflectivo", "estado": "pendiente_ia", "prompt_ia": "Classic industrial work pants, navy blue drill, no reflective tape, front view, white studio background." },
-    "IND-PAN-005": { "imagenes": [], "alt": "Pantalón jeans Levis dama denim 13 oz", "estado": "pendiente_ia", "prompt_ia": "Women's industrial denim jeans, blue, 5-pocket, front view, white studio background." },
-    "IND-PAN-006": { "imagenes": [], "alt": "Pantalón jeans Levis caballero denim 14 oz", "estado": "pendiente_ia", "prompt_ia": "Men's heavy duty denim jeans, indigo blue, 5-pocket, front view, white studio background." },
-
-    "GAS-FIL-001": { "imagenes": [], "alt": "Filipina de chef básica blanca con doble botonadura cruzada", "estado": "pendiente_ia", "prompt_ia": "Classic white chef jacket, double-breasted, mandarin collar, front view, white studio background." },
-    "GAS-FIL-002": { "imagenes": [], "alt": "Filipina de chef premium con paneles Cool-Vent", "estado": "pendiente_ia", "prompt_ia": "Premium chef jacket, black with red trim, Cool-Vent panels, front view, white studio background." },
-    "GAS-FIL-003": { "imagenes": [], "alt": "Filipina de chef a medida con detalles exclusivos", "estado": "pendiente_ia", "prompt_ia": "Custom made chef jacket, premium fabric, with contrast piping, front view, white studio background." },
-    "GAS-FIL-004": { "imagenes": [], "alt": "Camisa filipina para chef de broche con cuello mao", "estado": "pendiente_ia", "prompt_ia": "Chef jacket with hidden snap buttons, white poplin, mandarin collar, front view, white studio background." },
-    "GAS-PAN-001": { "imagenes": [], "alt": "Pantalón de cocina holgado con cintura elástica y cordón", "estado": "pendiente_ia", "prompt_ia": "Chef pants, black, with elastic waist and drawstring, front view, white studio background." },
-    "GAS-GOR-001": { "imagenes": [], "alt": "Gorro de cocina negro tipo hongo con banda absorbente", "estado": "pendiente_ia", "prompt_ia": "Black chef hat, mushroom style, with absorbent band, front view, white studio background." },
-    "GAS-GOR-002": { "imagenes": [], "alt": "6 pack gorros de cocina higiénicos ajustables", "estado": "pendiente_ia", "prompt_ia": "Set of 6 chef hats, black and white, front view, white studio background." },
-
-    "ESC-POL-001": { "imagenes": [], "alt": "Polo escolar bordado con insignia institucional", "estado": "pendiente_ia", "prompt_ia": "School polo shirt, white pique, with embroidered school crest, front view, white studio background." },
-    "ESC-PAN-001": { "imagenes": [], "alt": "Pantalón escolar azul marino gabardina reforzada", "estado": "pendiente_ia", "prompt_ia": "School uniform pants, navy blue gabardine, front view, white studio background." },
-    "ESC-SET-001": { "imagenes": [], "alt": "Set formal escolar polo bordado y pantalón azul marino", "estado": "pendiente_ia", "prompt_ia": "School uniform set, white polo with crest and navy blue pants, front view, white studio background." },
-    "ESC-DEP-001": { "imagenes": [], "alt": "Set deportivo escolar camiseta y short para educación física", "estado": "pendiente_ia", "prompt_ia": "School sports set, navy blue and white, t-shirt and shorts, front view, white studio background." },
-
-    "DEP-EQU-001": { "imagenes": [], "alt": "Equipación de fútbol completa camiseta pantaloneta y medias", "estado": "pendiente_ia", "prompt_ia": "Complete soccer uniform set, blue and white, jersey, shorts and socks, front view, white studio background." },
-    "DEP-CAM-001": { "imagenes": [], "alt": "Camiseta DryFit deportiva cuello redondo", "estado": "pendiente_ia", "prompt_ia": "Sports dryfit t-shirt, navy blue, round neck, front view, white studio background." },
-    "DEP-SUD-001": { "imagenes": [], "alt": "Sudadera DryFit con capucha para entrenamiento", "estado": "pendiente_ia", "prompt_ia": "Sports dryfit hoodie, black, front view, white studio background, catalog photo." },
-    "DEP-SUD-002": { "imagenes": [], "alt": "3 pack sudadera con cinta reflectiva alta visibilidad", "estado": "pendiente_ia", "prompt_ia": "Set of 3 reflective hoodies, high visibility orange and neon green, front view, white studio background." },
-    "DEP-SUD-003": { "imagenes": [], "alt": "3 pack sudadera lisa deportiva fleece", "estado": "pendiente_ia", "prompt_ia": "Set of 3 plain hoodies, grey black and navy, fleece, front view, white studio background." },
-    "DEP-SUD-004": { "imagenes": [], "alt": "Sudadera con cinta reflectiva individual", "estado": "pendiente_ia", "prompt_ia": "Reflective hoodie, orange with 2-inch reflective stripes, front view, white studio background." },
-
-    "ACC-GOR-001": { "imagenes": [], "alt": "Gorra bordada estándar 6 paneles ajustable", "estado": "pendiente_ia", "prompt_ia": "Embroidered baseball cap, navy blue, 6 panels, adjustable strap, front view, white studio background." },
-    "ACC-GOR-002": { "imagenes": [], "alt": "Gorra solar con cubre nuca UV 50+", "estado": "pendiente_ia", "prompt_ia": "Sun cap with neck flap, beige, UV protection, front view, white studio background." },
-    "ACC-GOR-003": { "imagenes": [], "alt": "Gorra sport cap ultraligera transpirable", "estado": "pendiente_ia", "prompt_ia": "Sports running cap, lightweight polyester, black, front view, white studio background." },
-    "ACC-GOR-004": { "imagenes": [], "alt": "Gorra maya fina trucker con malla de alta densidad", "estado": "pendiente_ia", "prompt_ia": "Trucker cap with mesh back, navy and white, front view, white studio background." },
-    "ACC-GOR-005": { "imagenes": [], "alt": "Gorra Flex cerrada sin broches con banda elástica", "estado": "pendiente_ia", "prompt_ia": "Flexfit closed cap, black, no strap, front view, white studio background." },
-    "ACC-CAM-001": { "imagenes": [], "alt": "Camiseta básica algodón cuello redondo", "estado": "pendiente_ia", "prompt_ia": "Basic cotton t-shirt, white, round neck, front view, white studio background." },
-    "ACC-CAM-002": { "imagenes": [], "alt": "Camiseta con cinta reflectiva 2 pulgadas", "estado": "pendiente_ia", "prompt_ia": "Reflective t-shirt, orange with 2-inch reflective tape, front view, white studio background." },
-    "ACC-CAM-003": { "imagenes": [], "alt": "3 pack camiseta básica algodón blanco negro azul marino", "estado": "pendiente_ia", "prompt_ia": "Set of 3 basic cotton t-shirts, white black and navy, front view, white studio background." }
+    "MED-TOP-001": {
+      "imagenes": [
+        "https://www.garde-malade.ca/cdn/shop/files/081622_GARDEMALADE9767_2.jpg?v=1726765657&width=750",
+        "https://www.uniformadvantage.com/dw/image/v2/BGPS_PRD/on/demandware.static/-/Sites-UAMasterCatalog/default/dw87c9c73f/CK783/CK783_071125_NAVY_1_S.jpg?sh=890&sm=fit&sw=600"
+      ],
+      "alt": "Top médico esencial azul marino con cuello en V y 3 bolsillos",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer",
+      "referencias_detalle": [
+        {
+          "url": "https://www.garde-malade.ca/cdn/shop/files/081622_GARDEMALADE9767_2.jpg?v=1726765657&width=750",
+          "vista": "frontal_modelo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.uniformadvantage.com/dw/image/v2/BGPS_PRD/on/demandware.static/-/Sites-UAMasterCatalog/default/dw87c9c73f/CK783/CK783_071125_NAVY_1_S.jpg?sh=890&sm=fit&sw=600",
+          "vista": "frontal_producto",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta",
+      "nota_curaduria": "Top V-neck azul marino con tres bolsillos visibles; ambas referencias muestran la parte frontal. No hay trasera independiente fiable."
+    },
+    "MED-TOP-002": {
+      "imagenes": [
+        "https://www.mediscrubs.com.au/assets/full/88S0101.jpg?20251211152550",
+        "https://careeruniforms.com/cdn/shop/files/825_carribean_FRONT_CROP.jpg?v=1720299359&width=1445"
+      ],
+      "alt": "Top médico premium con elasticidad 4-way stretch y antifluido",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer",
+      "referencias_detalle": [
+        {
+          "url": "https://www.mediscrubs.com.au/assets/full/88S0101.jpg?20251211152550",
+          "vista": "frontal_producto_modelo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para tipo/color; media para propiedades técnicas",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://careeruniforms.com/cdn/shop/files/825_carribean_FRONT_CROP.jpg?v=1720299359&width=1445",
+          "vista": "frontal_producto",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para tipo/color; media para propiedades técnicas",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para tipo/color; media para propiedades técnicas",
+      "nota_curaduria": "Top scrub stretch similar. La imagen no demuestra 4-way stretch ni tratamiento antifluido."
+    },
+    "MED-TOP-003": {
+      "imagenes": [
+        "https://www.finescrubs.com/cdn/shop/files/GREY_S_ANATOMY_STRETCH_Emma_Top_4_Pocket_Scrub_Top_REGULAR_GRST011_indigo.png?v=1741155671",
+        "https://www.garde-malade.ca/cdn/shop/files/081622_GARDEMALADE9767_2.jpg?v=1726765657&width=750"
+      ],
+      "alt": "Top médico alta gama a medida con tela antimicrobiana",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer",
+      "referencias_detalle": [
+        {
+          "url": "https://www.finescrubs.com/cdn/shop/files/GREY_S_ANATOMY_STRETCH_Emma_Top_4_Pocket_Scrub_Top_REGULAR_GRST011_indigo.png?v=1741155671",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "media",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.garde-malade.ca/cdn/shop/files/081622_GARDEMALADE9767_2.jpg?v=1726765657&width=750",
+          "vista": "frontal_modelo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "media",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media",
+      "nota_curaduria": "Alternativas visuales de top scrub; no confirman fabricación a medida ni propiedad antimicrobiana. Primer archivo contiene vista frontal y trasera."
+    },
+    "MED-PAN-001": {
+      "imagenes": [
+        "https://uniformesclinicosacuarela.cl/cdn/shop/files/799-1.jpg?v=1748559512",
+        "https://doctorsvalley.mx/cdn/shop/files/09_Azul_plumbago_Mujer_005.jpg?crop=center&height=1200&v=1743092171&width=1200"
+      ],
+      "alt": "Pantalón médico recto esencial antifluido",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer",
+      "referencias_detalle": [
+        {
+          "url": "https://uniformesclinicosacuarela.cl/cdn/shop/files/799-1.jpg?v=1748559512",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para pantalón médico; media para recto/antifluido",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://doctorsvalley.mx/cdn/shop/files/09_Azul_plumbago_Mujer_005.jpg?crop=center&height=1200&v=1743092171&width=1200",
+          "vista": "frontal_modelo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para pantalón médico; media para recto/antifluido",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para pantalón médico; media para recto/antifluido",
+      "nota_curaduria": "El primer archivo muestra las dos vistas; corte recto y tratamiento antifluido deben confirmarse por ficha técnica."
+    },
+    "MED-PAN-002": {
+      "imagenes": [
+        "https://static.wixstatic.com/media/4c5ec6_77528f41c1564016916b469f42b03a5b~mv2.png/v1/fill/w_479%2Ch_488%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/4c5ec6_77528f41c1564016916b469f42b03a5b~mv2.png",
+        "https://www.tbguniforms.com/cdn/shop/files/5892blk.jpg?v=1742250975&width=1445"
+      ],
+      "alt": "Pantalón médico jogger premium con puños elásticos",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer",
+      "referencias_detalle": [
+        {
+          "url": "https://static.wixstatic.com/media/4c5ec6_77528f41c1564016916b469f42b03a5b~mv2.png/v1/fill/w_479%2Ch_488%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/4c5ec6_77528f41c1564016916b469f42b03a5b~mv2.png",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para estilo jogger",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.tbguniforms.com/cdn/shop/files/5892blk.jpg?v=1742250975&width=1445",
+          "vista": "frontal_producto",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para estilo jogger",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para estilo jogger",
+      "nota_curaduria": "La primera imagen incluye vistas frontal y trasera del jogger; la segunda es pantalón jogger frontal."
+    },
+    "MED-PAN-003": {
+      "imagenes": [
+        "https://d2j6dbq0eux0bg.cloudfront.net/images/89674814/products/719035958/5877121955.jpg",
+        "https://www.sleeklemon.com/cdn/shop/files/SELENA_EIGHT-POCKET_JOGGER_SCRUB_PANTS-_Ceil_Blue_-3.png?v=1756806680&width=3000"
+      ],
+      "alt": "Pantalón médico cargo alta gama con múltiples bolsillos",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer",
+      "referencias_detalle": [
+        {
+          "url": "https://d2j6dbq0eux0bg.cloudfront.net/images/89674814/products/719035958/5877121955.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "media-alta para cargo multi-bolsillos",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.sleeklemon.com/cdn/shop/files/SELENA_EIGHT-POCKET_JOGGER_SCRUB_PANTS-_Ceil_Blue_-3.png?v=1756806680&width=3000",
+          "vista": "frontal_modelo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "media-alta para cargo multi-bolsillos",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-alta para cargo multi-bolsillos",
+      "nota_curaduria": "Pantalón clínico multi-bolsillos; la segunda opción es jogger con muchos bolsillos y no garantiza el mismo corte."
+    },
+    "MED-SET-001": {
+      "imagenes": [
+        "https://img.ltwebstatic.com/v4/j/spmp/2025/09/21/be/1758397801bf76039451c8966367d64775bd6d32a9_thumbnail_405x552.webp",
+        "https://s.alicdn.com/%40sc04/kf/H7c482810d6544eeb9463c4097e1d9eb61/Nursing-Working-Uniform-Comfortable-Men-Scrub-Uniform-Soft-Doctor-Nurse-Suit-Stretch-V-Neck-Inner-Scrubs-Uniform.jpg"
+      ],
+      "alt": "Conjunto médico esencial top y pantalón antifluido",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer y hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://img.ltwebstatic.com/v4/j/spmp/2025/09/21/be/1758397801bf76039451c8966367d64775bd6d32a9_thumbnail_405x552.webp",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer y hombre",
+          "coincidencia_estimativa": "alta para conjunto scrub; media para detalles antifluido",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://s.alicdn.com/%40sc04/kf/H7c482810d6544eeb9463c4097e1d9eb61/Nursing-Working-Uniform-Comfortable-Men-Scrub-Uniform-Soft-Doctor-Nurse-Suit-Stretch-V-Neck-Inner-Scrubs-Uniform.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer y hombre",
+          "coincidencia_estimativa": "alta para conjunto scrub; media para detalles antifluido",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para conjunto scrub; media para detalles antifluido",
+      "nota_curaduria": "Dos referencias de conjunto completo; la primera es femenina, la segunda masculina. Propiedad antifluido no verificable visualmente."
+    },
+    "MED-SET-002": {
+      "imagenes": [
+        "https://img.ltwebstatic.com/v4/j/spmp/2025/09/21/be/1758397801bf76039451c8966367d64775bd6d32a9_thumbnail_405x552.webp",
+        "https://s.alicdn.com/%40sc04/kf/H7c482810d6544eeb9463c4097e1d9eb61/Nursing-Working-Uniform-Comfortable-Men-Scrub-Uniform-Soft-Doctor-Nurse-Suit-Stretch-V-Neck-Inner-Scrubs-Uniform.jpg"
+      ],
+      "alt": "Conjunto médico premium top y jogger en 4-way stretch",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer y hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://img.ltwebstatic.com/v4/j/spmp/2025/09/21/be/1758397801bf76039451c8966367d64775bd6d32a9_thumbnail_405x552.webp",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer y hombre",
+          "coincidencia_estimativa": "alta para conjunto scrub; media para 4-way stretch",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://s.alicdn.com/%40sc04/kf/H7c482810d6544eeb9463c4097e1d9eb61/Nursing-Working-Uniform-Comfortable-Men-Scrub-Uniform-Soft-Doctor-Nurse-Suit-Stretch-V-Neck-Inner-Scrubs-Uniform.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer y hombre",
+          "coincidencia_estimativa": "alta para conjunto scrub; media para 4-way stretch",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para conjunto scrub; media para 4-way stretch",
+      "nota_curaduria": "Vistas de conjunto femenino y masculino. La composición textil y elasticidad no se pueden validar solo con foto."
+    },
+    "MED-SET-003": {
+      "imagenes": [
+        "https://img.ltwebstatic.com/v4/j/spmp/2025/09/21/be/1758397801bf76039451c8966367d64775bd6d32a9_thumbnail_405x552.webp",
+        "https://s.alicdn.com/%40sc04/kf/H7c482810d6544eeb9463c4097e1d9eb61/Nursing-Working-Uniform-Comfortable-Men-Scrub-Uniform-Soft-Doctor-Nurse-Suit-Stretch-V-Neck-Inner-Scrubs-Uniform.jpg"
+      ],
+      "alt": "Conjunto médico alta gama a medida con bordado premium",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer y hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://img.ltwebstatic.com/v4/j/spmp/2025/09/21/be/1758397801bf76039451c8966367d64775bd6d32a9_thumbnail_405x552.webp",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer y hombre",
+          "coincidencia_estimativa": "media para conjunto a medida",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://s.alicdn.com/%40sc04/kf/H7c482810d6544eeb9463c4097e1d9eb61/Nursing-Working-Uniform-Comfortable-Men-Scrub-Uniform-Soft-Doctor-Nurse-Suit-Stretch-V-Neck-Inner-Scrubs-Uniform.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer y hombre",
+          "coincidencia_estimativa": "media para conjunto a medida",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media para conjunto a medida",
+      "nota_curaduria": "Referencia de conjunto premium aproximado; bordado y confección a medida no están representados ni confirmados."
+    },
+    "MED-GAB-001": {
+      "imagenes": [
+        "https://shopping.c.yimg.jp/lib/horikku/2b4hys1o22_1.jpg?size=n",
+        "https://a.allegroimg.com/original/110bed/4717eb8e4bf6ab06c904fb278b56/Fartuch-medyczny-meski-bialy-laboratoryjny-dla-studentow-uniform-lekarski"
+      ],
+      "alt": "Gabacha médica estándar blanca con tres bolsillos",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer y hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://shopping.c.yimg.jp/lib/horikku/2b4hys1o22_1.jpg?size=n",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer y hombre",
+          "coincidencia_estimativa": "alta para gabacha blanca; bolsillos aproximados",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://a.allegroimg.com/original/110bed/4717eb8e4bf6ab06c904fb278b56/Fartuch-medyczny-meski-bialy-laboratoryjny-dla-studentow-uniform-lekarski",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer y hombre",
+          "coincidencia_estimativa": "alta para gabacha blanca; bolsillos aproximados",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para gabacha blanca; bolsillos aproximados",
+      "nota_curaduria": "Una referencia femenina y otra masculina; ambas muestran frente y espalda en un mismo archivo."
+    },
+    "MED-BAT-001": {
+      "imagenes": [
+        "https://a.allegroimg.com/original/110bed/4717eb8e4bf6ab06c904fb278b56/Fartuch-medyczny-meski-bialy-laboratoryjny-dla-studentow-uniform-lekarski",
+        "https://cdn.shopify.com/s/files/1/0730/2296/4023/files/WW5072_white_flat_front.jpg?v=1739991740"
+      ],
+      "alt": "Bata de laboratorio 37 pulgadas blanca con botones reforzados",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / producto",
+      "referencias_detalle": [
+        {
+          "url": "https://a.allegroimg.com/original/110bed/4717eb8e4bf6ab06c904fb278b56/Fartuch-medyczny-meski-bialy-laboratoryjny-dla-studentow-uniform-lekarski",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / producto",
+          "coincidencia_estimativa": "alta para bata blanca; media para largo y botones",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://cdn.shopify.com/s/files/1/0730/2296/4023/files/WW5072_white_flat_front.jpg?v=1739991740",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / producto",
+          "coincidencia_estimativa": "alta para bata blanca; media para largo y botones",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para bata blanca; media para largo y botones",
+      "nota_curaduria": "La primera muestra modelo masculino frontal y trasera; la segunda es un producto blanco frontal. Largo exacto 37 pulgadas y botones deben validarse."
+    },
+    "MED-BAT-002": {
+      "imagenes": [
+        "https://shopping.c.yimg.jp/lib/horikku/2b4hys1o22_1.jpg?size=n",
+        "https://medelita.com/cdn/shop/files/1_md-ml11922wht_650.jpg?v=1786116369"
+      ],
+      "alt": "Bata alta gama antifluido a medida con forro parcial",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer",
+      "referencias_detalle": [
+        {
+          "url": "https://shopping.c.yimg.jp/lib/horikku/2b4hys1o22_1.jpg?size=n",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "media-alta para bata blanca femenina; media para detalles técnicos",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://medelita.com/cdn/shop/files/1_md-ml11922wht_650.jpg?v=1786116369",
+          "vista": "frontal_producto",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "media-alta para bata blanca femenina; media para detalles técnicos",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-alta para bata blanca femenina; media para detalles técnicos",
+      "nota_curaduria": "La imagen de Medelita corresponde a una bata stretch ajustada; no prueba forro parcial ni tratamiento antifluido."
+    },
+    "MED-CHA-001": {
+      "imagenes": [
+        "https://www.uniformadvantage.com/dw/image/v2/BGPS_PRD/on/demandware.static/-/Sites-UAMasterCatalog/default/dwc70f3c24/K4048/K4048_NAVY_1_S.jpg?sh=890&sm=fit&sw=600",
+        "https://img.rushordertees.com/modelImages/ww4088_02_bk.jpg?w=550&h=550&auto=format&q=75"
+      ],
+      "alt": "Chaqueta clínica esencial con cierre frontal y puños elásticos",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer / producto",
+      "referencias_detalle": [
+        {
+          "url": "https://www.uniformadvantage.com/dw/image/v2/BGPS_PRD/on/demandware.static/-/Sites-UAMasterCatalog/default/dwc70f3c24/K4048/K4048_NAVY_1_S.jpg?sh=890&sm=fit&sw=600",
+          "vista": "frontal_producto",
+          "modelo_genero": "mujer / producto",
+          "coincidencia_estimativa": "alta para chaqueta clínica con cierre",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://img.rushordertees.com/modelImages/ww4088_02_bk.jpg?w=550&h=550&auto=format&q=75",
+          "vista": "trasera_producto",
+          "modelo_genero": "mujer / producto",
+          "coincidencia_estimativa": "alta para chaqueta clínica con cierre",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para chaqueta clínica con cierre",
+      "nota_curaduria": "La segunda URL se identificó como imagen trasera de la chaqueta WonderWink; verificar carga en entorno final."
+    },
+    "MED-CHA-002": {
+      "imagenes": [
+        "https://cdn.shopify.com/s/files/1/0012/8440/7394/files/healing-hands-purple-label-scrubs-5530-jonathan-bomber-jacket-men-navy-healing-hands-1218403566.webp?v=1769611832",
+        "https://www.uniformadvantage.com/dw/image/v2/BGPS_PRD/on/demandware.static/-/Sites-UAMasterCatalog/default/dwc70f3c24/K4048/K4048_NAVY_1_S.jpg?sh=890&sm=fit&sw=600"
+      ],
+      "alt": "Chaqueta clínica premium estilo bomber con cremallera metálica",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://cdn.shopify.com/s/files/1/0012/8440/7394/files/healing-hands-purple-label-scrubs-5530-jonathan-bomber-jacket-men-navy-healing-hands-1218403566.webp?v=1769611832",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para bomber clínica; media para zipper metálico",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.uniformadvantage.com/dw/image/v2/BGPS_PRD/on/demandware.static/-/Sites-UAMasterCatalog/default/dwc70f3c24/K4048/K4048_NAVY_1_S.jpg?sh=890&sm=fit&sw=600",
+          "vista": "frontal_producto_alternativa",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para bomber clínica; media para zipper metálico",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para bomber clínica; media para zipper metálico",
+      "nota_curaduria": "La primera coincide con bomber clínico azul marino de hombre. Cremallera metálica no confirmada. Segunda es chaqueta clínica alternativa."
+    },
+    "MED-CHA-003": {
+      "imagenes": [
+        "https://img.rushordertees.com/modelImages/ww4088_02_fr.jpg?w=550&h=550&auto=format&q=75",
+        "https://img.rushordertees.com/modelImages/ww4088_02_bk.jpg?w=550&h=550&auto=format&q=75"
+      ],
+      "alt": "Chaqueta clínica alta gama a medida con telas técnicas",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer / producto",
+      "referencias_detalle": [
+        {
+          "url": "https://img.rushordertees.com/modelImages/ww4088_02_fr.jpg?w=550&h=550&auto=format&q=75",
+          "vista": "frontal_producto",
+          "modelo_genero": "mujer / producto",
+          "coincidencia_estimativa": "media-alta para chaqueta clínica de tela elástica",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://img.rushordertees.com/modelImages/ww4088_02_bk.jpg?w=550&h=550&auto=format&q=75",
+          "vista": "trasera_producto",
+          "modelo_genero": "mujer / producto",
+          "coincidencia_estimativa": "media-alta para chaqueta clínica de tela elástica",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-alta para chaqueta clínica de tela elástica",
+      "nota_curaduria": "Par frontal/trasera referenciado por los nombres de archivo del producto; probar antes de producción. No es prenda a medida."
+    },
+    "MED-GOR-001": {
+      "imagenes": [
+        "https://threadfellows.com/cdn/shop/files/wonderwink-scrubs-one-size-ceil-blue-wonderwink-workflex-scrub-cap-30804309573655.jpg?v=1696356427",
+        "https://scrub-supply.com/cdn/shop/files/P-WW400-CEIL-Front_1200x1200.webp?v=1727159531"
+      ],
+      "alt": "Gorro quirúrgico unisex con tiras de amarre posterior",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://threadfellows.com/cdn/shop/files/wonderwink-scrubs-one-size-ceil-blue-wonderwink-workflex-scrub-cap-30804309573655.jpg?v=1696356427",
+          "vista": "frontal_producto_con_tiras",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorro quirúrgico; ajuste/tiras parcialmente visibles",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://scrub-supply.com/cdn/shop/files/P-WW400-CEIL-Front_1200x1200.webp?v=1727159531",
+          "vista": "modelo_frontal",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorro quirúrgico; ajuste/tiras parcialmente visibles",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para gorro quirúrgico; ajuste/tiras parcialmente visibles",
+      "nota_curaduria": "La primera muestra la gorra con tiras de amarre; la segunda enseña uso en modelo."
+    },
+    "MED-GOR-002": {
+      "imagenes": [
+        "https://medicuscaps.com/cdn/shop/products/custom-scrub-caps-with-personalised-embroidery-scrub-cap-49100221-826538.jpg?v=1764594326",
+        "https://threadfellows.com/cdn/shop/files/wonderwink-scrubs-one-size-ceil-blue-wonderwink-workflex-scrub-cap-30804309573655.jpg?v=1696356427"
+      ],
+      "alt": "Gorro quirúrgico personalizado con bordado de nombre",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://medicuscaps.com/cdn/shop/products/custom-scrub-caps-with-personalised-embroidery-scrub-cap-49100221-826538.jpg?v=1764594326",
+          "vista": "frontal_producto_personalizado",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorro personalizable; media para bordado concreto",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://threadfellows.com/cdn/shop/files/wonderwink-scrubs-one-size-ceil-blue-wonderwink-workflex-scrub-cap-30804309573655.jpg?v=1696356427",
+          "vista": "frontal_producto_con_tiras",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorro personalizable; media para bordado concreto",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para gorro personalizable; media para bordado concreto",
+      "nota_curaduria": "La página fuente describe bordado personalizado, pero debe comprobarse que la imagen directa siga activa; el nombre bordado puede variar."
+    },
+    "COR-CAM-001": {
+      "imagenes": [
+        "https://www.webstaurantstore.com/images/products/extra_large/840603/3122884.jpg",
+        "https://www.yoshiki-trading.co.jp/la/ch1911-51-whz.jpg"
+      ],
+      "alt": "Camisa Oxford estándar ejecutiva en algodón poliéster 60/40",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/840603/3122884.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para camisa Oxford; media para mezcla 60/40",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.yoshiki-trading.co.jp/la/ch1911-51-whz.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para camisa Oxford; media para mezcla 60/40",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para camisa Oxford; media para mezcla 60/40",
+      "nota_curaduria": "La primera se indicó como Edwards Oxford; la segunda muestra frente y espalda de Oxford blanco pero no confirma composición 60/40."
+    },
+    "COR-CAM-002": {
+      "imagenes": [
+        "https://images.pexels.com/photos/7864467/pexels-photo-7864467.jpeg",
+        "https://www.yoshiki-trading.co.jp/la/ch1911-51-whz.jpg"
+      ],
+      "alt": "Camisa antimanchas premium con tratamiento nanotecnológico",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://images.pexels.com/photos/7864467/pexels-photo-7864467.jpeg",
+          "vista": "frontal_modelo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "media para camisa formal; baja para tratamiento antimanchas específico",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.yoshiki-trading.co.jp/la/ch1911-51-whz.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "media para camisa formal; baja para tratamiento antimanchas específico",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media para camisa formal; baja para tratamiento antimanchas específico",
+      "nota_curaduria": "No se localizó imagen que pruebe tratamiento nanotecnológico. Estas son referencias visuales genéricas de camisa formal."
+    },
+    "COR-POL-001": {
+      "imagenes": [
+        "https://rsbig5studio.com/cdn/shop/files/40_647eb31e-9485-49c1-889f-bf53bb07b3b5.png?v=1765945874",
+        "https://www.merchology.com/cdn/shop/products/88181-Classic-Navy-F_e50eee92-8b43-4d56-bedb-62d84d6b653f_grande.jpg?v=1749488086"
+      ],
+      "alt": "Polo corporativo piqué con cuello y puños antienrollamiento",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://rsbig5studio.com/cdn/shop/files/40_647eb31e-9485-49c1-889f-bf53bb07b3b5.png?v=1765945874",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para polo navy pique",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.merchology.com/cdn/shop/products/88181-Classic-Navy-F_e50eee92-8b43-4d56-bedb-62d84d6b653f_grande.jpg?v=1749488086",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para polo navy pique",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para polo navy pique",
+      "nota_curaduria": "La primera muestra frontal y espalda de polo masculino; la segunda es un producto polo azul marino frontal."
+    },
+    "COR-POL-002": {
+      "imagenes": [
+        "https://www.broderie-stoiber.fr/web/image/product.section.image/3990/image_1024/name?unique=d580912",
+        "https://emergencyresponderproducts.com/cdn/shop/files/propper-uniform-cotton-polo-women_s-hero-black-f58075n001.jpg?v=1767889347"
+      ],
+      "alt": "Polo algodón dama corte entallado femenino",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer",
+      "referencias_detalle": [
+        {
+          "url": "https://www.broderie-stoiber.fr/web/image/product.section.image/3990/image_1024/name?unique=d580912",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para polo femenino entallado",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://emergencyresponderproducts.com/cdn/shop/files/propper-uniform-cotton-polo-women_s-hero-black-f58075n001.jpg?v=1767889347",
+          "vista": "frontal_producto",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para polo femenino entallado",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para polo femenino entallado",
+      "nota_curaduria": "La primera es polo blanco femenino frontal/trasera; la segunda es polo uniforme de dama color negro."
+    },
+    "COR-POL-003": {
+      "imagenes": [
+        "https://rsbig5studio.com/cdn/shop/files/40_647eb31e-9485-49c1-889f-bf53bb07b3b5.png?v=1765945874",
+        "https://www.merchology.com/cdn/shop/products/88181-Classic-Navy-F_e50eee92-8b43-4d56-bedb-62d84d6b653f_grande.jpg?v=1749488086"
+      ],
+      "alt": "Polo algodón caballero corte regular pre-encogido",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://rsbig5studio.com/cdn/shop/files/40_647eb31e-9485-49c1-889f-bf53bb07b3b5.png?v=1765945874",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para polo caballero",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.merchology.com/cdn/shop/products/88181-Classic-Navy-F_e50eee92-8b43-4d56-bedb-62d84d6b653f_grande.jpg?v=1749488086",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para polo caballero",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para polo caballero",
+      "nota_curaduria": "La foto compuesta muestra polo masculino frente/espalda; pre-encogido requiere ficha técnica."
+    },
+    "COR-POL-004": {
+      "imagenes": [
+        "https://happyclover.fs-storage.jp/fs2cabinet/ps1/ps101/ps101-m-05-pl.jpg",
+        "https://imagedelivery.net/ICWTp6FWPGokq8hKKaA1Qg/41f84c52-e677-4c39-8f5d-397a135d3500/medium"
+      ],
+      "alt": "Polo Waffit niño texturizado de secado rápido",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "niño/niña",
+      "referencias_detalle": [
+        {
+          "url": "https://happyclover.fs-storage.jp/fs2cabinet/ps1/ps101/ps101-m-05-pl.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "niño/niña",
+          "coincidencia_estimativa": "alta para polo infantil; media para textura Waffit/secado rápido",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://imagedelivery.net/ICWTp6FWPGokq8hKKaA1Qg/41f84c52-e677-4c39-8f5d-397a135d3500/medium",
+          "vista": "frontal_producto",
+          "modelo_genero": "niño/niña",
+          "coincidencia_estimativa": "alta para polo infantil; media para textura Waffit/secado rápido",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para polo infantil; media para textura Waffit/secado rápido",
+      "nota_curaduria": "La primera muestra polo escolar infantil frontal/espalda; la segunda es polo infantil técnico de secado rápido. La textura exacta Waffit no está confirmada."
+    },
+    "COR-CAM-003": {
+      "imagenes": [
+        "https://i5.walmartimages.com/seo/Tag-Safari-Shooter-Shirt-for-Men-Short-Sleeve-100-Cotton-Sun-Protection-for-Outdoor-Adventures-Olive-Medium_47b6669c-1fd6-486f-8d6a-6803856ae91d.d659e7f4743f7ffcdf67a3212421f2f8.jpeg",
+        "https://www.global.bioweb.co/cdn/shop/products/colu-21542fossil_1500x.jpg?v=1571438615"
+      ],
+      "alt": "Camisa polo safari con charreteras y bolsillos frontales",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://i5.walmartimages.com/seo/Tag-Safari-Shooter-Shirt-for-Men-Short-Sleeve-100-Cotton-Sun-Protection-for-Outdoor-Adventures-Olive-Medium_47b6669c-1fd6-486f-8d6a-6803856ae91d.d659e7f4743f7ffcdf67a3212421f2f8.jpeg",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para camisa safari/campo; media para charreteras",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.global.bioweb.co/cdn/shop/products/colu-21542fossil_1500x.jpg?v=1571438615",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para camisa safari/campo; media para charreteras",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para camisa safari/campo; media para charreteras",
+      "nota_curaduria": "La primera muestra camisa safari con bolsillos; charreteras no confirmadas. La segunda es Columbia beige técnica frontal/trasera con ventilación."
+    },
+    "COR-CAM-004": {
+      "imagenes": [
+        "https://www.global.bioweb.co/cdn/shop/products/colu-21542fossil_1500x.jpg?v=1571438615",
+        "https://www.yoshiki-trading.co.jp/la/ch1911-51-whz.jpg"
+      ],
+      "alt": "Camisa Waffit casual con textura microalveolada",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://www.global.bioweb.co/cdn/shop/products/colu-21542fossil_1500x.jpg?v=1571438615",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "baja-media; alternativa de camisa casual",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.yoshiki-trading.co.jp/la/ch1911-51-whz.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "baja-media; alternativa de camisa casual",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "baja-media; alternativa de camisa casual",
+      "nota_curaduria": "No se encontró hotlink inequívoco para la camisa regional Waffit microalveolada. Estos enlaces solo sirven como referencias de camisa, no de tejido exacto."
+    },
+    "COR-PAN-001": {
+      "imagenes": [
+        "https://i.ebayimg.com/images/g/p2YAAOSwn4hfPPSP/s-l1200.jpg",
+        "https://www.webstaurantstore.com/images/products/extra_large/631452/2221151.jpg"
+      ],
+      "alt": "Pantalón de vestir caballero corte recto formal",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://i.ebayimg.com/images/g/p2YAAOSwn4hfPPSP/s-l1200.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para pantalón formal recto",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/631452/2221151.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para pantalón formal recto",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para pantalón formal recto",
+      "nota_curaduria": "La primera muestra pantalón formal navy de hombre frontal/espalda; segunda es imagen de producto similar."
+    },
+    "COR-PAN-002": {
+      "imagenes": [
+        "https://styleprofi.ru/upload/medialibrary/725/72598c045f14799bc9546d8bd2988409.jpg",
+        "https://www.webstaurantstore.com/images/products/extra_large/631332/2221366.jpg"
+      ],
+      "alt": "Pantalón de vestir dama silueta elegante recta",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer",
+      "referencias_detalle": [
+        {
+          "url": "https://styleprofi.ru/upload/medialibrary/725/72598c045f14799bc9546d8bd2988409.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para pantalón formal dama",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/631332/2221366.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para pantalón formal dama",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para pantalón formal dama",
+      "nota_curaduria": "La primera muestra pantalón recto femenino frente/espalda; segunda es flat lay de pantalón femenino azul marino."
+    },
+    "COR-CHA-001": {
+      "imagenes": [
+        "https://www.zbrojownia.pl/images/items/36617/zbrojownia-pl-kurtka-alpha-industries-engine-103101-07-granatowa-57_big.webp",
+        "https://images.pexels.com/photos/19824500/pexels-photo-19824500.jpeg"
+      ],
+      "alt": "Chaqueta U-FLIGHT estilo bomber aviador acolchada",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://www.zbrojownia.pl/images/items/36617/zbrojownia-pl-kurtka-alpha-industries-engine-103101-07-granatowa-57_big.webp",
+          "vista": "frontal_modelo_y_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "media-alta para bomber azul marino",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://images.pexels.com/photos/19824500/pexels-photo-19824500.jpeg",
+          "vista": "frontal_modelo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "media-alta para bomber azul marino",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-alta para bomber azul marino",
+      "nota_curaduria": "La imagen muestra bomber navy. El acolchado exacto tipo U-FLIGHT no está confirmado y no hay trasera independiente fiable."
+    },
+    "COR-CHA-002": {
+      "imagenes": [
+        "https://cdn03.plentymarkets.com/f71anccmr2sq/item/images/172108753/middle/172108753-BLD312J-Dark-Blue--1--172108753-BLD312J-Denim-BULLDT-Trucker-Jacke-Denimjacke-Motorradjacke-Jeansjacke-Bikerjacke-Trucker-Jacke-Freizeitjacke-aus-100-Baumwolle-BLD312J-Denim.jpg",
+        "https://images.pexels.com/photos/36607477/pexels-photo-36607477.jpeg"
+      ],
+      "alt": "Chaqueta jean denim 12 oz con botones de presión",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://cdn03.plentymarkets.com/f71anccmr2sq/item/images/172108753/middle/172108753-BLD312J-Dark-Blue--1--172108753-BLD312J-Denim-BULLDT-Trucker-Jacke-Denimjacke-Motorradjacke-Jeansjacke-Bikerjacke-Trucker-Jacke-Freizeitjacke-aus-100-Baumwolle-BLD312J-Denim.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para chaqueta denim con botones",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://images.pexels.com/photos/36607477/pexels-photo-36607477.jpeg",
+          "vista": "frontal_modelo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para chaqueta denim con botones",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para chaqueta denim con botones",
+      "nota_curaduria": "La primera muestra frente/espalda de chaqueta denim; 12 oz y botones de presión exactos requieren ficha de producto."
+    },
+    "COR-CHA-003": {
+      "imagenes": [
+        "https://m.media-amazon.com/images/I/71iDilGoIwL._AC_SL1500_.jpg",
+        "https://cdn11.bigcommerce.com/s-jgbxwr3554/images/stencil/1280x1280/products/123402/119425/BLA486619469900__39332.1655301031.jpg?c=1"
+      ],
+      "alt": "Chaqueta impermeable con capucha ajustable y costuras termoselladas",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://m.media-amazon.com/images/I/71iDilGoIwL._AC_SL1500_.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para impermeable con capucha",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://cdn11.bigcommerce.com/s-jgbxwr3554/images/stencil/1280x1280/products/123402/119425/BLA486619469900__39332.1655301031.jpg?c=1",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para impermeable con capucha",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para impermeable con capucha",
+      "nota_curaduria": "La primera muestra una chaqueta impermeable con capucha frente/espalda; las costuras termoselladas deben verificarse por ficha técnica."
+    },
+    "SAS-BLA-001": {
+      "imagenes": [
+        "https://img.magnific.com/premium-photo/navy-blue-mens-blazer_53876-986919.jpg?q=80&semt=ais_test_b&w=740",
+        "https://www.lancerto.com/media/catalog/product/m/a/marynarka-meska-granatowa-baku-10_1.jpg?width=620&height=930&store=en&image-type=image&q=80"
+      ],
+      "alt": "Blazer a medida en lana tropical italiana",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://img.magnific.com/premium-photo/navy-blue-mens-blazer_53876-986919.jpg?q=80&semt=ais_test_b&w=740",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para blazer navy; media para lana tropical italiana",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.lancerto.com/media/catalog/product/m/a/marynarka-meska-granatowa-baku-10_1.jpg?width=620&height=930&store=en&image-type=image&q=80",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para blazer navy; media para lana tropical italiana",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para blazer navy; media para lana tropical italiana",
+      "nota_curaduria": "La primera es blazer masculino frente/espalda; la segunda es producto navy aislado. La composición de lana no se confirma por la foto."
+    },
+    "SAS-TRA-001": {
+      "imagenes": [
+        "https://i5.walmartimages.com/seo/Visaccy-Men-s-Slim-Fit-Suit-Two-Button-3-Piece-Blazer-Dress-Business-Wedding-Party-Jacket-Vest-and-Pant_ce6772f5-4dc3-4cd8-b3cc-a91fac51fa35.fc9b4f27a3f8278c935fb601711df0a6.jpeg",
+        "https://cdn.shopify.com/s/files/1/1025/3059/files/NavyBlue_Full_Front_73d6360e-dcf8-4b35-83e9-491d50d03b3f_1500x2000_crop_center.jpg?v=1764883973"
+      ],
+      "alt": "Traje ejecutivo completo a medida saco y pantalón",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://i5.walmartimages.com/seo/Visaccy-Men-s-Slim-Fit-Suit-Two-Button-3-Piece-Blazer-Dress-Business-Wedding-Party-Jacket-Vest-and-Pant_ce6772f5-4dc3-4cd8-b3cc-a91fac51fa35.fc9b4f27a3f8278c935fb601711df0a6.jpeg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para traje completo navy",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://cdn.shopify.com/s/files/1/1025/3059/files/NavyBlue_Full_Front_73d6360e-dcf8-4b35-83e9-491d50d03b3f_1500x2000_crop_center.jpg?v=1764883973",
+          "vista": "frontal_modelo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para traje completo navy",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para traje completo navy",
+      "nota_curaduria": "La primera muestra traje completo frontal/espalda; la segunda es traje navy frontal. Confección a medida no está representada."
+    },
+    "SAS-SAC-001": {
+      "imagenes": [
+        "https://cdn.shopify.com/s/files/1/1025/3059/files/CharcoalGray_Jacket_Front_1500x2000_crop_center.jpg?v=1764895581",
+        "https://img.magnific.com/premium-photo/navy-blue-mens-blazer_53876-986919.jpg?q=80&semt=ais_test_b&w=740"
+      ],
+      "alt": "Saco ejecutivo a medida con estructura armada",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://cdn.shopify.com/s/files/1/1025/3059/files/CharcoalGray_Jacket_Front_1500x2000_crop_center.jpg?v=1764895581",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para saco formal; media para color y estructura exacta",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://img.magnific.com/premium-photo/navy-blue-mens-blazer_53876-986919.jpg?q=80&semt=ais_test_b&w=740",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para saco formal; media para color y estructura exacta",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para saco formal; media para color y estructura exacta",
+      "nota_curaduria": "El saco gris carbón tiene frontal directa; la segunda es un blazer navy frontal/trasera como referencia de forma. No se localizó trasera fiable gris carbón."
+    },
+    "SAS-CHA-001": {
+      "imagenes": [
+        "https://hisdern.com/cdn/shop/products/VL01V_2.jpg?v=1748253360&width=1500",
+        "https://xcdn.next.co.uk/common/items/default/default/itemimages/3_4Ratio/product/lge/790640s.jpg?im=Resize,width=750"
+      ],
+      "alt": "Chaleco ejecutivo a medida con espalda de satén",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://hisdern.com/cdn/shop/products/VL01V_2.jpg?v=1748253360&width=1500",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para chaleco formal navy y espalda satinada",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://xcdn.next.co.uk/common/items/default/default/itemimages/3_4Ratio/product/lge/790640s.jpg?im=Resize,width=750",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para chaleco formal navy y espalda satinada",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para chaleco formal navy y espalda satinada",
+      "nota_curaduria": "La primera imagen muestra frente y espalda satinada; la segunda es chaleco navy frontal alternativo."
+    },
+    "IND-OVE-001": {
+      "imagenes": [
+        "https://www.ausworkwear.com.au/cdn/shop/files/Y00010-navy-cover.png?v=1755138679&width=1080",
+        "https://i5.walmartimages.com/seo/Classic-Safety-Work-Coverall-100-Cotton-7-oz-2XL-Navy-Blue_f160892d-a6ef-44ba-9f39-d76dbb780c65.f5467abd99f85f1b73be75eb238047ad.jpeg"
+      ],
+      "alt": "Overol industrial heavy duty con cierre bidireccional reforzado",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.ausworkwear.com.au/cdn/shop/files/Y00010-navy-cover.png?v=1755138679&width=1080",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para overol navy; media para cierre bidireccional/heavy duty",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://i5.walmartimages.com/seo/Classic-Safety-Work-Coverall-100-Cotton-7-oz-2XL-Navy-Blue_f160892d-a6ef-44ba-9f39-d76dbb780c65.f5467abd99f85f1b73be75eb238047ad.jpeg",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para overol navy; media para cierre bidireccional/heavy duty",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para overol navy; media para cierre bidireccional/heavy duty",
+      "nota_curaduria": "La primera muestra overol navy frontal/espalda; el cierre bidireccional y resistencia exacta requieren ficha técnica."
+    },
+    "IND-OVE-002": {
+      "imagenes": [
+        "https://down-my.img.susercontent.com/file/cn-11134207-7ras8-m4pimvsu3w2hba",
+        "https://www.atom.com.au/cdn/shop/files/overalls_hi_vis_taped_long_dnc_3855.jpg?v=1769480561"
+      ],
+      "alt": "Overol industrial premium con cintas reflectivas 3M",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://down-my.img.susercontent.com/file/cn-11134207-7ras8-m4pimvsu3w2hba",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para overol hi-vis naranja/navy",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.atom.com.au/cdn/shop/files/overalls_hi_vis_taped_long_dnc_3855.jpg?v=1769480561",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para overol hi-vis naranja/navy",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para overol hi-vis naranja/navy",
+      "nota_curaduria": "La primera imagen muestra frente y espalda de overol reflectivo. El uso de cinta 3M no está confirmado."
+    },
+    "IND-CHA-001": {
+      "imagenes": [
+        "https://proactivegroupau.com.au/cdn/shop/files/Royal_Blue_Vest-removebg_1200x1200.png?v=1770697725",
+        "https://www.tenaquip.com/images/large/s/sgp803.jpg"
+      ],
+      "alt": "Chaleco industrial reflectivo liso con cintas de 2 pulgadas",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://proactivegroupau.com.au/cdn/shop/files/Royal_Blue_Vest-removebg_1200x1200.png?v=1770697725",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media-alta para chaleco azul reflectivo; media para cinta de 2 pulgadas",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.tenaquip.com/images/large/s/sgp803.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media-alta para chaleco azul reflectivo; media para cinta de 2 pulgadas",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-alta para chaleco azul reflectivo; media para cinta de 2 pulgadas",
+      "nota_curaduria": "Chalecos azules con reflectivo. No se confirma anchura exacta de 2 pulgadas."
+    },
+    "IND-CHA-002": {
+      "imagenes": [
+        "https://www.berrio.pt/cdn/shop/files/Colete-Refletor-Tipo-Executivo-Polyester-Laranja-Marinho.jpg?v=1754066462",
+        "https://proactivegroupau.com.au/cdn/shop/files/Royal_Blue_Vest-removebg_1200x1200.png?v=1770697725"
+      ],
+      "alt": "Chaleco combinado azul royal con azul oscuro reflectivo",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.berrio.pt/cdn/shop/files/Colete-Refletor-Tipo-Executivo-Polyester-Laranja-Marinho.jpg?v=1754066462",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media; combinación de color aproximada",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://proactivegroupau.com.au/cdn/shop/files/Royal_Blue_Vest-removebg_1200x1200.png?v=1770697725",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media; combinación de color aproximada",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media; combinación de color aproximada",
+      "nota_curaduria": "No se encontró el panel exacto royal/navy. La primera muestra naranja/navy con paneles; la segunda azul royal reflectivo."
+    },
+    "IND-CHA-003": {
+      "imagenes": [
+        "https://www.berrio.pt/cdn/shop/files/Colete-Refletor-Tipo-Executivo-Polyester-Laranja-Marinho.jpg?v=1754066462",
+        "https://www.webstaurantstore.com/images/products/extra_large/772516/2625722.jpg"
+      ],
+      "alt": "Chaleco combinado naranja con azul oscuro reflectivo",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.berrio.pt/cdn/shop/files/Colete-Refletor-Tipo-Executivo-Polyester-Laranja-Marinho.jpg?v=1754066462",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para naranja con reflectivo; media para diseño combinado navy",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/772516/2625722.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para naranja con reflectivo; media para diseño combinado navy",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para naranja con reflectivo; media para diseño combinado navy",
+      "nota_curaduria": "La primera coincide con naranja/navy frente/espalda; la segunda con chaleco naranja reflectivo, no combinado azul."
+    },
+    "IND-CHA-004": {
+      "imagenes": [
+        "https://www.webstaurantstore.com/images/products/extra_large/772766/2625847.jpg",
+        "https://media.tractorsupply.com/is/image/TractorSupplyCompany/1322616?wid=554&hei=554&qlt=90&fmt=jpeg&resMode=sharp2&op_usm=0.9,1.0,8,0"
+      ],
+      "alt": "Chaleco combinado verde neón con azul oscuro reflectivo",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/772766/2625847.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media para verde neón reflectivo; baja para panel azul oscuro",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://media.tractorsupply.com/is/image/TractorSupplyCompany/1322616?wid=554&hei=554&qlt=90&fmt=jpeg&resMode=sharp2&op_usm=0.9,1.0,8,0",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media para verde neón reflectivo; baja para panel azul oscuro",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media para verde neón reflectivo; baja para panel azul oscuro",
+      "nota_curaduria": "Los candidatos son chalecos verde lima reflectivos; ninguno confirma panel azul oscuro. Se conserva como aproximación visual."
+    },
+    "IND-CHA-005": {
+      "imagenes": [
+        "https://proactivegroupau.com.au/cdn/shop/files/Royal_Blue_Vest-removebg_1200x1200.png?v=1770697725",
+        "https://www.tenaquip.com/images/large/s/sgp803.jpg"
+      ],
+      "alt": "Chaleco especial cuello alto con forro polar interior",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://proactivegroupau.com.au/cdn/shop/files/Royal_Blue_Vest-removebg_1200x1200.png?v=1770697725",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media-baja; no se confirma cuello alto con forro polar",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.tenaquip.com/images/large/s/sgp803.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media-baja; chaleco azul reflectivo alternativo",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-baja; ninguna imagen confirma polar interior y cuello alto a la vez",
+      "nota_curaduria": "No se encontró hotlink directo fiable que confirmara a la vez cuello alto y forro polar interior. Se deja un chaleco azul reflectivo como referencia aproximada y se señala para reemplazo; validar antes de producción."
+    },
+    "IND-CHA-006": {
+      "imagenes": [
+        "https://secgear.com.au/cdn/shop/files/BlackSafetySecurityGuardVest.jpg?v=1707262762&width=1946",
+        "https://www.opticsplanet.com/i/200-200-ffffff/opplanet-rts-tactical-rts-tactical-uniform-vest-carrier-rts-740111-015-main.jpg"
+      ],
+      "alt": "Chaleco especial negro táctico para seguridad privada",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex / seguridad",
+      "referencias_detalle": [
+        {
+          "url": "https://secgear.com.au/cdn/shop/files/BlackSafetySecurityGuardVest.jpg?v=1707262762&width=1946",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex / seguridad",
+          "coincidencia_estimativa": "alta para chaleco de seguridad; media para estilo táctico negro",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.opticsplanet.com/i/200-200-ffffff/opplanet-rts-tactical-rts-tactical-uniform-vest-carrier-rts-740111-015-main.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex / seguridad",
+          "coincidencia_estimativa": "alta para chaleco de seguridad; media para estilo táctico negro",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para chaleco de seguridad; media para estilo táctico negro",
+      "nota_curaduria": "La primera imagen muestra chaleco de seguridad frontal/espalda con reflectivos; la segunda es un portaplacas táctico y es una aproximación secundaria."
+    },
+    "IND-CHA-007": {
+      "imagenes": [
+        "https://static.wixstatic.com/media/fab284_9f7abddb1b5e4160a9d5051aa7badff1~mv2.jpg/v1/fill/w_3375%2Ch_3375%2Cal_c%2Cq_90/3.jpg",
+        "https://media.tractorsupply.com/is/image/TractorSupplyCompany/1322626"
+      ],
+      "alt": "Chaleco naranja poliéster V2 de señalización vial",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://static.wixstatic.com/media/fab284_9f7abddb1b5e4160a9d5051aa7badff1~mv2.jpg/v1/fill/w_3375%2Ch_3375%2Cal_c%2Cq_90/3.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para chaleco naranja reflectivo",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://media.tractorsupply.com/is/image/TractorSupplyCompany/1322626",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para chaleco naranja reflectivo",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para chaleco naranja reflectivo",
+      "nota_curaduria": "Ambos son chalecos naranjas reflectivos; comprobar vista de producto y talla en el enlace final."
+    },
+    "IND-CHA-008": {
+      "imagenes": [
+        "https://media.tractorsupply.com/is/image/TractorSupplyCompany/1322616?wid=554&hei=554&qlt=90&fmt=jpeg&resMode=sharp2&op_usm=0.9,1.0,8,0",
+        "https://www.webstaurantstore.com/images/products/extra_large/772766/2625847.jpg"
+      ],
+      "alt": "Chaleco verde poliéster V2 reflectivo",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://media.tractorsupply.com/is/image/TractorSupplyCompany/1322616?wid=554&hei=554&qlt=90&fmt=jpeg&resMode=sharp2&op_usm=0.9,1.0,8,0",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para chaleco verde lima reflectivo; media para modelo V2 concreto",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/772766/2625847.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para chaleco verde lima reflectivo; media para modelo V2 concreto",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para chaleco verde lima reflectivo; media para modelo V2 concreto",
+      "nota_curaduria": "Verde neón reflectivo. Las fotos no permiten verificar especificación V2."
+    },
+    "IND-CHA-009": {
+      "imagenes": [
+        "https://www.webstaurantstore.com/images/products/extra_large/772766/2625847.jpg",
+        "https://media.tractorsupply.com/is/image/TractorSupplyCompany/1322616?wid=554&hei=554&qlt=90&fmt=jpeg&resMode=sharp2&op_usm=0.9,1.0,8,0"
+      ],
+      "alt": "Chaleco verde poliéster reflectivo básico",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/772766/2625847.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media para chaleco verde reflectivo básico",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://media.tractorsupply.com/is/image/TractorSupplyCompany/1322616?wid=554&hei=554&qlt=90&fmt=jpeg&resMode=sharp2&op_usm=0.9,1.0,8,0",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media para chaleco verde reflectivo básico",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media para chaleco verde reflectivo básico",
+      "nota_curaduria": "Referencias de chaleco verde básico; no se encontró imagen distinta fiable del modelo específico."
+    },
+    "IND-CHA-010": {
+      "imagenes": [
+        "https://static.wixstatic.com/media/fab284_9f7abddb1b5e4160a9d5051aa7badff1~mv2.jpg/v1/fill/w_3375%2Ch_3375%2Cal_c%2Cq_90/3.jpg",
+        "https://www.webstaurantstore.com/images/products/extra_large/773132/2627406.jpg"
+      ],
+      "alt": "Chaleco naranja poliéster reflectivo básico",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://static.wixstatic.com/media/fab284_9f7abddb1b5e4160a9d5051aa7badff1~mv2.jpg/v1/fill/w_3375%2Ch_3375%2Cal_c%2Cq_90/3.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para chaleco naranja reflectivo; media para modelo básico",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/773132/2627406.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para chaleco naranja reflectivo; media para modelo básico",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para chaleco naranja reflectivo; media para modelo básico",
+      "nota_curaduria": "Naranja reflectivo; la segunda imagen procede de una página cuyo texto y color debían verificarse."
+    },
+    "IND-CAM-001": {
+      "imagenes": [
+        "https://s.alicdn.com/%40sc04/kf/A94a8047c4eda4dc892e98535f038968f3/Construction-Reflective-Clothing-Custom-Hi-Vis-Long-Sleeve-Road-Safety-Navy-Color-Workwear-Polo-Shirts.jpeg",
+        "https://ccsind.xologic.com/vendors/7803/large/1895_e71117fd-fc26-4a0d-babb-5c2d9a80d3de.jpeg"
+      ],
+      "alt": "Camisa industrial lisa con cinta reflectiva en mangas y torso",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://s.alicdn.com/%40sc04/kf/A94a8047c4eda4dc892e98535f038968f3/Construction-Reflective-Clothing-Custom-Hi-Vis-Long-Sleeve-Road-Safety-Navy-Color-Workwear-Polo-Shirts.jpeg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para camisa navy con cinta reflectiva",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://ccsind.xologic.com/vendors/7803/large/1895_e71117fd-fc26-4a0d-babb-5c2d9a80d3de.jpeg",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para camisa navy con cinta reflectiva",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para camisa navy con cinta reflectiva",
+      "nota_curaduria": "La primera es camisa industrial navy reflectiva frente/espalda; la segunda es Pioneer con cinta reflectiva."
+    },
+    "IND-CAM-002": {
+      "imagenes": [
+        "https://www.sunsafeaustralia.com.au/cdn/shop/files/mens-lightweight-bio-motion-long-sleeve-shirtsunsafe-australia-2714280.webp?v=1773639726&width=1946",
+        "https://s.alicdn.com/%40sc04/kf/A94a8047c4eda4dc892e98535f038968f3/Construction-Reflective-Clothing-Custom-Hi-Vis-Long-Sleeve-Road-Safety-Navy-Color-Workwear-Polo-Shirts.jpeg"
+      ],
+      "alt": "Camisa industrial combinada bicolor con cinta reflectiva",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.sunsafeaustralia.com.au/cdn/shop/files/mens-lightweight-bio-motion-long-sleeve-shirtsunsafe-australia-2714280.webp?v=1773639726&width=1946",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para bicolor naranja/navy reflectiva",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://s.alicdn.com/%40sc04/kf/A94a8047c4eda4dc892e98535f038968f3/Construction-Reflective-Clothing-Custom-Hi-Vis-Long-Sleeve-Road-Safety-Navy-Color-Workwear-Polo-Shirts.jpeg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para bicolor naranja/navy reflectiva",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para bicolor naranja/navy reflectiva",
+      "nota_curaduria": "La primera coincide con camisa naranja/navy y reflectivos; la segunda navy como alternativa."
+    },
+    "IND-CAM-003": {
+      "imagenes": [
+        "https://www.global.bioweb.co/cdn/shop/products/colu-21542fossil_1500x.jpg?v=1571438615",
+        "https://cdn.military.eu/en/media/catalog/product/2/8/2857144_columbia-skien-valley-long-sleeve-insect-shield-shirt-ancient-fossil-690702.jpg?height=640&image-type=image&store=military_en&width=800"
+      ],
+      "alt": "Camisa técnica de campo estilo Columbia con protección UV",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://www.global.bioweb.co/cdn/shop/products/colu-21542fossil_1500x.jpg?v=1571438615",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para camisa técnica de campo; media para color beige y protección UV",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://cdn.military.eu/en/media/catalog/product/2/8/2857144_columbia-skien-valley-long-sleeve-insect-shield-shirt-ancient-fossil-690702.jpg?height=640&image-type=image&store=military_en&width=800",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para camisa técnica de campo; media para color beige y protección UV",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para camisa técnica de campo; media para color beige y protección UV",
+      "nota_curaduria": "La primera muestra Columbia Tamiami II frontal/espalda con ventilación. Protección UV se debe confirmar en ficha del artículo."
+    },
+    "IND-PAN-001": {
+      "imagenes": [
+        "https://down-br.img.susercontent.com/file/br-11134207-7qukw-li1otzvnsfv2e8",
+        "https://cdn.builder.io/api/v1/image/assets%2F44203814f365498eb9faf08435201e21%2F653b5c415519488ebb32b5c489c88266?quality=70&format=webp"
+      ],
+      "alt": "Pantalón estilo comando sin cinta reflectiva ripstop",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://down-br.img.susercontent.com/file/br-11134207-7qukw-li1otzvnsfv2e8",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para pantalón táctico cargo ripstop",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://cdn.builder.io/api/v1/image/assets%2F44203814f365498eb9faf08435201e21%2F653b5c415519488ebb32b5c489c88266?quality=70&format=webp",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para pantalón táctico cargo ripstop",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para pantalón táctico cargo ripstop",
+      "nota_curaduria": "La primera muestra pantalón cargo táctico negro frente/espalda; la segunda es pantalón táctico con varios bolsillos."
+    },
+    "IND-PAN-002": {
+      "imagenes": [
+        "https://ecimg.cafe24img.com/pg1329b86184208037/boxporter/web/product/tiny/20251015/672aff9bc7debe816e1b50d41e6bed57.jpg",
+        "https://cdn11.bigcommerce.com/s-20kzykhhd5/products/3241/images/10253/F127NAR__16341.1602531011.386.513.jpg?c=2"
+      ],
+      "alt": "Pantalón comando con cinta reflectiva de 2 pulgadas",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://ecimg.cafe24img.com/pg1329b86184208037/boxporter/web/product/tiny/20251015/672aff9bc7debe816e1b50d41e6bed57.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para navy con reflectivos en piernas; ubicación exacta aproximada",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://cdn11.bigcommerce.com/s-20kzykhhd5/products/3241/images/10253/F127NAR__16341.1602531011.386.513.jpg?c=2",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para navy con reflectivos en piernas; ubicación exacta aproximada",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para navy con reflectivos en piernas; ubicación exacta aproximada",
+      "nota_curaduria": "La primera muestra pantalón navy frente/espalda con cintas reflectivas; la segunda es Portwest F127 reflectivo."
+    },
+    "IND-PAN-003": {
+      "imagenes": [
+        "https://cdn11.bigcommerce.com/s-20kzykhhd5/products/3241/images/10253/F127NAR__16341.1602531011.386.513.jpg?c=2",
+        "https://ecimg.cafe24img.com/pg1329b86184208037/boxporter/web/product/tiny/20251015/672aff9bc7debe816e1b50d41e6bed57.jpg"
+      ],
+      "alt": "Pantalón Jingo con cinta reflectiva en botamangas",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://cdn11.bigcommerce.com/s-20kzykhhd5/products/3241/images/10253/F127NAR__16341.1602531011.386.513.jpg?c=2",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "media-alta para pantalón navy Jingo reflectivo",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://ecimg.cafe24img.com/pg1329b86184208037/boxporter/web/product/tiny/20251015/672aff9bc7debe816e1b50d41e6bed57.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "media-alta para pantalón navy Jingo reflectivo",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-alta para pantalón navy Jingo reflectivo",
+      "nota_curaduria": "La cinta en botamangas exactas no se confirma; ambas son aproximaciones navy con reflectivos."
+    },
+    "IND-PAN-004": {
+      "imagenes": [
+        "https://www.viccouniforms.com/images/D/dickies_P874NV_lg.jpg",
+        "https://www.webstaurantstore.com/images/products/extra_large/631876/2218243.jpg"
+      ],
+      "alt": "Pantalón Jingo industrial clásico sin reflectivo",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.viccouniforms.com/images/D/dickies_P874NV_lg.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para pantalón industrial navy sin reflectivo",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/631876/2218243.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para pantalón industrial navy sin reflectivo",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para pantalón industrial navy sin reflectivo",
+      "nota_curaduria": "La primera muestra pantalón navy industrial frente/espalda; el tejido drill de algodón no se confirma."
+    },
+    "IND-PAN-005": {
+      "imagenes": [
+        "https://cdn11.bigcommerce.com/s-ycjcgspsys/images/stencil/1500w/products/3015/3317/10003_fm__91379.1684098815.jpg?compression=lossless",
+        "https://images.pexels.com/photos/10133274/pexels-photo-10133274.jpeg"
+      ],
+      "alt": "Pantalón jeans Levis dama denim 13 oz",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "mujer",
+      "referencias_detalle": [
+        {
+          "url": "https://cdn11.bigcommerce.com/s-ycjcgspsys/images/stencil/1500w/products/3015/3317/10003_fm__91379.1684098815.jpg?compression=lossless",
+          "vista": "frontal_producto",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para jean industrial femenino; media para 13 oz",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://images.pexels.com/photos/10133274/pexels-photo-10133274.jpeg",
+          "vista": "frontal_producto_alternativa",
+          "modelo_genero": "mujer",
+          "coincidencia_estimativa": "alta para jean industrial femenino; media para 13 oz",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para jean industrial femenino; media para 13 oz",
+      "nota_curaduria": "La primera es Dickies industrial dama 5 bolsillos (denim 13 oz según ficha de origen); la segunda es denim genérico sin vista trasera."
+    },
+    "IND-PAN-006": {
+      "imagenes": [
+        "https://threadandink.com.au/cdn/shop/files/ritemate_8.png?v=1767934887&width=1445",
+        "https://mrfarmer.co.za/cdn/shop/files/mrengineer-trouser-denim.webp?v=1770800494&width=1214"
+      ],
+      "alt": "Pantalón jeans Levis caballero denim 14 oz",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://threadandink.com.au/cdn/shop/files/ritemate_8.png?v=1767934887&width=1445",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para jean de trabajo caballero; media para 14 oz",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://mrfarmer.co.za/cdn/shop/files/mrengineer-trouser-denim.webp?v=1770800494&width=1214",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "alta para jean de trabajo caballero; media para 14 oz",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para jean de trabajo caballero; media para 14 oz",
+      "nota_curaduria": "La primera muestra jeans de trabajo frente/espalda; el denim exacto 14 oz debe verificarse por ficha."
+    },
+    "GAS-FIL-001": {
+      "imagenes": [
+        "https://http2.mlstatic.com/D_NQ_NP_713887-CBT96329034863_102025-O-chaqueta-de-chef-manga-larga-filipina-uniforme-cocina-mx.webp",
+        "https://assets.katomcdn.com/q_auto,f_auto/v1704399309/products/709/094-J1052X/094-j1052x.jpg"
+      ],
+      "alt": "Filipina de chef básica blanca con doble botonadura cruzada",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://http2.mlstatic.com/D_NQ_NP_713887-CBT96329034863_102025-O-chaqueta-de-chef-manga-larga-filipina-uniforme-cocina-mx.webp",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para filipina blanca doble botonadura",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://assets.katomcdn.com/q_auto,f_auto/v1704399309/products/709/094-J1052X/094-j1052x.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para filipina blanca doble botonadura",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para filipina blanca doble botonadura",
+      "nota_curaduria": "La primera muestra filipina blanca frontal/espalda; la segunda es producto Chef Revival blanco frontal."
+    },
+    "GAS-FIL-002": {
+      "imagenes": [
+        "https://www.cdiscount.com/pdt2/9/6/2/1/700x700/mp104598962/rw/veste-de-cuisine-estivale-a-manches-courtes-et-tis.jpg",
+        "https://www.webstaurantstore.com/images/products/extra_large/668622/2305203.jpg"
+      ],
+      "alt": "Filipina de chef premium con paneles Cool-Vent",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.cdiscount.com/pdt2/9/6/2/1/700x700/mp104598962/rw/veste-de-cuisine-estivale-a-manches-courtes-et-tis.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media-alta para chaqueta negra con ventilación o ribete rojo",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/668622/2305203.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media-alta para chaqueta negra con ventilación o ribete rojo",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-alta para chaqueta negra con ventilación o ribete rojo",
+      "nota_curaduria": "La primera tiene ribete rojo y muestra dos vistas; Cool-Vent no confirmado. La segunda es chaqueta con paneles de ventilación, sin ribete rojo confirmado."
+    },
+    "GAS-FIL-003": {
+      "imagenes": [
+        "https://www.webstaurantstore.com/images/products/extra_large/665494/2297978.jpg",
+        "https://http2.mlstatic.com/D_NQ_NP_713887-CBT96329034863_102025-O-chaqueta-de-chef-manga-larga-filipina-uniforme-cocina-mx.webp"
+      ],
+      "alt": "Filipina de chef a medida con detalles exclusivos",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/665494/2297978.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para filipina premium con ribete",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://http2.mlstatic.com/D_NQ_NP_713887-CBT96329034863_102025-O-chaqueta-de-chef-manga-larga-filipina-uniforme-cocina-mx.webp",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para filipina premium con ribete",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para filipina premium con ribete",
+      "nota_curaduria": "Primera es chaqueta blanca con piping negro; segunda alternativa frontal/trasera. A medida no se puede confirmar visualmente."
+    },
+    "GAS-FIL-004": {
+      "imagenes": [
+        "https://www.webstaurantstore.com/images/products/extra_large/535217/2389670.jpg",
+        "https://http2.mlstatic.com/D_NQ_NP_713887-CBT96329034863_102025-O-chaqueta-de-chef-manga-larga-filipina-uniforme-cocina-mx.webp"
+      ],
+      "alt": "Camisa filipina para chef de broche con cuello mao",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/535217/2389670.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media-alta para camisa chef blanca con cuello mao",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://http2.mlstatic.com/D_NQ_NP_713887-CBT96329034863_102025-O-chaqueta-de-chef-manga-larga-filipina-uniforme-cocina-mx.webp",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media-alta para camisa chef blanca con cuello mao",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-alta para camisa chef blanca con cuello mao",
+      "nota_curaduria": "La primera corresponde a camisa de cocina blanca con cuello mao; broches ocultos no confirmados."
+    },
+    "GAS-PAN-001": {
+      "imagenes": [
+        "https://i.ebayimg.com/images/g/-xsAAOSwGo9lSzh9/s-l1200.jpg",
+        "https://assets.katomcdn.com/q_auto,f_auto/v1629396926/products/709/094-P020BKS/094-p020bks.jpg"
+      ],
+      "alt": "Pantalón de cocina holgado con cintura elástica y cordón",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://i.ebayimg.com/images/g/-xsAAOSwGo9lSzh9/s-l1200.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para pantalón de chef negro",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://assets.katomcdn.com/q_auto,f_auto/v1629396926/products/709/094-P020BKS/094-p020bks.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para pantalón de chef negro",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para pantalón de chef negro",
+      "nota_curaduria": "La primera muestra pantalón negro de cocina frente/espalda; el cordón y tipo de cintura deben verificarse."
+    },
+    "GAS-GOR-001": {
+      "imagenes": [
+        "https://images.thepromogroup.co.za/products/2026/08/bc-m_1786634960_hwr-03-xm-black.png",
+        "https://www.webstaurantstore.com/images/products/extra_large/228736/2999379.jpg"
+      ],
+      "alt": "Gorro de cocina negro tipo hongo con banda absorbente",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://images.thepromogroup.co.za/products/2026/08/bc-m_1786634960_hwr-03-xm-black.png",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorro hongo negro; media para banda absorbente",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/228736/2999379.jpg",
+          "vista": "frontal_producto_alternativa",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorro hongo negro; media para banda absorbente",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para gorro hongo negro; media para banda absorbente",
+      "nota_curaduria": "La primera es gorro negro tipo mushroom; la segunda es gorro ajustable genérico, no necesariamente tipo hongo."
+    },
+    "GAS-GOR-002": {
+      "imagenes": [
+        "https://www.webstaurantstore.com/images/products/extra_large/228736/2999379.jpg",
+        "https://images.thepromogroup.co.za/products/2026/08/bc-m_1786634960_hwr-03-xm-black.png"
+      ],
+      "alt": "6 pack gorros de cocina higiénicos ajustables",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/228736/2999379.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media-baja para pack de 6 ajustables",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://images.thepromogroup.co.za/products/2026/08/bc-m_1786634960_hwr-03-xm-black.png",
+          "vista": "frontal_producto_alternativa",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "media-baja para pack de 6 ajustables",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-baja para pack de 6 ajustables",
+      "nota_curaduria": "No se obtuvo un hotlink confiable que muestre el paquete de seis completo; son referencias de gorro unitario, no prueba del pack."
+    },
+    "ESC-POL-001": {
+      "imagenes": [
+        "https://happyclover.fs-storage.jp/fs2cabinet/ps1/ps101/ps101-m-05-pl.jpg",
+        "https://media.nidux.net/pull/800/800/10334/5108-product-69bdd4f301e10-imagen-pagina-2026-03-20t171456.481.png"
+      ],
+      "alt": "Polo escolar bordado con insignia institucional",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "niño/niña",
+      "referencias_detalle": [
+        {
+          "url": "https://happyclover.fs-storage.jp/fs2cabinet/ps1/ps101/ps101-m-05-pl.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "niño/niña",
+          "coincidencia_estimativa": "alta para polo escolar blanco; baja para escudo bordado exacto",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://media.nidux.net/pull/800/800/10334/5108-product-69bdd4f301e10-imagen-pagina-2026-03-20t171456.481.png",
+          "vista": "frontal_producto",
+          "modelo_genero": "niño/niña",
+          "coincidencia_estimativa": "alta para polo escolar blanco; baja para escudo bordado exacto",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para polo escolar blanco; baja para escudo bordado exacto",
+      "nota_curaduria": "La primera muestra polo infantil frente/espalda; la segunda es referencia de uniforme escolar. El escudo institucional debe sustituirse por el real."
+    },
+    "ESC-PAN-001": {
+      "imagenes": [
+        "https://media.kohlsimg.com/is/image/kohls/8692966_Navy?wid=1000&hei=1000&op_sharpen=1",
+        "https://www.viccouniforms.com/images/D/dickies_P874NV_lg.jpg"
+      ],
+      "alt": "Pantalón escolar azul marino gabardina reforzada",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "niño (primera) / adulto (alternativa)",
+      "referencias_detalle": [
+        {
+          "url": "https://media.kohlsimg.com/is/image/kohls/8692966_Navy?wid=1000&hei=1000&op_sharpen=1",
+          "vista": "frontal_producto",
+          "modelo_genero": "niño (primera) / adulto (alternativa)",
+          "coincidencia_estimativa": "alta para pantalón escolar navy; media para gabardina reforzada",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.viccouniforms.com/images/D/dickies_P874NV_lg.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "niño (primera) / adulto (alternativa)",
+          "coincidencia_estimativa": "alta para pantalón escolar navy; media para gabardina reforzada",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para pantalón escolar navy; media para gabardina reforzada",
+      "nota_curaduria": "La primera es pantalón escolar infantil navy; la segunda muestra forma frontal/trasera de pantalón navy pero es adulto. Preferir la primera para UI infantil."
+    },
+    "ESC-SET-001": {
+      "imagenes": [
+        "https://media.nidux.net/pull/800/800/10334/5108-product-69bdd4f301e10-imagen-pagina-2026-03-20t171456.481.png",
+        "https://happyclover.fs-storage.jp/fs2cabinet/ps1/ps101/ps101-m-05-pl.jpg"
+      ],
+      "alt": "Set formal escolar polo bordado y pantalón azul marino",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "niño/niña",
+      "referencias_detalle": [
+        {
+          "url": "https://media.nidux.net/pull/800/800/10334/5108-product-69bdd4f301e10-imagen-pagina-2026-03-20t171456.481.png",
+          "vista": "frontal_uniforme",
+          "modelo_genero": "niño/niña",
+          "coincidencia_estimativa": "media-alta para polo blanco + pantalón navy",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://happyclover.fs-storage.jp/fs2cabinet/ps1/ps101/ps101-m-05-pl.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "niño/niña",
+          "coincidencia_estimativa": "media-alta para polo blanco + pantalón navy",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media-alta para polo blanco + pantalón navy",
+      "nota_curaduria": "No se encontró una foto confiable del set exacto en frente/espalda; la segunda muestra solo el polo infantil."
+    },
+    "ESC-DEP-001": {
+      "imagenes": [
+        "https://www.nissen.co.jp/img/item/CKS01/CKS0124B0010/CKS0124B0010_x_a005.jpg",
+        "https://sport-direct-aarhus.dk/cdn/shop/files/Guldpakken_1c92beeb-63ce-4fde-8da5-914820aad2e5.png?v=1704990213&width=533"
+      ],
+      "alt": "Set deportivo escolar camiseta y short para educación física",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "niño/niña",
+      "referencias_detalle": [
+        {
+          "url": "https://www.nissen.co.jp/img/item/CKS01/CKS0124B0010/CKS0124B0010_x_a005.jpg",
+          "vista": "frontal_lateral_trasera",
+          "modelo_genero": "niño/niña",
+          "coincidencia_estimativa": "alta para conjunto deportivo infantil; media para diseño específico",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://sport-direct-aarhus.dk/cdn/shop/files/Guldpakken_1c92beeb-63ce-4fde-8da5-914820aad2e5.png?v=1704990213&width=533",
+          "vista": "frontal_producto",
+          "modelo_genero": "niño/niña",
+          "coincidencia_estimativa": "alta para conjunto deportivo infantil; media para diseño específico",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para conjunto deportivo infantil; media para diseño específico",
+      "nota_curaduria": "La primera muestra niño con camiseta y short y vistas del conjunto; la segunda es un kit deportivo genérico."
+    },
+    "DEP-EQU-001": {
+      "imagenes": [
+        "https://www.easemartus.com/cdn/shop/files/S752048.png?v=1697710376",
+        "https://umbroteamwear.com.au/cdn/shop/files/default_product_image_81e96f68-e663-4cb3-9c45-1c2f67301b07.jpg?v=1761706716&width=2000"
+      ],
+      "alt": "Equipación de fútbol completa camiseta pantaloneta y medias",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "niño/adulto; unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.easemartus.com/cdn/shop/files/S752048.png?v=1697710376",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "niño/adulto; unisex",
+          "coincidencia_estimativa": "alta para equipación fútbol azul/blanco",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://umbroteamwear.com.au/cdn/shop/files/default_product_image_81e96f68-e663-4cb3-9c45-1c2f67301b07.jpg?v=1761706716&width=2000",
+          "vista": "frontal_producto",
+          "modelo_genero": "niño/adulto; unisex",
+          "coincidencia_estimativa": "alta para equipación fútbol azul/blanco",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para equipación fútbol azul/blanco",
+      "nota_curaduria": "La primera muestra camisa, pantaloneta y medias con vistas frontal/trasera; verificar si la talla final es infantil o adulta."
+    },
+    "DEP-CAM-001": {
+      "imagenes": [
+        "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
+        "https://merxstore.mx/cdn/shop/files/074946-R06.jpg?v=1697560912&width=1500"
+      ],
+      "alt": "Camiseta DryFit deportiva cuello redondo",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre",
+      "referencias_detalle": [
+        {
+          "url": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
+          "vista": "frontal_modelo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "media para camiseta deportiva cuello redondo; baja-media para DryFit exacto",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://merxstore.mx/cdn/shop/files/074946-R06.jpg?v=1697560912&width=1500",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre",
+          "coincidencia_estimativa": "media para camiseta deportiva cuello redondo; baja-media para DryFit exacto",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "media para camiseta deportiva cuello redondo; baja-media para DryFit exacto",
+      "nota_curaduria": "No se encontró modelo DryFit navy con frontal/trasera confirmada. La segunda es camiseta blanca de algodón y funciona solo para forma de corte."
+    },
+    "DEP-SUD-001": {
+      "imagenes": [
+        "https://images.asos-media.com/products/4505-quick-dry-performance-jersey-training-hoodie-in-black/207214284-1-black",
+        "https://images.pexels.com/photos/2373539/pexels-photo-2373539.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200"
+      ],
+      "alt": "Sudadera DryFit con capucha para entrenamiento",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://images.asos-media.com/products/4505-quick-dry-performance-jersey-training-hoodie-in-black/207214284-1-black",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para hoodie negro quick-dry",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://images.pexels.com/photos/2373539/pexels-photo-2373539.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
+          "vista": "frontal_modelo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para hoodie negro quick-dry",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para hoodie negro quick-dry",
+      "nota_curaduria": "La primera es hoodie negro de entrenamiento; no se encontró vista trasera fiable independiente."
+    },
+    "DEP-SUD-002": {
+      "imagenes": [
+        "https://m.media-amazon.com/images/I/61c03u9CvTL._AC_SL1500_.jpg",
+        "https://www.zoro.com/static/cms/product/full/Z-rCswocpIx_.JPG"
+      ],
+      "alt": "3 pack sudadera con cinta reflectiva alta visibilidad",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://m.media-amazon.com/images/I/61c03u9CvTL._AC_SL1500_.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para hoodie reflectivo naranja/verde",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www.zoro.com/static/cms/product/full/Z-rCswocpIx_.JPG",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para hoodie reflectivo naranja/verde",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para hoodie reflectivo naranja/verde",
+      "nota_curaduria": "La primera muestra sudaderas hi-vis en colores naranja y lima y dos vistas; la segunda es hoodie naranja reflectivo unitario. El pack de 3 requiere validación comercial."
+    },
+    "DEP-SUD-003": {
+      "imagenes": [
+        "https://i5.walmartimages.com/seo/3-Pack-Men-s-Crew-Neck-Fleece-Lined-Pullover-Sweatshirt-S-2XL_82b9096f-4184-4051-93ce-0d7b1ae613b3.b1b0463423ec487630f354bad5447a67.jpeg",
+        "https://images.unsplash.com/photo-1516988558792-0962383cd9d0?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "alt": "3 pack sudadera lisa deportiva fleece",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://i5.walmartimages.com/seo/3-Pack-Men-s-Crew-Neck-Fleece-Lined-Pullover-Sweatshirt-S-2XL_82b9096f-4184-4051-93ce-0d7b1ae613b3.b1b0463423ec487630f354bad5447a67.jpeg",
+          "vista": "frontal_pack_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para pack de 3 fleece; media para colores exactos",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1516988558792-0962383cd9d0?auto=format&fit=crop&w=1200&q=80",
+          "vista": "frontal_producto_alternativa",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para pack de 3 fleece; media para colores exactos",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para pack de 3 fleece; media para colores exactos",
+      "nota_curaduria": "La primera está asociada a un pack de tres sudaderas lisas; confirmar combinación grey/black/navy en el origen. Segunda referencia única de sudadera gris."
+    },
+    "DEP-SUD-004": {
+      "imagenes": [
+        "https://www.zoro.com/static/cms/product/full/Z-rCswocpIx_.JPG",
+        "https://flare.fullsource.com/images/items/a/273/TNG-S78129-A_273x0.jpg"
+      ],
+      "alt": "Sudadera con cinta reflectiva individual",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.zoro.com/static/cms/product/full/Z-rCswocpIx_.JPG",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para hoodie naranja reflectivo",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://flare.fullsource.com/images/items/a/273/TNG-S78129-A_273x0.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para hoodie naranja reflectivo",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para hoodie naranja reflectivo",
+      "nota_curaduria": "Sudadera naranja con bandas reflectivas; no hay trasera independiente confirmada."
+    },
+    "ACC-GOR-001": {
+      "imagenes": [
+        "https://cdn11.bigcommerce.com/s-zyp1ecf8fo/images/stencil/1280x1280/products/786/2488/3965__40327.1776983115.jpg?c=1",
+        "https://www2.assets-gap.com/webcontent/0059/444/781/cn59444781.jpg"
+      ],
+      "alt": "Gorra bordada estándar 6 paneles ajustable",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://cdn11.bigcommerce.com/s-zyp1ecf8fo/images/stencil/1280x1280/products/786/2488/3965__40327.1776983115.jpg?c=1",
+          "vista": "vistas_multiples_frente_espalda",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorra 6 paneles navy ajustable; bordado requiere diseño",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://www2.assets-gap.com/webcontent/0059/444/781/cn59444781.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorra 6 paneles navy ajustable; bordado requiere diseño",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para gorra 6 paneles navy ajustable; bordado requiere diseño",
+      "nota_curaduria": "La primera muestra varias vistas de la gorra incluida vista trasera; no está bordada con logo de El Cacique."
+    },
+    "ACC-GOR-002": {
+      "imagenes": [
+        "https://static.cimalp.fr/46888-large_default/gorra-sahariana.jpg",
+        "https://i5.walmartimages.com/seo/Deago-Men-s-Outdoor-Sun-Hat-with-Face-Neck-Flap-UV-Protection-Wide-Brim-Fishing-Cap-for-Hiking-Safari-UPF-50-Beige_5d5d2bae-9518-4074-9b1f-fb7b7267ed7e.015721017565586f27528090875f7775.jpeg"
+      ],
+      "alt": "Gorra solar con cubre nuca UV 50+",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://static.cimalp.fr/46888-large_default/gorra-sahariana.jpg",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorra solar beige con cubre nuca; media para diseño visera",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://i5.walmartimages.com/seo/Deago-Men-s-Outdoor-Sun-Hat-with-Face-Neck-Flap-UV-Protection-Wide-Brim-Fishing-Cap-for-Hiking-Safari-UPF-50-Beige_5d5d2bae-9518-4074-9b1f-fb7b7267ed7e.015721017565586f27528090875f7775.jpeg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorra solar beige con cubre nuca; media para diseño visera",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para gorra solar beige con cubre nuca; media para diseño visera",
+      "nota_curaduria": "La primera muestra gorra sahariana con cubre nuca y varias vistas. La segunda tiene ala más ancha y cubre nuca."
+    },
+    "ACC-GOR-003": {
+      "imagenes": [
+        "https://mmtf.my/wp-content/uploads/2024/09/KAILAS-TRAIL-RUN-BASEBALL-CAP-BLACK.png",
+        "https://images.ctfassets.net/hnk2vsx53n6l/7sGkR5upkWkEb6nKMXdGWl/881d572c4c648302f97ec8f16eaf0ab8/623ae562d38b7f4e7406f7631179778d9e541f88.jpg?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp"
+      ],
+      "alt": "Gorra sport cap ultraligera transpirable",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://mmtf.my/wp-content/uploads/2024/09/KAILAS-TRAIL-RUN-BASEBALL-CAP-BLACK.png",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para sport cap negra ligera/transpirable",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://images.ctfassets.net/hnk2vsx53n6l/7sGkR5upkWkEb6nKMXdGWl/881d572c4c648302f97ec8f16eaf0ab8/623ae562d38b7f4e7406f7631179778d9e541f88.jpg?w=1200&h=630&fit=pad&bg=rgb:ffffff&q=85&fm=webp",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para sport cap negra ligera/transpirable",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para sport cap negra ligera/transpirable",
+      "nota_curaduria": "La primera muestra gorra técnica de carrera frente/espalda; la segunda es una gorra ultraligera negra de marca deportiva."
+    },
+    "ACC-GOR-004": {
+      "imagenes": [
+        "https://stanthorpeworkwear.com.au/media/ah295_view-1.jpg",
+        "https://grha.org/cdn/shop/files/unnamed_3_grande.jpg?v=1687281236"
+      ],
+      "alt": "Gorra maya fina trucker con malla de alta densidad",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://stanthorpeworkwear.com.au/media/ah295_view-1.jpg",
+          "vista": "vistas_multiples_frente_espalda",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para trucker navy/blanco con malla",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://grha.org/cdn/shop/files/unnamed_3_grande.jpg?v=1687281236",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para trucker navy/blanco con malla",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para trucker navy/blanco con malla",
+      "nota_curaduria": "La primera muestra gorra trucker en varios ángulos, incluida espalda con malla."
+    },
+    "ACC-GOR-005": {
+      "imagenes": [
+        "https://contents.mediadecathlon.com/m22293843/k$a9551dbc21473efb488d8d04f89361ae/picture.jpg?format=auto&f=3000x0",
+        "https://cdn11.bigcommerce.com/s-zyp1ecf8fo/images/stencil/1280x1280/products/786/2488/3965__40327.1776983115.jpg?c=1"
+      ],
+      "alt": "Gorra Flex cerrada sin broches con banda elástica",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://contents.mediadecathlon.com/m22293843/k$a9551dbc21473efb488d8d04f89361ae/picture.jpg?format=auto&f=3000x0",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorra Flex cerrada; media para marca/modelo",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://cdn11.bigcommerce.com/s-zyp1ecf8fo/images/stencil/1280x1280/products/786/2488/3965__40327.1776983115.jpg?c=1",
+          "vista": "vistas_multiples_frente_espalda",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para gorra Flex cerrada; media para marca/modelo",
+          "verificacion": "vista_resultado_busqueda",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para gorra Flex cerrada; media para marca/modelo",
+      "nota_curaduria": "Primera es gorra elástica tipo Flexfit sin broches. Segunda es gorra navy estructurada con cierre y sirve solo como referencia alternativa."
+    },
+    "ACC-CAM-001": {
+      "imagenes": [
+        "https://merxstore.mx/cdn/shop/files/074946-R06.jpg?v=1697560912&width=1500",
+        "https://cdn11.bigcommerce.com/s-rxzabllq/product_images/attribute_rule_images/19990260_source_1729268738.jpg"
+      ],
+      "alt": "Camiseta básica algodón cuello redondo",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://merxstore.mx/cdn/shop/files/074946-R06.jpg?v=1697560912&width=1500",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para camiseta blanca cuello redondo; media para algodón exacto",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://cdn11.bigcommerce.com/s-rxzabllq/product_images/attribute_rule_images/19990260_source_1729268738.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para camiseta blanca cuello redondo; media para algodón exacto",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para camiseta blanca cuello redondo; media para algodón exacto",
+      "nota_curaduria": "La primera muestra camiseta blanca frontal/espalda en modelo; la segunda es un flat product shot blanco."
+    },
+    "ACC-CAM-002": {
+      "imagenes": [
+        "https://www.webstaurantstore.com/images/products/extra_large/779043/2644216.jpg",
+        "https://media.bunnings.com.au/api/public/content/586ae77df1d74dfa8f004b81f2e0363a?t=w1200&v=7f4c7cd2"
+      ],
+      "alt": "Camiseta con cinta reflectiva 2 pulgadas",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.webstaurantstore.com/images/products/extra_large/779043/2644216.jpg",
+          "vista": "frontal_producto",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para camiseta hi-vis naranja reflectiva; la cinta de 2 pulgadas debe confirmarse",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://media.bunnings.com.au/api/public/content/586ae77df1d74dfa8f004b81f2e0363a?t=w1200&v=7f4c7cd2",
+          "vista": "frontal_producto_alternativa",
+          "modelo_genero": "unisex",
+          "coincidencia_estimativa": "alta para camiseta hi-vis naranja reflectiva; la cinta de 2 pulgadas debe confirmarse",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para camiseta hi-vis naranja reflectiva; la cinta de 2 pulgadas debe confirmarse",
+      "nota_curaduria": "La primera corresponde a camiseta Cordova Cor-Brite naranja reflectiva; la segunda es referencia alternativa de camiseta de seguridad."
+    },
+    "ACC-CAM-003": {
+      "imagenes": [
+        "https://www.careofcarl.com/bilder/artiklar/600x600_grey_4_5/29168911r.jpg",
+        "https://merxstore.mx/cdn/shop/files/074946-R06.jpg?v=1697560912&width=1500"
+      ],
+      "alt": "3 pack camiseta básica algodón blanco negro azul marino",
+      "estado": "referencia_curada_pendiente_de_prueba_final",
+      "audiencia_objetivo": "hombre / unisex",
+      "referencias_detalle": [
+        {
+          "url": "https://www.careofcarl.com/bilder/artiklar/600x600_grey_4_5/29168911r.jpg",
+          "vista": "frontal_pack_producto",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para pack de tees blanco/navy/negro; media para mezcla de algodón y logo",
+          "verificacion": "pendiente_prueba_en_app",
+          "tipo_url": "archivo_imagen_directo"
+        },
+        {
+          "url": "https://merxstore.mx/cdn/shop/files/074946-R06.jpg?v=1697560912&width=1500",
+          "vista": "frontal_y_trasera_en_mismo_archivo",
+          "modelo_genero": "hombre / unisex",
+          "coincidencia_estimativa": "alta para pack de tees blanco/navy/negro; media para mezcla de algodón y logo",
+          "verificacion": "hotlink_abierto_visualmente_2026-10-19",
+          "tipo_url": "archivo_imagen_directo"
+        }
+      ],
+      "coincidencia_estimativa": "alta para pack de tees blanco/navy/negro; media para mezcla de algodón y logo",
+      "nota_curaduria": "La primera es pack BOSS de tres camisetas blanco/navy/negro (logo marca visible); la segunda es camiseta blanca frontal/espalda genérica."
+    }
   }
 }
