@@ -62,5 +62,5 @@ export function selectModel(
 
   // Usar 'fast' (openai/gpt-oss-20b) por defecto para respuestas rápidas (<1s),
   // evitando timeouts de 15s y sobrecarga de tokens en Groq.
-  return 'fast';
+  return 'smart';
 }
