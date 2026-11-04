@@ -128,7 +128,7 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
               <Button variant="primary" size="lg" className="w-full text-lg shadow-lg">
                 Agregar al Carrito
               </Button>
-              <Button variant="outline" size="lg" className="w-full">
+              <Button variant="secondary" size="lg" className="w-full">
                 Solicitar Cotización Personalizada
               </Button>
             </div>

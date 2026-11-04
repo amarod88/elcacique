@@ -90,10 +90,9 @@ export default function CarritoPage() {
                       <div className="flex items-center gap-4">
                         <div className="w-16 h-20 rounded-xl bg-beige-100 border border-beige-200 overflow-hidden shrink-0">
                           <ProductImage
-                            productoId={item.productoId}
+                            imagenes={[]}
                             nombre={item.nombre}
                             categoria={item.categoria}
-                            transformacion="thumbnail"
                           />
                         </div>
                         <div className="flex flex-col">
