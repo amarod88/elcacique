@@ -1,64 +1,144 @@
-import React from 'react';
-import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { productos, getProductoBySlug, getProductosByCategoria } from '@el-cacique/shared';
-import { ProductDetailClient } from '../../../components/catalog/ProductDetailClient';
+import Link from 'next/link';
+import { supabase } from '../../../lib/supabase';
+import { ProductImage } from '../../../components/catalog/ProductImage';
+import { Badge } from '../../../components/ui/Badge';
+import { Button } from '../../../components/ui/Button';
+import { Container } from '../../../components/ui/Container';
 
-interface PageProps {
-  params: Promise<{ slug: string }>;
-}
+export const revalidate = 0;
 
-export async function generateStaticParams() {
-  return productos.map((producto) => ({
-    slug: producto.slug,
-  }));
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+// CORRECCIÓN NEXT.JS 16: params ahora es una Promesa
+export default async function ProductoPage({ params }: { params: Promise<{ slug: string }> }) {
+  // Esperamos a que la promesa se resuelva
   const { slug } = await params;
-  const producto = getProductoBySlug(slug);
 
-  if (!producto) {
-    return {
-      title: 'Producto no encontrado — El Cacique',
-      description: 'El uniforme o prenda solicitada no está disponible en nuestro catálogo.',
-    };
-  }
+  // Consultar el producto a Supabase usando el slug ya resuelto
+  const { data: producto, error } = await supabase
+    .from('productos')
+    .select('*')
+    .eq('slug', slug)
+    .single();
 
-  const precioStr = producto.precio_retail
-    ? `C$${producto.precio_retail}`
-    : producto.precio_min
-    ? `Desde C$${producto.precio_min}`
-    : 'Cotización a medida';
-
-  return {
-    title: `${producto.nombre} | El Cacique — Fábrica de Uniformes`,
-    description: `${producto.descripcion} Precios retail y mayoreo (${precioStr}). Confección industrial y corporativa en Nicaragua.`,
-    openGraph: {
-      title: `${producto.nombre} — El Cacique`,
-      description: producto.descripcion,
-      type: 'website',
-      url: `https://elcacique.com.ni/producto/${producto.slug}`,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${producto.nombre} | El Cacique`,
-      description: producto.descripcion,
-    },
-  };
-}
-
-export default async function ProductPage({ params }: PageProps) {
-  const { slug } = await params;
-  const producto = getProductoBySlug(slug);
-
-  if (!producto) {
+  if (error || !producto) {
     notFound();
   }
 
-  const relacionados = getProductosByCategoria(producto.categoria)
-    .filter((p) => p.id !== producto.id)
-    .slice(0, 4);
+  const precioBase = producto.precio_mayor ?? producto.precio_retail ?? producto.precio_min ?? 0;
 
-  return <ProductDetailClient producto={producto} relacionados={relacionados} />;
+  return (
+    <div className="bg-beige min-h-screen py-12">
+      <Container>
+        {/* Breadcrumb */}
+        <nav className="mb-8 text-xs font-body text-marron-400">
+          <Link href="/" className="hover:text-azul">Inicio</Link>
+          <span className="mx-2">/</span>
+          <Link href="/catalogo" className="hover:text-azul">Catálogo</Link>
+          <span className="mx-2">/</span>
+          <span className="text-azul font-semibold">{producto.nombre}</span>
+        </nav>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          <div className="sticky top-24">
+            <ProductImage
+              imagenes={producto.imagenes}
+              nombre={producto.nombre}
+              categoria={producto.categoria}
+              className="rounded-2xl shadow-lg border border-azul/10"
+              priority
+            />
+          </div>
+
+          <div className="flex flex-col gap-6 text-left">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <Badge variant="category">{producto.categoria}</Badge>
+                <Badge variant="default">{producto.subcategoria}</Badge>
+                {producto.destacado && <Badge variant="new">Destacado</Badge>}
+              </div>
+              <span className="text-xs font-mono text-marron-400 uppercase tracking-widest mb-2 block">
+                SKU: {producto.id}
+              </span>
+              <h1 className="font-display text-3xl md:text-5xl text-azul leading-tight mb-4">
+                {producto.nombre}
+              </h1>
+              <p className="text-marron-400 text-sm leading-relaxed mb-6">
+                {producto.descripcion}
+              </p>
+            </div>
+
+            <div className="bg-blanco p-6 rounded-xl border border-azul/10 shadow-sm flex flex-col gap-2">
+              <div className="flex justify-between items-center border-b border-beige-200 pb-3">
+                <span className="text-sm text-marron">Precio Retail (1-11 uds)</span>
+                <span className="font-display text-2xl text-azul font-bold">
+                  {producto.precio_retail ? `C$${producto.precio_retail.toLocaleString('es-NI')}` : 'Cotización'}
+                </span>
+              </div>
+              <div className="flex justify-between items-center pt-1">
+                <span className="text-sm font-semibold text-vino">Precio Mayor (12+ uds)</span>
+                <span className="font-display text-3xl text-vino font-bold">
+                  {producto.precio_mayor ? `C$${producto.precio_mayor.toLocaleString('es-NI')}` : `C$${precioBase.toLocaleString('es-NI')}`}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 text-sm font-body">
+              <div className="bg-blanco p-4 rounded-lg border border-beige-200">
+                <span className="block text-xs text-marron-400 mb-1">Telas</span>
+                <span className="font-medium text-azul">{producto.telas?.join(', ') || 'No especificada'}</span>
+              </div>
+              <div className="bg-blanco p-4 rounded-lg border border-beige-200">
+                <span className="block text-xs text-marron-400 mb-1">Tiempo de Entrega</span>
+                <span className="font-medium text-azul">{producto.tiempo_entrega}</span>
+              </div>
+              <div className="bg-blanco p-4 rounded-lg border border-beige-200">
+                <span className="block text-xs text-marron-400 mb-1">Garantía</span>
+                <span className="font-medium text-azul">{producto.garantia}</span>
+              </div>
+              <div className="bg-blanco p-4 rounded-lg border border-beige-200">
+                <span className="block text-xs text-marron-400 mb-1">Pedido Mínimo (MOQ)</span>
+                <span className="font-medium text-azul">{producto.moq} unidad(es)</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <div>
+                <span className="text-sm font-semibold text-azul block mb-2">Tallas disponibles</span>
+                <div className="flex flex-wrap gap-2">
+                  {producto.tallas?.map((t: string) => (
+                    <span key={t} className="px-3 py-1 bg-blanco border border-beige-200 rounded text-xs text-marron font-medium">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <span className="text-sm font-semibold text-azul block mb-2">Colores disponibles</span>
+                <div className="flex flex-wrap gap-2">
+                  {producto.colores?.map((c: string) => (
+                    <span key={c} className="px-3 py-1 bg-blanco border border-beige-200 rounded text-xs text-marron font-medium">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3 mt-4">
+              <Button variant="primary" size="lg" className="w-full text-lg shadow-lg">
+                Agregar al Carrito
+              </Button>
+              <Button variant="outline" size="lg" className="w-full">
+                Solicitar Cotización Personalizada
+              </Button>
+            </div>
+            
+            <p className="text-xs text-marron-400 text-center mt-2">
+              * El precio final y los tiempos de entrega serán confirmados por un asesor.
+            </p>
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
 }

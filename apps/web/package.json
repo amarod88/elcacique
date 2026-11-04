@@ -12,8 +12,9 @@
     "@el-cacique/shared": "workspace:*",
     "@paypal/paypal-server-sdk": "^0.6.1",
     "@paypal/react-paypal-js": "^8.8.2",
+    "@supabase/supabase-js": "^2.119.0",
     "groq-sdk": "^0.15.0",
-    "next": "^16.4.0",
+    "next": "^16.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "zustand": "^5.0.3"

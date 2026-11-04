@@ -15,5 +15,12 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "dotenv": "^18.0.9"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
+    "ws": "^8.22.1"
+  }
 }
