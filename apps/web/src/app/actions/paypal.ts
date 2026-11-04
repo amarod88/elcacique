@@ -1,7 +1,7 @@
 'use server';
 
 import { paypalClient } from '../../lib/paypal';
-import { OrdersController } from '@paypal/paypal-server-sdk';
+import { OrdersController, CheckoutPaymentIntent, OrderApplicationContextShippingPreference } from '@paypal/paypal-server-sdk';
 import { supabase } from '../../lib/supabase';
 
 interface CartItemInput {
@@ -11,11 +11,10 @@ interface CartItemInput {
   color: string;
 }
 
-export async function createPayPalOrder(cartItems: CartItemInput[]) {
+export async function createPayPalOrder(cartItems: CartItemInput[]): Promise<{ orderID: string; totalAmount: number }> {
   let totalAmount = 0;
   const itemsParaPayPal = [];
 
-  // 1. VALIDACIÓN SERVER-SIDE: Consultamos los precios reales a Supabase
   for (const item of cartItems) {
     const { data: prod, error } = await supabase
       .from('productos')
@@ -25,22 +24,21 @@ export async function createPayPalOrder(cartItems: CartItemInput[]) {
     
     if (error || !prod) throw new Error(`Producto no encontrado: ${item.productoId}`);
 
-    // Regla de negocio: Mayorista a partir de 12 unidades
     const precioUnitario = item.cantidad >= 12 ? prod.precio_mayor : prod.precio_retail;
     totalAmount += precioUnitario * item.cantidad;
 
     itemsParaPayPal.push({
-      name: prod.nombre.substring(0, 127), // PayPal limita a 127 caracteres
+      name: prod.nombre.substring(0, 127),
       unitAmount: { currencyCode: 'USD', value: precioUnitario.toFixed(2) },
       quantity: item.cantidad.toString(),
     });
   }
 
-  // 2. Crear la orden en PayPal
   const ordersController = new OrdersController(paypalClient);
-  const response = await ordersController.createOrder({
+  
+  const response = await ordersController.ordersCreate({
     body: {
-      intent: 'CAPTURE',
+      intent: CheckoutPaymentIntent.Capture, // <-- ENUM CORRECTO
       purchaseUnits: [{
         amount: { 
           currencyCode: 'USD', 
@@ -48,9 +46,18 @@ export async function createPayPalOrder(cartItems: CartItemInput[]) {
         },
         items: itemsParaPayPal,
       }],
-      applicationContext: { brandName: 'El Cacique', shippingPreference: 'NO_SHIPPING' },
+      applicationContext: { 
+        brandName: 'El Cacique', 
+        shippingPreference: OrderApplicationContextShippingPreference.NoShipping // <-- ENUM CORRECTO
+      },
     },
   });
 
-  return { orderID: response.result.id, totalAmount };
+  // Validamos que PayPal nos devuelva un ID antes de retornar
+  const orderID = response.result.id;
+  if (!orderID) {
+    throw new Error('PayPal no devolvió un ID de orden válido.');
+  }
+
+  return { orderID, totalAmount };
 }

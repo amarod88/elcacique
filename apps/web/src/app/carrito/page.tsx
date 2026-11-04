@@ -8,6 +8,7 @@ import { Button } from '../../components/ui/Button';
 import { ProductImage } from '../../components/catalog/ProductImage';
 import { getProductoBySlug, calcularPrecio } from '@el-cacique/shared';
 import { useCartStore } from '../../lib/store/cart';
+import { PayPalButton } from '../../components/cart/PayPalButton';
 
 const emptySubscribe = () => () => {};
 
