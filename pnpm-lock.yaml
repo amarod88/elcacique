@@ -28,7 +28,7 @@ importers:
         specifier: ^0.6.1
         version: 0.6.1
       '@paypal/react-paypal-js':
-        specifier: ^8.8.2
+        specifier: ^8.9.2
         version: 8.9.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@supabase/supabase-js':
         specifier: ^2.119.0
