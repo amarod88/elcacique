@@ -2,26 +2,25 @@
 
 **Rol asumido:** Director de Proyecto / Desarrollador Senior IA.
 
-## 1. ¿Dónde estamos parados? (Último milímetro)
-- **Producción:** ✅ **100% Operativa.** Pagos funcionando (H-001 resuelto), Dashboard y Login funcionando.
-- **Commit actual en `main`:** (El hash del push de esta fase).
-- **Base de Datos:** Estructura relacional de inventario (\`producto_variantes\`) creada y sembrada.
+## 1. Estado Actual (Último milímetro)
+- **Commit actual en `main`:** `0a9cf31` (en Vercel: Ready).
+- **Pagos:** ✅ **100% Funcionales.** RPC atómico en producción.
+- **Admin:** ✅ **Operativo.** Login SSR con cookies, Dashboard protegido y tabla de inventario visible.
+- **Base de Datos:** Tabla `producto_variantes` creada y sembrada (100 unidades por talla/color del Top Médico).
 
-## 2. Lo que se completó en la Fase 2
-1. **Auth:** \`profiles\` con roles (\`admin\` / \`cliente\`). Trigger automático al registrar usuarios.
-2. **Admin:** Layout protegido (SSR). Dashboard con métricas (Ventas, Pedidos, Cola de Producción).
-3. **Inventario:** Tabla \`producto_variantes\` con 100 unidades por combinación (talla/color).
+## 2. Próxima Fase: Frontend "Bajo Pedido" + Carrito
+El backend y la base de datos ya soportan la lógica de "Bajo Pedido" (`en_produccion`, `lead_time_dias`, `es_bajo_pedido` en pedido_items), pero el frontend (tienda pública) aún no está conectado a esta lógica.
 
-## 3. Próximos Pasos Inmediatos (Frontend / Carrito)
-La base de datos ya soporta "Bajo Pedido", pero la interfaz de compra no se lo comunica al usuario.
-1. **Modificar \`ProductActions.tsx\`:** Consultar a \`producto_variantes\` si hay stock físico.
-   - Si \`stock_fisico > 0\`: Mostrar "Disponible para envío inmediato".
-   - Si \`stock_fisico === 0\` (y \`en_produccion\`): Mostrar "Bajo pedido: entrega en 7 días".
-2. **Modificar el Carrito (Zustand):** Enviar el flag \`es_bajo_pedido\` al backend.
-3. **Modificar \`paypal.ts\`:** Si hay ítems bajo pedido, guardarlos con \`es_bajo_pedido = true\` y calcular la fecha estimada.
-4. **Fase H-008 (Divisa):** La UI muestra C$, pero PayPal cobra USD. Requiere decisión de negocio.
+### Objetivos Inmediatos
+1. **`ProductActions.tsx`:** Consultar `producto_variantes` para verificar `stock_fisico`.
+   - Si `stock_fisico > 0`: Mostrar stock disponible.
+   - Si `stock_fisico === 0` (y `en_produccion`): Mostrar "Bajo pedido (7 días)".
+2. **Carrito (Zustand):** Propagar el flag `es_bajo_pedido` al backend.
+3. **`paypal.ts`:** Actualizar la llamada al RPC `crear_pedido_completo` para insertar el flag `es_bajo_pedido` y calcular la `fecha_entrega_estimada`.
+4. **Fase H-008 (Divisa):** Sigue pendiente resolver C$ vs USD. Requiere decisión de negocio.
 
-## 4. Reglas de la Fase Actual
-- **Rutas protegidas:** No se puede acceder a \`/admin/*\` sin rol \`admin\`.
-- **RPC Transaccional:** Los pagos usan \`crear_pedido_completo\` (Opción B) en Supabase.
-- **PROTOCOLO:** Aplicar Cero Suposiciones. \`pnpm build\` antes de push.
+## 3. Reglas del Proyecto
+- **PROTOCOLO §2 (Cero Suposiciones):** Usar SQL, logs o grep antes de dictar fixes.
+- **PROTOCOLO §3 (Regla de Oro):** `pnpm build` exitoso antes de cada push.
+- **PROTOCOLO §4:** Prohibido actualizar Node (v20) o macOS Big Sur.
+- **PROTOCOLO §6.1:** Deploys forzados solo por Vercel UI (CLI falla en Big Sur).

@@ -93,3 +93,8 @@ solo si `pnpm dlx` no cubre el caso (p. ej. resolución de peer deps específica
 ### 6.1. Despliegues en Vercel
 - Dado que Vercel CLI no es compatible con macOS Big Sur (§4), todos los despliegues manuales o forzados deben realizarse desde la interfaz web de Vercel.
 - Si el webhook de GitHub falla, usar la opción "Redeploy" en el dashboard, asegurándose de **desmarcar** la casilla "Use existing Build Cache" para garantizar una compilación limpia desde el último commit.
+
+### 7.1. Metodología del Director Senior (Inyectada por Aníbal)
+- **Evidencia sobre Suposiciones:** Toda hipótesis debe validarse con logs de Vercel, SQL de Supabase o `grep` del código fuente. Si un servidor falla (ej. 500), usar un `throw` explícito para imprimir el error real en pantalla o en los logs antes de adivinar.
+- **Verificación de Código:** Antes de sugerir un fix de RLS, validar que existan los GRANT base y que las políticas no tengan recursión.
+- **Debug Visual:** Si una redirección falla, inyectar un componente de debug temporal que muestre el estado del usuario, el perfil y el error, en lugar de un `redirect()` ciego.

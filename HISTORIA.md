@@ -35,3 +35,9 @@
 
 ## 5. Deuda Técnica de Infraestructura (Vercel CLI)
 - **Vercel CLI en macOS Big Sur:** La versión \`vercel@latest\` (v65+) falla al instalarse/ejecutarse en macOS 11 (error de símbolos dinámicos \`dyld\` en \`esbuild\`). Queda prohibido intentar usar Vercel CLI localmente en este entorno. Cualquier deploy forzado debe hacerse desde el Dashboard Web de Vercel (Redeploy desmarcando caché).
+
+## 6. Arquitectura del Panel de Administración (Fase 2)
+- **Auth SSR:** Se usa `@supabase/ssr` con `createBrowserClient` en el frontend para sincronizar la sesión en cookies y `createServerClient` en el servidor para leerlas.
+- **RLS (Row Level Security):** Se solucionó un error de recursión infinita (Code: 42P17) usando una función `SECURITY DEFINER` llamada `is_admin()`. Además, se otorgaron permisos base (GRANT SELECT) a la tabla `profiles`.
+- **Inventario Relacional:** Creada tabla `producto_variantes` (talla, color, stock_fisico, en_produccion, lead_time_dias). Sembrada con 100 unidades por variante para el `MED-TOP-001`.
+- **Dashboard Admin:** Rutas protegidas en `/admin/(panel)/dashboard` y `/admin/(panel)/inventario`. Layout aislado del login usando Route Groups `(panel)`.

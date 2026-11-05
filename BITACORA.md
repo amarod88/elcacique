@@ -232,3 +232,14 @@ El flujo completo de pago en producción (Vercel) funciona correctamente. La pan
 - El backend ya soporta "Bajo Pedido", pero el frontend (Carrito) sigue cobrando normal.
 - Falta actualizar `ProductActions.tsx` y el flujo del carrito para mostrar el aviso de "Bajo Pedido (7 días)" cuando no haya stock físico.
 - Falta la Fase H-008 (Divisa C$/USD).
+
+## [2026-11-05 17:25 CST] — ✅ CIERRE DE FASE 2: Dashboard Admin y Auth Operativos
+
+### Hito Alcanzado
+Se resolvieron los bloqueos de autenticación (bucle de redirección, falta de cookies, recursión de RLS y falta de GRANTs). El usuario administrador (`admin@elcacique.net`) puede iniciar sesión y visualizar el Dashboard y la tabla de Inventario con las 42 variantes.
+
+### Fixes aplicados
+- `createBrowserClient` en `lib/supabase.ts` para persistir sesión en cookies.
+- Función `is_admin()` y `GRANT SELECT ON profiles TO authenticated` en Supabase.
+- Layout movido a Route Group `(panel)` para aislar el `/admin/login`.
+- Eliminación del código de debug en producción (commit `0a9cf31`).
