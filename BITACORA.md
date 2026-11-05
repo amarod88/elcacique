@@ -100,3 +100,71 @@ El diagnóstico del blocker activo (INSERT fallido en Supabase durante `captureP
 
 ### Entorno inmutable verificado
 - macOS 11.7.11 Big Sur · Node v20.20.2 (nvm) · pnpm 9.15.9 · Next 16.4.5
+
+## [2026-11-05 00:25 CST] — Diagnóstico del INSERT fallido en producción (H-001 confirmada)
+
+### Contexto
+Continuación del refinamiento de PROTOCOLO (§3.6 + §5.4 ya aplicados y desplegados en `5e92507`). Se entra al diagnóstico del blocker activo: en producción (Vercel), tras pago exitoso en PayPal Sandbox, el INSERT en Supabase falla y el frontend muestra "Hubo un error al guardar su pedido".
+
+### Evidencia SQL recogida (Supabase SQL Editor)
+- **[1A]** `SELECT * FROM pedidos` / `pedido_items` → `No rows returned`. `pedidos=0`, `pedido_items=0`.
+- **[1B]** Conteos certificados: `pedidos=0`, `pedido_items=0`. **Ningún INSERT persistió.**
+- **[1C] Constraints:**
+  - `pedido_items.pedido_id → pedidos.id ON DELETE CASCADE` (FK)
+  - `pedido_items.producto_id → productos.id` (FK, sin cascade)
+  - `pedidos.usuario_id → auth.users.id` (FK)
+  - `pedidos.paypal_order_id` UNIQUE
+- **[1D] RLS (HALLAZGO CRÍTICO):**
+  - `pedidos`: RLS ON. Única política INSERT → **solo `service_role`**.
+  - `pedido_items`: RLS ON. **CERO políticas** → cualquier INSERT con rol `anon`/`authenticated` falla con SQLSTATE 42501.
+- **[1E] Columnas:** `pedidos.usuario_id` nullable (checkout anónimo OK), `pedido_items.cantidad`/`precio_unitario` NOT NULL, `numeric` sin scale (sin overflow posible), `pedidos.paypal_order_id` nullable.
+
+### Evidencia de código (lectura dirigida §3.6 Escenario B)
+- **`apps/web/src/app/actions/paypal.ts`:**
+  - Importa `supabase` desde `../../lib/supabase` (línea 5).
+  - INSERT #1 en `pedidos` (líneas 75-88): captura `errorPedido` y hace **`throw`** si falla.
+  - INSERT #2 en `pedido_items` (línea 100): captura `errorItems` pero **NO hace `throw`**, solo `console.error`. Retorna `{ success: true }` igualmente → **venta huérfana latente**.
+  - Divisa **hardcodeada**: `moneda: 'USD'` (línea 79).
+- **`apps/web/src/lib/supabase.ts`:**
+  - `createClient(NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY)` → rol **`anon`** en Postgres.
+  - Fallback silencioso: si falta env var, usa `'https://placeholder.supabase.co'` con `console.warn` (no `throw`). **Bomba de tiempo que enmascara errores de config.**
+- **`.env.example`:** NO documenta vars Supabase. Viola §5.2.
+
+### Causa raíz certificada — H-001 CONFIRMADA
+Cadena causal completa:
+1. `capturePayPalOrder` inserta en `pedidos` con cliente `anon`.
+2. RLS activo en `pedidos`, única política INSERT `service_role`.
+3. Postgres rechaza con `SQLSTATE 42501` (RLS violation).
+4. `errorPedido` no nulo → `throw` → alert "Hubo un error al guardar su pedido".
+5. INSERT #2 nunca se ejecuta (0 filas en ambas tablas).
+
+### Bugs latentes confirmados (no bloquean, pero deben resolverse)
+- **H-007:** `pedido_items` silencia error (sin `throw`, sin rollback).
+- **H-008:** `moneda: 'USD'` hardcodeado, UI en C$. Bug de negocio.
+- **D-009:** `.env.example` sin vars Supabase.
+- **D-011:** fallback `'placeholder'` en `lib/supabase.ts` enmascara errores.
+
+### Decisión arquitectónica del Operador
+**Opción B elegida:** migrar `paypal.ts` a `service_role` server-side. Motivo: patrón oficial Supabase para operaciones de pago, cierra el vector de ataque de Opción A (anon key expuesto en bundle público), no requiere cambios en RLS.
+
+### Estado al cierre de esta sesión
+- **Diagnóstico:** ✅ cerrado (certificado arriba).
+- **Fix de código (Option B + parches):** 🟡 pendiente (próxima sesión).
+- **Build & push de esta sesión:** solo documentación (BITACORA + HANDOFF).
+- **SQL de RLS:** NO se aplican políticas nuevas (Opción B bypassea RLS). RLS queda intacto.
+
+### Próximos pasos (herederos)
+1. **Operador:** confirmar/crear `SUPABASE_SERVICE_ROLE_KEY` en `.env.local` y en Vercel (Production + Preview + Development).
+2. **Director (próxima sesión):** leer HANDOFF actualizado + 3 maestros.
+3. **Director:** dictar Fix #1 (cliente admin `supabase-admin.ts` + parche `paypal.ts`).
+4. **Director:** dictar Fix #2 (`throw` en `errorItems` + manejo rollback — decisión a consultar).
+5. **Director:** dictar Fix #3 (`throw` en fallback de `lib/supabase.ts`).
+6. **Director:** dictar Fix #4 (`.env.example` completo).
+7. **Operador:** `pnpm build` (Regla de Oro) + auditoría 14 rutas.
+8. **Commit + push** del bloque de fixes (Fix #1–#4).
+9. **Verificación end-to-end** en producción (Sandbox → capture → INSERT → fila visible en `pedidos` y `pedido_items`).
+10. **Fase separada:** H-008 (divisa C$/USD) — análisis y decisión de conversión.
+
+### Entorno inmutable verificado
+- macOS 11.7.11 Big Sur · Node v20.20.2 (nvm) · pnpm 9.15.9 · Next 16.4.5
+- Commit de origen de esta sesión de diagnóstico: `5e92507` (en `origin/main`, Vercel `Ready`).
