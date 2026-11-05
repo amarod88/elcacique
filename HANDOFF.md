@@ -2,30 +2,26 @@
 
 **Rol asumido:** Director de Proyecto / Desarrollador Senior IA.
 
-## 1. Estado Actual (Último milímetro)
-- **Commit actual en `main`:** `89b2948` (en Vercel: Ready).
-- **Pagos:** ✅ **100% FUNCIONALES.** Transacción atómica validada en producción.
-- **Base de Datos:** Tablas `pedidos` y `pedido_items` recibiendo datos correctamente.
+## 1. ¿Dónde estamos parados? (Último milímetro)
+- **Producción:** ✅ **100% Operativa.** Pagos funcionando (H-001 resuelto), Dashboard y Login funcionando.
+- **Commit actual en `main`:** (El hash del push de esta fase).
+- **Base de Datos:** Estructura relacional de inventario (\`producto_variantes\`) creada y sembrada.
 
-## 2. Nueva Fase: Dashboard de Administración y Control de Inventario
-El Operador ha solicitado iniciar la construcción del panel de administración y el control de inventario.
+## 2. Lo que se completó en la Fase 2
+1. **Auth:** \`profiles\` con roles (\`admin\` / \`cliente\`). Trigger automático al registrar usuarios.
+2. **Admin:** Layout protegido (SSR). Dashboard con métricas (Ventas, Pedidos, Cola de Producción).
+3. **Inventario:** Tabla \`producto_variantes\` con 100 unidades por combinación (talla/color).
 
-### Objetivos de la Fase
-1. **Autenticación de Admin:** Proteger las rutas de administración.
-2. **Dashboard:** Vista general de pedidos, ventas y estado del negocio.
-3. **Inventario:** Visualización y actualización del stock de productos.
+## 3. Próximos Pasos Inmediatos (Frontend / Carrito)
+La base de datos ya soporta "Bajo Pedido", pero la interfaz de compra no se lo comunica al usuario.
+1. **Modificar \`ProductActions.tsx\`:** Consultar a \`producto_variantes\` si hay stock físico.
+   - Si \`stock_fisico > 0\`: Mostrar "Disponible para envío inmediato".
+   - Si \`stock_fisico === 0\` (y \`en_produccion\`): Mostrar "Bajo pedido: entrega en 7 días".
+2. **Modificar el Carrito (Zustand):** Enviar el flag \`es_bajo_pedido\` al backend.
+3. **Modificar \`paypal.ts\`:** Si hay ítems bajo pedido, guardarlos con \`es_bajo_pedido = true\` y calcular la fecha estimada.
+4. **Fase H-008 (Divisa):** La UI muestra C$, pero PayPal cobra USD. Requiere decisión de negocio.
 
-### Preguntas Abiertas (A resolver con evidencia, no suposiciones)
-- ¿La tabla `productos` actual tiene una columna de stock/inventario (ej. `stock int`, `tallas_stock jsonb`)?
-- ¿Existe algún sistema de autenticación configurado en Supabase (Auth)?
-- ¿Qué rutas de `/admin/*` están ya definidas en el App Router?
-
-## 3. Reglas Estrictas para el Heredero
-- **PROTOCOLO §2:** Cero Suposiciones. Auditar la BD y el código antes de dictar comandos.
-- **PROTOCOLO §3:** Regla de Oro. `pnpm build` fresco antes de cada push.
-- **PROTOCOLO §4:** Prohibido actualizar Node (v20) o el OS (Big Sur).
-- **PROTOCOLO §6.1:** Despliegues forzados solo por Vercel UI (Vercel CLI falla en Big Sur).
-
-## 4. Próximos Pasos Inmediatos
-1. Auditoría de la tabla `productos` (ver si hay campos de stock).
-2. Auditoría de la estructura de rutas en `apps/web/src/app/admin/` (si existe).
+## 4. Reglas de la Fase Actual
+- **Rutas protegidas:** No se puede acceder a \`/admin/*\` sin rol \`admin\`.
+- **RPC Transaccional:** Los pagos usan \`crear_pedido_completo\` (Opción B) en Supabase.
+- **PROTOCOLO:** Aplicar Cero Suposiciones. \`pnpm build\` antes de push.

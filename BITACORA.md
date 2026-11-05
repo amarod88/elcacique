@@ -214,3 +214,21 @@ El flujo completo de pago en producción (Vercel) funciona correctamente. La pan
 
 ### Próxima Fase Iniciada
 - Dashboard de Administración y Control de Inventario.
+
+## [2026-11-05 16:03 CST] — ✅ Fase 2: Dashboard Admin y Control de Inventario
+
+### Hito Alcanzado
+- Autenticación SSR configurada con `@supabase/ssr`.
+- Rutas de admin protegidas (`/admin/dashboard`, `/admin/inventario`).
+- Layout de Admin con Sidebar y botón de Cerrar Sesión.
+- Tabla de inventario conectada a la BD (mostrando las 42 variantes sembradas).
+
+### Arquitectura de Base de Datos
+- Tabla `profiles` creada (vinculada a `auth.users`, con roles `cliente` y `admin`).
+- Tabla `producto_variantes` creada para inventario relacional (talla/color/stock).
+- `pedido_items` actualizada con columnas `es_bajo_pedido` y `fecha_entrega_estimada`.
+
+### Próximos Pasos (Frontend y Carrito)
+- El backend ya soporta "Bajo Pedido", pero el frontend (Carrito) sigue cobrando normal.
+- Falta actualizar `ProductActions.tsx` y el flujo del carrito para mostrar el aviso de "Bajo Pedido (7 días)" cuando no haya stock físico.
+- Falta la Fase H-008 (Divisa C$/USD).
