@@ -76,3 +76,27 @@ El archivo `BITACORA.md` no existía (ni en disco ni en git) al momento de esta 
 
 ### Entorno inmutable verificado
 - macOS 11.7.11 Big Sur · Node v20.20.2 (nvm) · pnpm 9.15.9 · Next 16.4.5
+
+## [Noviembre 4, 2026] — Refinamiento de PROTOCOLO (vía refinada de diagnóstico)
+
+### Contexto
+Durante el traspaso al nuevo Director, el Operador levantó dos restricciones heredadas que resultaban sobre-restrictivas para el diagnóstico eficiente:
+1. La prohibición absoluta de leer código fuente (HANDOFF anterior §3.1).
+2. La prohibición absoluta de `npx` (PROTOCOLO §5.4 anterior).
+
+### Cambios aplicados
+- **PROTOCOLO.md §3.6 (NUEVA):** lectura de código fuente como canal de verificación permitida en dos escenarios (A: hipótesis validada, problema persiste; B: el código es la vía correcta de diagnóstico). Requiere declaración previa del objetivo y lectura dirigida.
+- **PROTOCOLO.md §5.4 (REEMPLAZADA):** escalera de tres peldaños para ejecutables no instalados. P2 preferido: `pnpm dlx <pkg>@<x.y.z>` (aislado, versionado, sin tocar global). P3 excepcional: `npx --yes --package=<pkg>@<x.y.z> <cmd>`. Prohibido absolutamente `npm i -g`, `npx -g`, `pnpm add -g`.
+- **HANDOFF.md §3 (intro):** alineado con §3.6 — la restricción absoluta previa queda superada por la política refinada del 4-Nov-2026.
+- **HISTORIA.md:** sin cambios (esta refinación no altera arquitectura ni stack).
+
+### Motivo
+El diagnóstico del blocker activo (INSERT fallido en Supabase durante `capturePayPalOrder` en producción) requiere flexibilidad para leer código fuente cuando la evidencia conductual sea insuficiente. La política anterior impedía esa vía sin necesidad técnica real.
+
+### Verificado
+- `pnpm build` fresco en local.
+- `git diff` auditado contra backups timestamped.
+- Commit: pendiente de la firma del Operador.
+
+### Entorno inmutable verificado
+- macOS 11.7.11 Big Sur · Node v20.20.2 (nvm) · pnpm 9.15.9 · Next 16.4.5

@@ -32,6 +32,22 @@ Antes de escribir una línea de código para corregir un error o implementar alg
 - Un ✅ histórico registrado en la BITACORA **no equivale a build vigente**. La Regla de Oro exige `pnpm build` fresco antes de cada `git push`, y su output debe quedar certificado por el Director.
 - **Reinicio tras cambios de `.env.local` o dependencias:** `rm -rf apps/web/.next && pnpm dev`. El `Ctrl+C + pnpm dev` no siempre basta para invalidar el bundle de variables `NEXT_PUBLIC_*` en Turbopack.
 
+### 3.6. El código fuente como canal de verificación
+La lectura de código fuente (`cat`, `sed -n`, `grep -n`, etc.) es una herramienta de diagnóstico legítima y NO viola §2 (Cero Suposiciones). Se permite en dos escenarios:
+
+**Escenario A — Hipótesis validada, problema persiste:** una hipótesis ya fue confirmada por evidencia conductual (logs, SQL, red), el problema se reproduce, y la lectura de código es necesaria para localizar la causa raíz exacta o la interacción no prevista.
+
+**Escenario B — El código es la vía correcta de diagnóstico:** la evidencia conductual no permite aislar la causa (comportamiento inesperado en una rama de lógica, error silencioso sin log, discrepancia entre lo esperado y lo observado) y la lectura dirigida del código es la vía más directa y menos invasiva para diagnosticar.
+
+**Secuencia obligatoria en ambos escenarios:**
+1. Declaración en el chat del objetivo de la lectura: qué se busca y por qué el código es la vía (A o B, justificado en una frase).
+2. Lectura dirigida: solo los archivos y rangos de línea relevantes a ese objetivo.
+3. Auditoría del output contra el objetivo declarado, con veredicto explícito.
+
+**Prohibido:** lectura de código "a ver qué encuentro" (exploración sin objetivo declarado).
+
+**Facultad del Director:** en cualquier momento del diagnóstico, el Director PUEDE dictar comandos de lectura de código como canal de verificación, previa declaración del objetivo. No requiere aprobación adicional del Operador si respeta la secuencia obligatoria.
+
 ## 4. Restricciones del Entorno de Desarrollo (INMUTABLE)
 - **Hardware:** MacBook Air (Procesador Intel x64).
 - **Sistema Operativo:** macOS 11.7.11 (Big Sur). No actualizar el OS.
@@ -56,6 +72,20 @@ Antes de escribir una línea de código para corregir un error o implementar alg
 - Antes de compartir un output de `pnpm dev`, recortar manualmente los bloques `authorization`.
 - Los tokens OAuth de PayPal Sandbox expiran en 9h. Aun así, la disciplina aplica siempre.
 
-### 5.4. Prohibido `npx` en este proyecto
-- `npx <pkg>` descarga y ejecuta código arbitrario del registry público si el paquete no está instalado localmente.
-- **Regla:** siempre usar `pnpm exec` o `pnpm --filter <workspace> exec`, que solo resuelven binarios ya instalados en el monorepo.
+### 5.4. Ejecutables no instalados: escalera de tres peldaños
+Regla general: preferir SIEMPRE binarios ya presentes en el monorepo. Si ninguno sirve, escalar en este orden. El Director dicta el peldaño; el Operador valida antes de ejecutar.
+
+**Peldaño 1 (por defecto) — `pnpm exec` / `pnpm --filter <workspace> exec`:**
+solo resuelve binarios ya instalados en el monorepo. Único peldaño permitido sin justificación adicional.
+
+**Peldaño 2 (preferido para one-shots) — `pnpm dlx <pkg>@<x.y.z>`:**
+equivalente a `npx`, pero efímero, aislado y versionado dentro del ecosistema pnpm. NO instala en `node_modules` ni en el global. Requiere SIEMPRE versión exacta (`@<x.y.z>`), nunca `latest`. El Director declara el objetivo del comando en una línea antes de dictarlo.
+
+**Peldaño 3 (excepcional) — `npx --yes --package=<pkg>@<x.y.z> <cmd>`:**
+solo si `pnpm dlx` no cubre el caso (p. ej. resolución de peer deps específica del registry npm). Requiere:
+  - (a) Justificación explícita del Director: por qué `pnpm dlx` no sirve.
+  - (b) Versión exacta pinchada; prohibido `npx <pkg>` sin `@<versión>`.
+  - (c) Prohibido `-g` / `--global` / `--install-global`.
+  - (d) El Operador revisa y veta si percibe riesgo en su entorno global.
+
+**Prohibido absolutamente:** `npm install -g`, `npx -g`, `pnpm add -g`. Cualquier comando que escriba en instalaciones globales del Operador queda vetado sin excepción.

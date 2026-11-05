@@ -20,7 +20,7 @@ Durante la prueba de compra end-to-end en Vercel:
 - **Hipótesis:** El backend está forzando `currency_code: 'USD'` en `paypal.ts` sin convertir los montos de la BD.
 
 ## 3. Los 3 Pasos Inmediatos para el Nuevo Agente
-El nuevo Agente NO debe pedir código fuente ni revisar DevTools. Debe dictar lo siguiente:
+El nuevo Agente sigue `PROTOCOLO.md` §3.6 para lectura de código fuente: verificación dirigida con objetivo declarado. Prohibida la exploración sin objetivo. Debe dictar lo siguiente:
 
 1. **Auditoría SQL (Cero Suposiciones):** Solicitar al Operador que ejecute en Supabase SQL Editor:
    SELECT * FROM pedidos ORDER BY created_at DESC LIMIT 5;
