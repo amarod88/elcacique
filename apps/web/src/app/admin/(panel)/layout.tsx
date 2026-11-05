@@ -19,26 +19,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     }
   );
 
-  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/admin/login');
+
+  // Ahora esta consulta ya no dará el error de recursión
+  const { data: profile } = await supabase.from('profiles').select('role, email').eq('id', user.id).single();
   
-  if (authError || !user) {
-    redirect('/admin/login');
-  }
-
-  // DEBUG: Quitamos el redirect ciego y lanzamos un error si falla
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('role, email')
-    .eq('id', user.id)
-    .single();
-
-  if (profileError) {
-    throw new Error(`DEBUG RLS: Error leyendo perfil. Mensaje: ${profileError.message} | Code: ${profileError.code} | UserID: ${user.id}`);
-  }
-
-  if (profile?.role !== 'admin') {
-    throw new Error(`DEBUG ROL: El rol no es admin. Datos del perfil: ${JSON.stringify(profile)} | UserID: ${user.id}`);
-  }
+  if (profile?.role !== 'admin') redirect('/');
 
   return (
     <div className="flex min-h-screen bg-gray-100">
