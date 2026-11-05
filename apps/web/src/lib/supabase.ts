@@ -1,15 +1,13 @@
-import { createClient } from '@supabase/supabase-js';
+import { createBrowserClient } from '@supabase/ssr';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// Fix D-011: Fallo ruidoso. Si falta una variable, el frontend NO debe colapsar silenciosamente.
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error(
-    '🚨 FATAL: Faltan NEXT_PUBLIC_SUPABASE_URL o NEXT_PUBLIC_SUPABASE_ANON_KEY en el entorno. ' +
-    'El frontend no puede iniciar sin estas credenciales.'
+    '🚨 FATAL: Faltan NEXT_PUBLIC_SUPABASE_URL o NEXT_PUBLIC_SUPABASE_ANON_KEY en el entorno.'
   );
 }
 
-// Cliente público (usa anon key). Sujeto a RLS.
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Cliente del navegador configurado para sincronizar con las cookies que lee el servidor
+export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
