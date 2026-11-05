@@ -89,3 +89,7 @@ solo si `pnpm dlx` no cubre el caso (p. ej. resolución de peer deps específica
   - (d) El Operador revisa y veta si percibe riesgo en su entorno global.
 
 **Prohibido absolutamente:** `npm install -g`, `npx -g`, `pnpm add -g`. Cualquier comando que escriba en instalaciones globales del Operador queda vetado sin excepción.
+
+### 6.1. Despliegues en Vercel
+- Dado que Vercel CLI no es compatible con macOS Big Sur (§4), todos los despliegues manuales o forzados deben realizarse desde la interfaz web de Vercel.
+- Si el webhook de GitHub falla, usar la opción "Redeploy" en el dashboard, asegurándose de **desmarcar** la casilla "Use existing Build Cache" para garantizar una compilación limpia desde el último commit.

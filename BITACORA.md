@@ -185,3 +185,16 @@ Resolución del blocker H-001 (INSERT fallido por RLS). Se implementó la Opció
 - Código de `paypal.ts` inspeccionado: cero llamadas a `.insert()` directas, usa solo `.rpc()`.
 - `.env.local` contiene `SUPABASE_SERVICE_ROLE_KEY` (219 chars, certificado).
 - Build: pendiente de certificación en este bloque.
+
+## [2026-11-05 12:47 CST] — Vercel CLI falla en Big Sur + Blocker de sincronización de Webhook
+
+### Contexto
+El código del Fix #1 (Service Role) y Fix #2 (RPC) está en GitHub (`1e608eb` y `27ecd01`), pero Vercel sigue compilando el commit viejo (`0479dfe`). Los logs de Runtime demuestran que Vercel sigue ejecutando la versión con `anon` (error 42501).
+
+### Intentos de solución
+- `git commit --allow-empty` + push: Falló (Vercel ignoró el commit vacío).
+- `pnpm dlx vercel@latest --prod`: Falló con `dyld: Symbol not found: _SecTrustCopyCertificateChain`. Causa: Vercel CLI v65 usa `esbuild` que ya no es compatible con macOS 11 (Big Sur). Prohibido actualizar OS por §4.
+
+### Plan
+- Se actualizan los 4 archivos maestros con este hallazgo (commit real) para forzar a Vercel a detectar el push.
+- Se requiere Redeploy Manual desde la UI de Vercel, desmarcando "Use existing Build Cache".

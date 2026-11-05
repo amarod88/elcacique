@@ -1,34 +1,30 @@
 # HANDOFF DE CONTEXTO — PROYECTO EL CACIQUE
 
 **Rol asumido:** Director de Proyecto / Desarrollador Senior IA.
-**Regla inquebrantable:** Leer PROTOCOLO.md, HISTORIA.md y BITACORA.md antes de ejecutar cualquier acción. Aplicar estrictamente la Cláusula de Cero Suposiciones (§2) y la Regla de Oro de compilación (§3).
 
 ## 1. ¿Dónde estamos parados? (Último milímetro)
-- **Commit actual en `main`:** (Pendiente de push tras esta fase).
-- **Producción (Vercel):** Deploy `Ready` del commit `0479dfe`. Env vars de Supabase actualizadas con `SUPABASE_SERVICE_ROLE_KEY`.
-- **Local:** Código con Fix #1, #2, #3 y #4 implementados. Build en certificación.
-- **Base de Datos:** Función `public.crear_pedido_completo` creada y certificada.
+- **Commit local en `main`:** (Se generará uno nuevo con la actualización de estos docs).
+- **Producción (Vercel):** 🛑 **Desincronizado.** Vercel sigue corriendo el commit `0479dfe`. Los commits `1e608eb` (código) y `27ecd01` (vacío) no se desplegaron.
+- **Causa:** Fallo del webhook de GitHub y caché de Vercel. Vercel CLI falló por incompatibilidad con macOS Big Sur (ver BITACORA).
+- **Base de Datos:** Función `crear_pedido_completo` creada y certificada.
 
 ## 2. Blockers Activos
-- **Ninguno bloqueante de código.** El bug H-001 está resuelto arquitectónicamente.
-- **Pendiente:** Verificación end-to-end en producción (compra Sandbox → capture → INSERT atómico).
-- **Fase futura (H-008):** Divisa C$/USD hardcodeada en `paypal.ts` (`moneda: 'USD'`).
+- **Vercel Desync:** Vercel debe compilar el código con el Fix #1 (Service Role) y Fix #2 (RPC). El error 42501 en producción es prueba de que Vercel corre el código viejo.
 
-## 3. Lo que se ha resuelto (Fixes #1 al #4)
-- **Fix #1 (Service Role):** `paypal.ts` usa `supabaseAdmin` (`SUPABASE_SERVICE_ROLE_KEY`) para INSERTs. Bypassea RLS correctamente.
-- **Fix #2 (Transacción Atómica):** `paypal.ts` llama a `.rpc('crear_pedido_completo')`. El SQL maneja los dos INSERTs en un bloque `BEGIN...COMMIT`, garantizando integridad total (sin ventas huérfanas).
-- **Fix #3 (Fallo ruidoso):** `lib/supabase.ts` ahora lanza un `throw` si faltan env vars. Ya no usa `'placeholder'` silencioso.
-- **Fix #4 (`.env.example`):** Creado con las variables canónicas.
+## 3. Código Resuelto (Local y en GitHub)
+- **Fix #1:** `paypal.ts` usa `supabaseAdmin` (`SUPABASE_SERVICE_ROLE_KEY`).
+- **Fix #2:** `paypal.ts` llama a `.rpc('crear_pedido_completo')` (Transacción atómica en Supabase).
+- **Fix #3:** `lib/supabase.ts` hace `throw` si faltan env vars.
+- **Fix #4:** `.env.example` completo.
 
 ## 4. Próximos pasos para el heredero
-1. Verificar Vercel Deploy `Ready` tras el push.
-2. **Verificación end-to-end:** Simular compra en Sandbox en producción.
-3. **Auditoría SQL post-prueba:** Confirmar que `pedidos` y `pedido_items` ahora tienen filas (y que los datos coinciden).
-4. **Fase H-008 (Divisa):** Analizar cómo convertir los montos de C$ a USD o cambiar la moneda en BD, para que lo que el usuario paga coincida con lo que ve.
+1. **Operador:** Ir a Vercel Dashboard → Deployments. Buscar el commit más reciente (el que dice "docs: update...") y hacer **Redeploy desmarcando "Use existing Build Cache"**.
+2. **Verificación:** Vercel debe compilar y decir `Ready`. El log de build debe mostrar el hash del último commit.
+3. **Prueba Sandbox:** Pagar en producción. El error 42501 debe desaparecer (debe ir a `/carrito/exito` y guardar en BD).
+4. **Auditoría SQL:** Confirmar filas en `pedidos` y `pedido_items`.
+5. **Fase H-008 (Divisa):** Diferida.
 
 ## 5. Restricciones Inmutables
-- **Entorno:** Node v20.20.2, macOS Big Sur. Prohibido sugerir Node 22.
-- **Credenciales:** Prohibido pedir valores reales. Usar placeholders (§2.1).
-- **Protocolo Git:** No autorizar `git push` sin `pnpm build` exitoso (§3 Regla de Oro).
-- **PROTOCOLO §3.6 (nueva):** lectura de código dirigida permitida con objetivo declarado.
-- **PROTOCOLO §5.4 (nueva):** escalera `pnpm exec` → `pnpm dlx <pkg>@<x.y.z>` → `npx --yes --package=<pkg>@<x.y.z>` (nunca `-g`).
+- **PROHIBIDO** intentar Vercel CLI en local (falla en Big Sur).
+- **PROHIBIDO** hacer `git push` sin `pnpm build` exitoso.
+- **PROHIBIDO** actualizar Node a v22.

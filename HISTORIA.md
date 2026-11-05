@@ -32,3 +32,6 @@
 - **supabase-js + Node 20:** la librería emite warning de deprecación. La actualización a Node 22 está **prohibida por §4 del protocolo** (rompe el entorno Big Sur). Monitorear releases por LTS compatible con Node 20; no actuar preventivamente.
 - **FK `pedido_items.producto_id → productos.id` con `NO ACTION`:** impide borrar productos con historial de ventas (correcto para auditoría), pero exige que el catálogo nunca se elimine físicamente — usar soft-delete (`activo boolean`) en fase futura. También implica que el flujo de capture debe manejar el caso "producto desaparecido entre add-to-cart y pago" (webhook de reconciliación o fallback).
 - **Cálculo monetario:** `createPayPalOrder` acumula en centavos (enteros) para evitar drift de punto flotante y garantizar `sum(items) === breakdown.item_total`. No volver a introducir aritmética de floats para totales.
+
+## 5. Deuda Técnica de Infraestructura (Vercel CLI)
+- **Vercel CLI en macOS Big Sur:** La versión \`vercel@latest\` (v65+) falla al instalarse/ejecutarse en macOS 11 (error de símbolos dinámicos \`dyld\` en \`esbuild\`). Queda prohibido intentar usar Vercel CLI localmente en este entorno. Cualquier deploy forzado debe hacerse desde el Dashboard Web de Vercel (Redeploy desmarcando caché).
