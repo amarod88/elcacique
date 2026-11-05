@@ -2,18 +2,15 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '../../../lib/supabase';
 import { ProductImage } from '../../../components/catalog/ProductImage';
+import { ProductActions } from '../../../components/catalog/ProductActions';
 import { Badge } from '../../../components/ui/Badge';
-import { Button } from '../../../components/ui/Button';
 import { Container } from '../../../components/ui/Container';
 
 export const revalidate = 0;
 
-// CORRECCIÓN NEXT.JS 16: params ahora es una Promesa
 export default async function ProductoPage({ params }: { params: Promise<{ slug: string }> }) {
-  // Esperamos a que la promesa se resuelva
   const { slug } = await params;
 
-  // Consultar el producto a Supabase usando el slug ya resuelto
   const { data: producto, error } = await supabase
     .from('productos')
     .select('*')
@@ -29,7 +26,6 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
   return (
     <div className="bg-beige min-h-screen py-12">
       <Container>
-        {/* Breadcrumb */}
         <nav className="mb-8 text-xs font-body text-marron-400">
           <Link href="/" className="hover:text-azul">Inicio</Link>
           <span className="mx-2">/</span>
@@ -101,37 +97,8 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
               </div>
             </div>
 
-            <div className="flex flex-col gap-4">
-              <div>
-                <span className="text-sm font-semibold text-azul block mb-2">Tallas disponibles</span>
-                <div className="flex flex-wrap gap-2">
-                  {producto.tallas?.map((t: string) => (
-                    <span key={t} className="px-3 py-1 bg-blanco border border-beige-200 rounded text-xs text-marron font-medium">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <span className="text-sm font-semibold text-azul block mb-2">Colores disponibles</span>
-                <div className="flex flex-wrap gap-2">
-                  {producto.colores?.map((c: string) => (
-                    <span key={c} className="px-3 py-1 bg-blanco border border-beige-200 rounded text-xs text-marron font-medium">
-                      {c}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-3 mt-4">
-              <Button variant="primary" size="lg" className="w-full text-lg shadow-lg">
-                Agregar al Carrito
-              </Button>
-              <Button variant="secondary" size="lg" className="w-full">
-                Solicitar Cotización Personalizada
-              </Button>
-            </div>
+            {/* Aquí inyectamos el componente interactivo */}
+            <ProductActions producto={producto} />
             
             <p className="text-xs text-marron-400 text-center mt-2">
               * El precio final y los tiempos de entrega serán confirmados por un asesor.
