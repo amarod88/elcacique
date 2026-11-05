@@ -22,10 +22,21 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/admin/login');
 
-  // Ahora esta consulta ya no dará el error de recursión
-  const { data: profile } = await supabase.from('profiles').select('role, email').eq('id', user.id).single();
+  const { data: profile, error } = await supabase.from('profiles').select('role, email').eq('id', user.id).single();
   
-  if (profile?.role !== 'admin') redirect('/');
+  // DEBUG VISUAL EN PANTALLA
+  if (profile?.role !== 'admin') {
+    return (
+      <div className="p-10 bg-red-100 text-red-900 min-h-screen font-mono text-sm">
+        <h1 className="text-2xl font-bold mb-4">DEBUG: Acceso Denegado</h1>
+        <p><strong>Auth User ID:</strong> {user?.id}</p>
+        <p><strong>Auth Email:</strong> {user?.email}</p>
+        <p><strong>Profile Data:</strong> {JSON.stringify(profile)}</p>
+        <p><strong>Error:</strong> {JSON.stringify(error)}</p>
+        <p className="mt-8"><a href="/admin/login" className="underline text-blue-600">Volver al Login</a></p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-gray-100">
