@@ -19,11 +19,26 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     }
   );
 
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/admin/login');
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  
+  if (authError || !user) {
+    redirect('/admin/login');
+  }
 
-  const { data: profile } = await supabase.from('profiles').select('role, email').eq('id', user.id).single();
-  if (profile?.role !== 'admin') redirect('/');
+  // DEBUG: Quitamos el redirect ciego y lanzamos un error si falla
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('role, email')
+    .eq('id', user.id)
+    .single();
+
+  if (profileError) {
+    throw new Error(`DEBUG RLS: Error leyendo perfil. Mensaje: ${profileError.message} | Code: ${profileError.code} | UserID: ${user.id}`);
+  }
+
+  if (profile?.role !== 'admin') {
+    throw new Error(`DEBUG ROL: El rol no es admin. Datos del perfil: ${JSON.stringify(profile)} | UserID: ${user.id}`);
+  }
 
   return (
     <div className="flex min-h-screen bg-gray-100">
