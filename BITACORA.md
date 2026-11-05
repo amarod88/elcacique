@@ -198,3 +198,19 @@ El código del Fix #1 (Service Role) y Fix #2 (RPC) está en GitHub (`1e608eb` y
 ### Plan
 - Se actualizan los 4 archivos maestros con este hallazgo (commit real) para forzar a Vercel a detectar el push.
 - Se requiere Redeploy Manual desde la UI de Vercel, desmarcando "Use existing Build Cache".
+
+## [2026-11-05 12:57 CST] — ✅ CIERRE DE FASE: H-001 Erradicado. Pago End-to-End Exitoso.
+
+### Hito Alcanzado
+El flujo completo de pago en producción (Vercel) funciona correctamente. La pantalla `/carrito/exito` se renderiza sin errores. El INSERT atómico en Supabase se completó.
+
+### Certificación Técnica
+- Vercel desplegó el commit `89b2948` (Ready).
+- El build forzado manualmente desde la UI resolvió el desfase del webhook.
+- La base de datos ahora contiene pedidos con sus respectivos items (cero ventas huérfanas).
+
+### Deuda Técnica Pendiente (Fase Futura)
+- **H-008 (Divisa):** El frontend muestra C$ pero PayPal procesa USD (hardcodeado en `paypal.ts`). Requiere análisis de negocio y conversión.
+
+### Próxima Fase Iniciada
+- Dashboard de Administración y Control de Inventario.

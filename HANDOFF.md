@@ -2,29 +2,30 @@
 
 **Rol asumido:** Director de Proyecto / Desarrollador Senior IA.
 
-## 1. ¿Dónde estamos parados? (Último milímetro)
-- **Commit local en `main`:** (Se generará uno nuevo con la actualización de estos docs).
-- **Producción (Vercel):** 🛑 **Desincronizado.** Vercel sigue corriendo el commit `0479dfe`. Los commits `1e608eb` (código) y `27ecd01` (vacío) no se desplegaron.
-- **Causa:** Fallo del webhook de GitHub y caché de Vercel. Vercel CLI falló por incompatibilidad con macOS Big Sur (ver BITACORA).
-- **Base de Datos:** Función `crear_pedido_completo` creada y certificada.
+## 1. Estado Actual (Último milímetro)
+- **Commit actual en `main`:** `89b2948` (en Vercel: Ready).
+- **Pagos:** ✅ **100% FUNCIONALES.** Transacción atómica validada en producción.
+- **Base de Datos:** Tablas `pedidos` y `pedido_items` recibiendo datos correctamente.
 
-## 2. Blockers Activos
-- **Vercel Desync:** Vercel debe compilar el código con el Fix #1 (Service Role) y Fix #2 (RPC). El error 42501 en producción es prueba de que Vercel corre el código viejo.
+## 2. Nueva Fase: Dashboard de Administración y Control de Inventario
+El Operador ha solicitado iniciar la construcción del panel de administración y el control de inventario.
 
-## 3. Código Resuelto (Local y en GitHub)
-- **Fix #1:** `paypal.ts` usa `supabaseAdmin` (`SUPABASE_SERVICE_ROLE_KEY`).
-- **Fix #2:** `paypal.ts` llama a `.rpc('crear_pedido_completo')` (Transacción atómica en Supabase).
-- **Fix #3:** `lib/supabase.ts` hace `throw` si faltan env vars.
-- **Fix #4:** `.env.example` completo.
+### Objetivos de la Fase
+1. **Autenticación de Admin:** Proteger las rutas de administración.
+2. **Dashboard:** Vista general de pedidos, ventas y estado del negocio.
+3. **Inventario:** Visualización y actualización del stock de productos.
 
-## 4. Próximos pasos para el heredero
-1. **Operador:** Ir a Vercel Dashboard → Deployments. Buscar el commit más reciente (el que dice "docs: update...") y hacer **Redeploy desmarcando "Use existing Build Cache"**.
-2. **Verificación:** Vercel debe compilar y decir `Ready`. El log de build debe mostrar el hash del último commit.
-3. **Prueba Sandbox:** Pagar en producción. El error 42501 debe desaparecer (debe ir a `/carrito/exito` y guardar en BD).
-4. **Auditoría SQL:** Confirmar filas en `pedidos` y `pedido_items`.
-5. **Fase H-008 (Divisa):** Diferida.
+### Preguntas Abiertas (A resolver con evidencia, no suposiciones)
+- ¿La tabla `productos` actual tiene una columna de stock/inventario (ej. `stock int`, `tallas_stock jsonb`)?
+- ¿Existe algún sistema de autenticación configurado en Supabase (Auth)?
+- ¿Qué rutas de `/admin/*` están ya definidas en el App Router?
 
-## 5. Restricciones Inmutables
-- **PROHIBIDO** intentar Vercel CLI en local (falla en Big Sur).
-- **PROHIBIDO** hacer `git push` sin `pnpm build` exitoso.
-- **PROHIBIDO** actualizar Node a v22.
+## 3. Reglas Estrictas para el Heredero
+- **PROTOCOLO §2:** Cero Suposiciones. Auditar la BD y el código antes de dictar comandos.
+- **PROTOCOLO §3:** Regla de Oro. `pnpm build` fresco antes de cada push.
+- **PROTOCOLO §4:** Prohibido actualizar Node (v20) o el OS (Big Sur).
+- **PROTOCOLO §6.1:** Despliegues forzados solo por Vercel UI (Vercel CLI falla en Big Sur).
+
+## 4. Próximos Pasos Inmediatos
+1. Auditoría de la tabla `productos` (ver si hay campos de stock).
+2. Auditoría de la estructura de rutas en `apps/web/src/app/admin/` (si existe).
