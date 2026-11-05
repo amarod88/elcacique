@@ -168,3 +168,20 @@ Cadena causal completa:
 ### Entorno inmutable verificado
 - macOS 11.7.11 Big Sur · Node v20.20.2 (nvm) · pnpm 9.15.9 · Next 16.4.5
 - Commit de origen de esta sesión de diagnóstico: `5e92507` (en `origin/main`, Vercel `Ready`).
+
+## [2026-11-05 12:14 CST] — Fixes #1 y #2 (Opción B): Migración a Service Role + Transacción Atómica RPC
+
+### Contexto
+Resolución del blocker H-001 (INSERT fallido por RLS). Se implementó la Opción B elegida por el Operador: migrar a `service_role` server-side y reemplazar los dos INSERTs separados por una función atómica en PostgreSQL.
+
+### Cambios implementados
+- **Fix #1 (Service Role):** Creado `apps/web/src/lib/supabase-admin.ts` (cliente con `SUPABASE_SERVICE_ROLE_KEY`, solo server-side). Modificado `paypal.ts` para usar `supabaseAdmin` en vez de `supabase`.
+- **Fix #2 (Transacción Atómica):** Creada función SQL `public.crear_pedido_completo` con `SECURITY DEFINER`. Modificado `paypal.ts` para llamar a `.rpc('crear_pedido_completo', {...})`. Si falla el insert de los items, PostgreSQL hace ROLLBACK automático (cero ventas huérfanas).
+- **Fix #3 (D-011):** `lib/supabase.ts` ahora lanza un `throw` si faltan las variables de entorno (fallo ruidoso, no silencioso).
+- **Fix #4 (D-009):** Creado `apps/web/.env.example` con placeholders de todas las variables necesarias (PayPal, Supabase, Groq).
+
+### Verificado
+- SQL ejecutado en Supabase: `Success. No rows returned`.
+- Código de `paypal.ts` inspeccionado: cero llamadas a `.insert()` directas, usa solo `.rpc()`.
+- `.env.local` contiene `SUPABASE_SERVICE_ROLE_KEY` (219 chars, certificado).
+- Build: pendiente de certificación en este bloque.

@@ -2,7 +2,7 @@
 
 import { paypalClient } from '../../lib/paypal';
 import { OrdersController, CheckoutPaymentIntent, OrderApplicationContextShippingPreference } from '@paypal/paypal-server-sdk';
-import { supabase } from '../../lib/supabase';
+import { supabaseAdmin } from '../../lib/supabase-admin';
 
 export async function createPayPalOrder(cartItems: any[]): Promise<{ orderID: string; totalAmount: number }> {
   // Se acumula en CENTAVOS (enteros) para evitar drift de punto flotante
@@ -11,7 +11,7 @@ export async function createPayPalOrder(cartItems: any[]): Promise<{ orderID: st
   const itemsParaPayPal = [];
 
   for (const item of cartItems) {
-    const { data: prod, error } = await supabase
+    const { data: prod, error } = await supabaseAdmin
       .from('productos')
       .select('precio_retail, precio_mayor, nombre')
       .eq('id', item.productoId)
@@ -70,26 +70,8 @@ export async function capturePayPalOrder(orderID: string, cartItems: any[], tota
     throw new Error('El pago no se completó correctamente en PayPal.');
   }
 
-  // 2. Guardar el pedido en Supabase
-  const { data: pedido, error: errorPedido } = await supabase
-    .from('pedidos')
-    .insert({
-      estado: 'pagado',
-      total: totalAmount,
-      moneda: 'USD',
-      paypal_order_id: orderID,
-    })
-    .select()
-    .single();
-
-  if (errorPedido || !pedido) {
-    console.error('Error guardando pedido:', errorPedido);
-    throw new Error('Error guardando el pedido en la base de datos.');
-  }
-
-  // 3. Guardar los items del pedido
+  // 2. Guardar pedido + items atómicamente vía RPC (Opción B)
   const pedidoItems = cartItems.map((item) => ({
-    pedido_id: pedido.id,
     producto_id: item.productoId,
     cantidad: item.cantidad,
     precio_unitario: item.precioUnitario,
@@ -97,12 +79,17 @@ export async function capturePayPalOrder(orderID: string, cartItems: any[], tota
     color: item.color,
   }));
 
-  const { error: errorItems } = await supabase.from('pedido_items').insert(pedidoItems);
+  const { data: pedidoId, error: errorRpc } = await supabaseAdmin.rpc('crear_pedido_completo', {
+    p_total: totalAmount,
+    p_moneda: 'USD',
+    p_paypal_order_id: orderID,
+    p_items: pedidoItems,
+  });
 
-  if (errorItems) {
-    console.error('Error guardando items:', errorItems);
-    // Nota: El pago ya se cobró, pero los items fallaron. Se debe manejar manualmente o con webhook.
+  if (errorRpc || !pedidoId) {
+    console.error('Error atómico guardando pedido:', errorRpc);
+    throw new Error('Hubo un error al guardar su pedido en la base de datos.');
   }
 
-  return { success: true, pedidoId: pedido.id };
+  return { success: true, pedidoId: pedidoId };
 }
