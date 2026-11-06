@@ -20,61 +20,45 @@ export function ProductActions({ producto, variantes }: Props) {
   const [isAdded, setIsAdded] = useState(false);
 
   const precioUnitario = cantidad >= 12 ? producto.precio_mayor : producto.precio_retail;
-
   const varianteSeleccionada = variantes.find((v) => v.talla === selectedTalla && v.color === selectedColor) ?? null;
-
   const state = resolveItemState(producto, varianteSeleccionada, cantidad);
 
   const handleAddToCart = () => {
     if (!state.canPurchase) return;
-    addItem({
-      productoId: producto.id,
-      slug: producto.slug,
-      nombre: producto.nombre,
-      categoria: producto.categoria,
-      talla: selectedTalla,
-      color: selectedColor,
-      bordado: false,
-      cantidad,
-      precioUnitario,
-      esBajoPedido: state.esBajoPedido,
-      leadTimeDias: state.leadTimeDias,
-      tiempoReposicionHoras: state.tiempoReposicionHoras,
-    });
+
+    // Si hay stock disponible, lo agregamos como entrega inmediata
+    if (state.cantidadEnStock > 0) {
+      addItem({
+        productoId: producto.id, slug: producto.slug, nombre: producto.nombre, categoria: producto.categoria,
+        talla: selectedTalla, color: selectedColor, bordado: false,
+        cantidad: state.cantidadEnStock, precioUnitario,
+        esBajoPedido: false, leadTimeDias: null, tiempoReposicionHoras: null,
+      });
+    }
+
+    // Si hay pendientes por reponer, los agregamos como bajo pedido
+    if (state.cantidadBajoPedido > 0) {
+      addItem({
+        productoId: producto.id, slug: producto.slug, nombre: producto.nombre, categoria: producto.categoria,
+        talla: selectedTalla, color: selectedColor, bordado: false,
+        cantidad: state.cantidadBajoPedido, precioUnitario,
+        esBajoPedido: true, leadTimeDias: state.leadTimeDias, tiempoReposicionHoras: state.tiempoReposicionHoras,
+      });
+    }
+
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 2000);
   };
 
-  const buttonConfig = (() => {
-    switch (state.motivo) {
-      case 'visita_local':
-        return { label: 'Solicitar Cotización', variant: 'secondary' as const, disabled: false, isLink: '/contacto' as string | null };
-      case 'stock':
-      case 'stock_bajo':
-        return { label: isAdded ? '✓ Agregado al carrito' : 'Agregar al Carrito', variant: 'primary' as const, disabled: false, isLink: null };
-      case 'bajo_pedido':
-        return { label: `Ordenar bajo pedido (${state.leadTimeDias} días)`, variant: 'primary' as const, disabled: false, isLink: null };
-      case 'reposicion':
-        return { label: `Reservar (${state.tiempoReposicionHoras}h)`, variant: 'primary' as const, disabled: false, isLink: null };
-      case 'sin_stock':
-        return { label: 'Sin stock — Consultar', variant: 'secondary' as const, disabled: true, isLink: null };
-    }
-  })();
-
   const alerta = (() => {
     switch (state.motivo) {
-      case 'stock_bajo':
-        return { texto: `⚠️ Últimos ${state.stockDisponible} en stock`, tono: 'warn' as const };
-      case 'reposicion':
-        return { texto: `Agotado. Disponible en ${state.tiempoReposicionHoras}h si lo pedís ahora.`, tono: 'error' as const };
-      case 'bajo_pedido':
-        return { texto: `Se fabrica a tu medida. Entrega estimada en ${state.leadTimeDias} días.`, tono: 'info' as const };
-      case 'sin_stock':
-        return { texto: 'Agotado. Consultá disponibilidad con un asesor.', tono: 'error' as const };
-      case 'visita_local':
-        return { texto: 'Producto a medida. Te esperamos en tienda o contactá a un asesor.', tono: 'info' as const };
-      default:
-        return null;
+      case 'stock_bajo': return { texto: `⚠️ Últimos ${state.stockDisponible} en stock`, tono: 'warn' };
+      case 'parcial': return { texto: `Límite de stock alcanzado. Hay ${state.cantidadEnStock} en tienda y ${state.cantidadBajoPedido} irán a producción (${state.tiempoReposicionHoras}h).`, tono: 'warn' };
+      case 'reposicion': return { texto: `Agotado. Disponible en ${state.tiempoReposicionHoras}h si lo pedís ahora.`, tono: 'error' };
+      case 'bajo_pedido': return { texto: `Se fabrica a tu medida. Entrega estimada en ${state.leadTimeDias} días.`, tono: 'info' };
+      case 'sin_stock': return { texto: 'Agotado. Consultá disponibilidad con un asesor.', tono: 'error' };
+      case 'visita_local': return { texto: 'Producto a medida. Te esperamos en tienda o contactá a un asesor.', tono: 'info' };
+      default: return null;
     }
   })();
 
@@ -85,13 +69,7 @@ export function ProductActions({ producto, variantes }: Props) {
           <span className="text-sm font-semibold text-azul block mb-2">Talla</span>
           <div className="flex flex-wrap gap-2">
             {producto.tallas.map((t: string) => (
-              <button
-                key={t}
-                onClick={() => setSelectedTalla(t)}
-                className={`px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
-                  selectedTalla === t ? 'bg-azul text-blanco border-azul' : 'bg-blanco text-marron border-beige-200 hover:border-azul'
-                }`}
-              >
+              <button key={t} onClick={() => setSelectedTalla(t)} className={`px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${selectedTalla === t ? 'bg-azul text-blanco border-azul' : 'bg-blanco text-marron border-beige-200 hover:border-azul'}`}>
                 {t}
               </button>
             ))}
@@ -104,13 +82,7 @@ export function ProductActions({ producto, variantes }: Props) {
           <span className="text-sm font-semibold text-azul block mb-2">Color</span>
           <div className="flex flex-wrap gap-2">
             {producto.colores.map((c: string) => (
-              <button
-                key={c}
-                onClick={() => setSelectedColor(c)}
-                className={`px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
-                  selectedColor === c ? 'bg-azul text-blanco border-azul' : 'bg-blanco text-marron border-beige-200 hover:border-azul'
-                }`}
-              >
+              <button key={c} onClick={() => setSelectedColor(c)} className={`px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${selectedColor === c ? 'bg-azul text-blanco border-azul' : 'bg-blanco text-marron border-beige-200 hover:border-azul'}`}>
                 {c}
               </button>
             ))}
@@ -129,41 +101,20 @@ export function ProductActions({ producto, variantes }: Props) {
       </div>
 
       {alerta && (
-        <div
-          className={`text-sm px-4 py-3 rounded-lg border ${
-            alerta.tono === 'warn'
-              ? 'bg-beige-200 text-marron border-beige-300'
-              : alerta.tono === 'error'
-              ? 'bg-blanco text-vino border-vino'
-              : 'bg-blanco text-azul border-azul'
-          }`}
-        >
+        <div className={`text-sm px-4 py-3 rounded-lg border ${alerta.tono === 'warn' ? 'bg-beige-200 text-marron border-beige-300' : alerta.tono === 'error' ? 'bg-blanco text-vino border-vino' : 'bg-blanco text-azul border-azul'}`}>
           {alerta.texto}
         </div>
       )}
 
       <div className="flex flex-col gap-3 mt-4">
-        {buttonConfig.isLink ? (
-          <Link href={buttonConfig.isLink} className="block">
-            <Button variant={buttonConfig.variant} size="lg" className="w-full text-lg">
-              {buttonConfig.label}
-            </Button>
-          </Link>
+        {state.motivo === 'visita_local' ? (
+          <Link href="/contacto" className="block"><Button variant="secondary" size="lg" className="w-full text-lg">Solicitar Cotización</Button></Link>
         ) : (
-          <Button
-            variant={buttonConfig.variant}
-            size="lg"
-            onClick={handleAddToCart}
-            className={`w-full text-lg shadow-lg transition-all ${
-              buttonConfig.disabled ? 'opacity-50 cursor-not-allowed' : ''
-            } ${isAdded ? '!bg-success hover:!bg-success' : ''}`}
-          >
-            {buttonConfig.label}
+          <Button variant="primary" size="lg" onClick={handleAddToCart} className={`w-full text-lg shadow-lg transition-all ${!state.canPurchase ? 'opacity-50 cursor-not-allowed' : ''} ${isAdded ? '!bg-success hover:!bg-success' : ''}`}>
+            {isAdded ? '✓ Agregado al carrito' : state.motivo === 'sin_stock' ? 'Sin stock — Consultar' : 'Agregar al Carrito'}
           </Button>
         )}
-        <Button variant="secondary" size="lg" className="w-full">
-          Solicitar Cotización Personalizada
-        </Button>
+        <Button variant="secondary" size="lg" className="w-full">Solicitar Cotización Personalizada</Button>
       </div>
     </div>
   );

@@ -79,7 +79,7 @@ export default function CarritoPage() {
                     : 'bg-red-50 text-red-700 border-red-200';
 
                 return (
-                  <div key={`${item.productoId}-${item.talla}-${item.color}`} className="bg-blanco p-4 rounded-xl border border-azul/10 shadow-sm flex items-center gap-4">
+                  <div key={`${item.productoId}-${item.talla}-${item.color}-${item.esBajoPedido}`} className="bg-blanco p-4 rounded-xl border border-azul/10 shadow-sm flex items-center gap-4">
                     <div className="w-16 h-20 rounded-xl bg-beige-100 border border-beige-200 overflow-hidden shrink-0">
                       <ProductImage imagenes={[]} nombre={item.nombre} categoria={item.categoria} />
                     </div>
@@ -92,13 +92,13 @@ export default function CarritoPage() {
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <button onClick={() => updateQuantity(item.productoId, item.talla, item.color, Math.max(1, item.cantidad - 1))} className="w-8 h-8 bg-beige-100 rounded text-azul font-bold">-</button>
+                      <button onClick={() => updateQuantity(item.productoId, item.talla, item.color, item.esBajoPedido ?? false, Math.max(1, item.cantidad - 1))} className="w-8 h-8 bg-beige-100 rounded text-azul font-bold">-</button>
                       <span className="w-8 text-center text-sm font-semibold">{item.cantidad}</span>
-                      <button onClick={() => updateQuantity(item.productoId, item.talla, item.color, item.cantidad + 1)} className="w-8 h-8 bg-beige-100 rounded text-azul font-bold">+</button>
+                      <button onClick={() => updateQuantity(item.productoId, item.talla, item.color, item.esBajoPedido ?? false, item.cantidad + 1)} className="w-8 h-8 bg-beige-100 rounded text-azul font-bold">+</button>
                     </div>
                     <div className="text-right">
                       <span className="font-semibold text-azul block">C${(precio * item.cantidad).toLocaleString('es-NI')}</span>
-                      <button onClick={() => removeItem(item.productoId, item.talla, item.color)} className="text-xs text-vino hover:underline mt-1">Eliminar</button>
+                      <button onClick={() => removeItem(item.productoId, item.talla, item.color, item.esBajoPedido ?? false)} className="text-xs text-vino hover:underline mt-1">Eliminar</button>
                     </div>
                   </div>
                 );

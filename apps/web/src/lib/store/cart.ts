@@ -19,8 +19,8 @@ export interface CartItem {
 interface CartStore {
   items: CartItem[];
   addItem: (item: CartItem) => void;
-  removeItem: (productoId: string, talla: string, color: string) => void;
-  updateQuantity: (productoId: string, talla: string, color: string, cantidad: number) => void;
+  removeItem: (productoId: string, talla: string, color: string, esBajoPedido: boolean) => void;
+  updateQuantity: (productoId: string, talla: string, color: string, esBajoPedido: boolean, cantidad: number) => void;
   clear: () => void;
   total: () => number;
   totalItems: () => number;
@@ -32,19 +32,13 @@ export const useCartStore = create<CartStore>()(
       items: [],
       addItem: (item) => {
         const existente = get().items.find(
-          (i) => i.productoId === item.productoId && i.talla === item.talla && i.color === item.color
+          (i) => i.productoId === item.productoId && i.talla === item.talla && i.color === item.color && i.esBajoPedido === item.esBajoPedido
         );
         if (existente) {
           set({
             items: get().items.map((i) =>
-              i.productoId === item.productoId && i.talla === item.talla && i.color === item.color
-                ? {
-                    ...i,
-                    cantidad: i.cantidad + item.cantidad,
-                    esBajoPedido: item.esBajoPedido,
-                    leadTimeDias: item.leadTimeDias,
-                    tiempoReposicionHoras: item.tiempoReposicionHoras,
-                  }
+              i.productoId === item.productoId && i.talla === item.talla && i.color === item.color && i.esBajoPedido === item.esBajoPedido
+                ? { ...i, cantidad: i.cantidad + item.cantidad }
                 : i
             ),
           });
@@ -52,17 +46,17 @@ export const useCartStore = create<CartStore>()(
           set({ items: [...get().items, item] });
         }
       },
-      removeItem: (productoId, talla, color) => {
+      removeItem: (productoId, talla, color, esBajoPedido) => {
         set({
           items: get().items.filter(
-            (i) => !(i.productoId === productoId && i.talla === talla && i.color === color)
+            (i) => !(i.productoId === productoId && i.talla === talla && i.color === color && i.esBajoPedido === esBajoPedido)
           ),
         });
       },
-      updateQuantity: (productoId, talla, color, cantidad) => {
+      updateQuantity: (productoId, talla, color, esBajoPedido, cantidad) => {
         set({
           items: get().items.map((i) =>
-            i.productoId === productoId && i.talla === talla && i.color === color
+            i.productoId === productoId && i.talla === talla && i.color === color && i.esBajoPedido === esBajoPedido
               ? { ...i, cantidad }
               : i
           ),

@@ -71,10 +71,29 @@ export default async function ExitoPage({ searchParams }: PageProps) {
     });
   }
 
-  const itemsInmediatos = items.filter((i: any) => !i.es_bajo_pedido);
-  const itemsPendientes = items.filter((i: any) => i.es_bajo_pedido);
+  // Agrupar ítems por fecha de entrega
+  const grupos: Record<string, any[]> = {};
+  items.forEach((item: any) => {
+    // Si no es bajo pedido, la fecha es "Hoy"
+    const fechaKey = !item.es_bajo_pedido 
+      ? 'Inmediata' 
+      : item.fecha_entrega_estimada 
+        ? new Date(item.fecha_entrega_estimada).toISOString().split('T')[0]
+        : 'Pendiente';
+        
+    if (!grupos[fechaKey]) grupos[fechaKey] = [];
+    grupos[fechaKey].push(item);
+  });
+
+  // Ordenar llaves: Inmediata primero, luego por fecha
+  const fechasOrdenadas = Object.keys(grupos).sort((a, b) => {
+    if (a === 'Inmediata') return -1;
+    if (b === 'Inmediata') return 1;
+    return a.localeCompare(b);
+  });
 
   const numeroOrden = pedido.numero_orden ?? ordenFallback ?? '—';
+  let letraTicket = 65; // Código ASCII para 'A'
 
   return (
     <div className="bg-beige min-h-screen py-16">
@@ -88,61 +107,50 @@ export default async function ExitoPage({ searchParams }: PageProps) {
             <p className="text-marron-400 text-sm">Gracias por su compra en El Cacique.</p>
           </div>
 
-          <div className="bg-azul/5 border border-azul/20 rounded-xl p-4 mb-6 text-center">
-            <span className="text-xs uppercase tracking-widest text-marron-400 block mb-1">Número de orden</span>
+          <div className="bg-azul/5 border border-azul/20 rounded-xl p-4 mb-8 text-center">
+            <span className="text-xs uppercase tracking-widest text-marron-400 block mb-1">Orden de Compra Principal</span>
             <span className="font-mono font-bold text-2xl text-azul">{numeroOrden}</span>
             <p className="text-xs text-marron-400 mt-2">Guardá este número para cualquier consulta.</p>
           </div>
 
-          {/* BLOQUE 1: ENTREGA INMEDIATA */}
-          {itemsInmediatos.length > 0 && (
-            <div className="mb-6">
-              <h2 className="font-display text-lg text-azul mb-3 flex items-center gap-2">
-                <span className="bg-success/10 text-success px-2 py-0.5 rounded text-xs uppercase tracking-wider font-semibold border border-success/30">Listos para entrega</span>
-              </h2>
-              <div className="flex flex-col gap-3">
-                {itemsInmediatos.map((item: any, idx: number) => (
-                  <div key={`inm-${idx}`} className="flex justify-between items-start border-b border-beige-200 pb-3">
-                    <div className="flex-1">
-                      <div className="text-sm font-semibold text-azul">{productosPorId[item.producto_id]?.nombre ?? item.producto_id}</div>
-                      <div className="text-xs text-marron-400 mt-1">Talla {item.talla} · Color {item.color} · Cant. {item.cantidad}</div>
-                      <div className="text-xs text-success mt-1 font-medium">Disponible para retirar en tienda</div>
-                    </div>
-                    <div className="text-sm font-semibold text-azul ml-4">
-                      C${(item.precio_unitario * item.cantidad).toLocaleString('es-NI')}
-                    </div>
+          {fechasOrdenadas.map((fechaKey) => {
+            const letraActual = String.fromCharCode(letraTicket++);
+            const esInmediata = fechaKey === 'Inmediata';
+            const fechaMostrar = esInmediata 
+              ? 'Disponible para retiro inmediato' 
+              : fechaKey === 'Pendiente'
+                ? 'Fecha por confirmar'
+                : `Entrega estimada: ${new Date(fechaKey).toLocaleDateString('es-NI')}`;
+            
+            return (
+              <div key={fechaKey} className="mb-6 border border-beige-200 rounded-xl overflow-hidden">
+                <div className={`px-4 py-3 border-b border-beige-200 flex justify-between items-center ${esInmediata ? 'bg-success/5' : 'bg-amber-50'}`}>
+                  <div>
+                    <span className={`text-xs uppercase tracking-wider font-bold block ${esInmediata ? 'text-success' : 'text-amber-700'}`}>
+                      Ticket de Entrega {numeroOrden}-{letraActual}
+                    </span>
+                    <span className="text-sm font-semibold text-azul">{fechaMostrar}</span>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* BLOQUE 2: PENDIENTES (BAJO PEDIDO) */}
-          {itemsPendientes.length > 0 && (
-            <div className="mb-6">
-              <h2 className="font-display text-lg text-azul mb-3 flex items-center gap-2">
-                <span className="bg-amber-50 text-amber-700 px-2 py-0.5 rounded text-xs uppercase tracking-wider font-semibold border border-amber-200">Pendientes de reposición</span>
-              </h2>
-              <div className="flex flex-col gap-3">
-                {itemsPendientes.map((item: any, idx: number) => (
-                  <div key={`pen-${idx}`} className="flex justify-between items-start border-b border-beige-200 pb-3">
-                    <div className="flex-1">
-                      <div className="text-sm font-semibold text-azul">{productosPorId[item.producto_id]?.nombre ?? item.producto_id}</div>
-                      <div className="text-xs text-marron-400 mt-1">Talla {item.talla} · Color {item.color} · Cant. {item.cantidad}</div>
-                      {item.fecha_entrega_estimada && (
-                        <div className="text-xs text-amber-600 mt-1 font-medium">
-                          Entrega estimada: {new Date(item.fecha_entrega_estimada).toLocaleDateString('es-NI')}
-                        </div>
-                      )}
+                  <span className={`text-xs px-2 py-1 rounded-full font-semibold border ${esInmediata ? 'bg-success/10 text-success border-success/30' : 'bg-amber-100 text-amber-800 border-amber-300'}`}>
+                    {esInmediata ? 'Listo en tienda' : 'En producción'}
+                  </span>
+                </div>
+                <div className="p-4 flex flex-col gap-3 bg-blanco">
+                  {grupos[fechaKey].map((item: any, idx: number) => (
+                    <div key={idx} className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <div className="text-sm font-semibold text-azul">{productosPorId[item.producto_id]?.nombre ?? item.producto_id}</div>
+                        <div className="text-xs text-marron-400 mt-1">Talla {item.talla} · Color {item.color} · Cant. {item.cantidad}</div>
+                      </div>
+                      <div className="text-sm font-semibold text-azul ml-4">
+                        C${(item.precio_unitario * item.cantidad).toLocaleString('es-NI')}
+                      </div>
                     </div>
-                    <div className="text-sm font-semibold text-azul ml-4">
-                      C${(item.precio_unitario * item.cantidad).toLocaleString('es-NI')}
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })}
 
           <div className="flex justify-between items-center mb-8 pt-4 border-t border-azul/20">
             <span className="font-semibold text-azul">Total pagado:</span>

@@ -1,14 +1,7 @@
-import { DEFAULT_LEAD_TIME_DIAS, DEFAULT_REPOSICION_HORAS } from './config/entrega';
+import { DEFAULT_LEAD_TIME_DIAS } from './config/entrega';
 
 export type TipoDisponibilidad = 'stock' | 'bajo_pedido' | 'visita_local';
-
-export type ItemMotivo =
-  | 'visita_local'
-  | 'stock'
-  | 'stock_bajo'
-  | 'reposicion'
-  | 'bajo_pedido'
-  | 'sin_stock';
+export type ItemMotivo = 'visita_local' | 'stock' | 'stock_bajo' | 'parcial' | 'reposicion' | 'bajo_pedido' | 'sin_stock';
 
 export interface ProductoInfo {
   id: string;
@@ -29,6 +22,8 @@ export interface ItemState {
   leadTimeDias: number | null;
   tiempoReposicionHoras: number | null;
   stockDisponible: number | null;
+  cantidadEnStock: number;
+  cantidadBajoPedido: number;
   motivo: ItemMotivo;
 }
 
@@ -37,57 +32,69 @@ export function resolveItemState(
   variante: VarianteInfo | null,
   cantidad: number
 ): ItemState {
+  const base = { canPurchase: true, leadTimeDias: null, tiempoReposicionHoras: null, stockDisponible: null, cantidadEnStock: 0, cantidadBajoPedido: 0 };
+
   if (producto.tipo_disponibilidad === 'visita_local') {
-    return {
-      canPurchase: false,
-      esBajoPedido: false,
-      leadTimeDias: null,
-      tiempoReposicionHoras: null,
-      stockDisponible: null,
-      motivo: 'visita_local',
-    };
+    return { ...base, canPurchase: false, esBajoPedido: false, motivo: 'visita_local' };
   }
 
   if (producto.tipo_disponibilidad === 'bajo_pedido' || !variante) {
     return {
-      canPurchase: true,
+      ...base,
       esBajoPedido: true,
       leadTimeDias: producto.lead_time_dias ?? DEFAULT_LEAD_TIME_DIAS,
-      tiempoReposicionHoras: null,
-      stockDisponible: null,
+      cantidadBajoPedido: cantidad,
       motivo: 'bajo_pedido',
     };
   }
 
-  if (variante.stock_fisico >= cantidad) {
+  const stock = variante.stock_fisico;
+  const reposicion = producto.tiempo_reposicion_horas;
+
+  // Caso ideal: hay stock para todo
+  if (stock >= cantidad) {
     return {
-      canPurchase: true,
+      ...base,
       esBajoPedido: false,
-      leadTimeDias: null,
-      tiempoReposicionHoras: null,
-      stockDisponible: variante.stock_fisico,
-      motivo: variante.stock_fisico > 10 ? 'stock' : 'stock_bajo',
+      stockDisponible: stock,
+      cantidadEnStock: cantidad,
+      motivo: stock > 10 ? 'stock' : 'stock_bajo',
     };
   }
 
-  const reposicion = producto.tiempo_reposicion_horas ?? null;
-  if (reposicion && reposicion > 0) {
+  // Hay algo de stock, pero no todo
+  if (stock > 0 && reposicion && reposicion > 0) {
     return {
-      canPurchase: true,
-      esBajoPedido: true,
-      leadTimeDias: null,
+      ...base,
+      esBajoPedido: true, // el item se considera mixto
       tiempoReposicionHoras: reposicion,
-      stockDisponible: variante.stock_fisico,
+      stockDisponible: stock,
+      cantidadEnStock: stock,
+      cantidadBajoPedido: cantidad - stock,
+      motivo: 'parcial',
+    };
+  }
+
+  // No hay stock, pero hay reposición
+  if (stock === 0 && reposicion && reposicion > 0) {
+    return {
+      ...base,
+      esBajoPedido: true,
+      tiempoReposicionHoras: reposicion,
+      stockDisponible: 0,
+      cantidadBajoPedido: cantidad,
       motivo: 'reposicion',
     };
   }
 
+  // Sin stock y sin reposición
   return {
+    ...base,
     canPurchase: false,
     esBajoPedido: true,
     leadTimeDias: producto.lead_time_dias ?? DEFAULT_LEAD_TIME_DIAS,
-    tiempoReposicionHoras: null,
     stockDisponible: 0,
+    cantidadBajoPedido: cantidad,
     motivo: 'sin_stock',
   };
 }
