@@ -11,6 +11,9 @@ export interface CartItem {
   bordado: boolean;
   cantidad: number;
   precioUnitario: number;
+  esBajoPedido?: boolean;
+  leadTimeDias?: number | null;
+  tiempoReposicionHoras?: number | null;
 }
 
 interface CartStore {
@@ -35,7 +38,13 @@ export const useCartStore = create<CartStore>()(
           set({
             items: get().items.map((i) =>
               i.productoId === item.productoId && i.talla === item.talla && i.color === item.color
-                ? { ...i, cantidad: i.cantidad + item.cantidad }
+                ? {
+                    ...i,
+                    cantidad: i.cantidad + item.cantidad,
+                    esBajoPedido: item.esBajoPedido,
+                    leadTimeDias: item.leadTimeDias,
+                    tiempoReposicionHoras: item.tiempoReposicionHoras,
+                  }
                 : i
             ),
           });

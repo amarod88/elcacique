@@ -20,7 +20,7 @@ export function PayPalButton() {
           Procesando pago seguro...
         </div>
       )}
-      
+
       <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || 'test', currency: 'USD' }}>
         <PayPalButtons
           style={{ layout: 'vertical', shape: 'rect', label: 'pay' }}
@@ -31,11 +31,10 @@ export function PayPalButton() {
               cantidad: item.cantidad,
               talla: item.talla,
               color: item.color,
-              precioUnitario: item.precioUnitario
+              precioUnitario: item.precioUnitario,
             }));
-            
             const result = await createPayPalOrder(cartItems);
-            return result.orderID as string; 
+            return result.orderID as string;
           }}
           onApprove={async (data) => {
             setIsProcessing(true);
@@ -45,15 +44,16 @@ export function PayPalButton() {
                 cantidad: item.cantidad,
                 talla: item.talla,
                 color: item.color,
-                precioUnitario: item.precioUnitario
+                precioUnitario: item.precioUnitario,
               }));
 
-              await capturePayPalOrder(data.orderID, cartItems, total());
-              clear(); // Limpiar el carrito
-              router.push('/carrito/exito'); // Redirigir
+              const result = await capturePayPalOrder(data.orderID, cartItems, total());
+              clear();
+              router.push(`/carrito/exito?pp=${encodeURIComponent(data.orderID)}&orden=${encodeURIComponent(result.numeroOrden)}`);
             } catch (error) {
               console.error(error);
-              alert('Hubo un error al guardar su pedido. Por favor, contacte a soporte.');
+              const msg = error instanceof Error ? error.message : 'Hubo un error al guardar su pedido.';
+              alert(msg + ' Por favor, contacte a soporte.');
               setIsProcessing(false);
             }
           }}

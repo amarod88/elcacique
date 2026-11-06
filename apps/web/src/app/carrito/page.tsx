@@ -7,6 +7,7 @@ import { Button } from '../../components/ui/Button';
 import { ProductImage } from '../../components/catalog/ProductImage';
 import { useCartStore } from '../../lib/store/cart';
 import { PayPalButton } from '../../components/cart/PayPalButton';
+import { etiquetaEntrega } from '../../lib/config/entrega';
 
 const emptySubscribe = () => () => {};
 
@@ -16,32 +17,23 @@ export default function CarritoPage() {
   const removeItem = useCartStore((state) => state.removeItem);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const total = useCartStore((state) => state.total);
-  
+
   const [isSuccess, setIsSuccess] = useState(false);
 
   if (!isHydrated) return null;
 
-  const handleConfirmOrder = () => {
-    setIsSuccess(true);
-  };
+  const handleConfirmOrder = () => setIsSuccess(true);
 
   if (isSuccess) {
     return (
       <div className="bg-beige min-h-screen py-16 flex items-center justify-center">
         <Container>
           <div className="bg-blanco p-12 rounded-2xl shadow-lg border border-azul/10 text-center max-w-lg mx-auto">
-            <div className="w-20 h-20 bg-success/10 text-success rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
-            </div>
-            <h1 className="font-display text-3xl text-azul mb-4">Prefactura Generada con Éxito</h1>
+            <h1 className="font-display text-3xl text-azul mb-4">Prefactura Generada</h1>
             <p className="text-marron-400 text-sm leading-relaxed mb-8">
-              Su prefactura ha sido registrada en el sistema de El Cacique. Uno de nuestros ejecutivos de cuenta se pondrá en contacto para afinar tallas, bordados y plazos de entrega.
-              <br /><br />
-              <strong className="text-azul">Aviso de validación humana obligatoria:</strong> Un asesor confirmará tiempos, stock exacto y detalles antes de proceder a cualquier pago o anticipo.
+              Un asesor confirmará tiempos, stock exacto y detalles antes de proceder a cualquier pago o anticipo.
             </p>
-            <Link href="/catalogo">
-              <Button variant="primary" size="lg">Seguir explorando catálogo</Button>
-            </Link>
+            <Link href="/catalogo"><Button variant="primary" size="lg">Seguir explorando catálogo</Button></Link>
           </div>
         </Container>
       </div>
@@ -57,7 +49,7 @@ export default function CarritoPage() {
           </span>
           <h1 className="font-display text-4xl text-azul mb-2">Bolsa de Compras y Cotización</h1>
           <p className="text-marron-400 text-sm max-w-2xl">
-            Revise sus prendas seleccionadas. Recuerde que a partir de 12 unidades por producto se activa automáticamente la tarifa por mayor.
+            Revise sus prendas. Desde 12 unidades por producto se aplica tarifa por mayor.
           </p>
         </div>
 
@@ -69,11 +61,23 @@ export default function CarritoPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            
-            {/* Lista de Productos */}
             <div className="lg:col-span-2 flex flex-col gap-4">
               {items.map((item) => {
                 const precio = item.precioUnitario;
+                const etiqueta = etiquetaEntrega({
+                  esBajoPedido: item.esBajoPedido ?? false,
+                  leadTimeDias: item.leadTimeDias,
+                  tiempoReposicionHoras: item.tiempoReposicionHoras,
+                });
+                const colorEtiqueta =
+                  etiqueta.tipo === 'inmediata'
+                    ? 'bg-success/10 text-success border-success/30'
+                    : etiqueta.tipo === 'reposicion'
+                    ? 'bg-amber-50 text-amber-700 border-amber-200'
+                    : etiqueta.tipo === 'bajo_pedido'
+                    ? 'bg-azul/10 text-azul border-azul/30'
+                    : 'bg-red-50 text-red-700 border-red-200';
+
                 return (
                   <div key={`${item.productoId}-${item.talla}-${item.color}`} className="bg-blanco p-4 rounded-xl border border-azul/10 shadow-sm flex items-center gap-4">
                     <div className="w-16 h-20 rounded-xl bg-beige-100 border border-beige-200 overflow-hidden shrink-0">
@@ -83,6 +87,9 @@ export default function CarritoPage() {
                       <h3 className="font-display text-base text-azul font-medium">{item.nombre}</h3>
                       <p className="text-xs text-marron-400 mt-1">Talla: {item.talla} | Color: {item.color}</p>
                       <p className="text-xs font-semibold text-vino mt-1">C${precio.toLocaleString('es-NI')} c/u (Tarifa {item.cantidad >= 12 ? 'Mayor' : 'Retail'})</p>
+                      <span className={`inline-block mt-2 text-xs px-2 py-0.5 rounded-full border ${colorEtiqueta}`}>
+                        {etiqueta.texto}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <button onClick={() => updateQuantity(item.productoId, item.talla, item.color, Math.max(1, item.cantidad - 1))} className="w-8 h-8 bg-beige-100 rounded text-azul font-bold">-</button>
@@ -98,7 +105,6 @@ export default function CarritoPage() {
               })}
             </div>
 
-            {/* Resumen y Pago */}
             <div className="bg-blanco p-6 rounded-2xl border border-azul/10 shadow-sm sticky top-24">
               <h3 className="font-display text-xl text-azul mb-4">Resumen de Prefactura</h3>
               <div className="flex flex-col gap-3 text-sm font-body border-b border-beige-200 pb-4 mb-4">
@@ -121,17 +127,11 @@ export default function CarritoPage() {
                 Un asesor confirmará tiempos de entrega, existencias y personalización antes de autorizar cualquier transacción.
               </div>
 
-              {/* AQUÍ ESTÁ EL BOTÓN DE PAYPAL CORRECTAMENTE UBICADO */}
               <div className="mb-4">
                 <PayPalButton />
               </div>
 
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={handleConfirmOrder}
-                className="w-full shadow-md"
-              >
+              <Button variant="primary" size="lg" onClick={handleConfirmOrder} className="w-full shadow-md">
                 Confirmar prefactura
               </Button>
 

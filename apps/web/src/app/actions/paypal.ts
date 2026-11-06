@@ -3,21 +3,38 @@
 import { paypalClient } from '../../lib/paypal';
 import { OrdersController, CheckoutPaymentIntent, OrderApplicationContextShippingPreference } from '@paypal/paypal-server-sdk';
 import { supabaseAdmin } from '../../lib/supabase-admin';
+import { resolveItemState, type VarianteInfo, type ProductoInfo } from '../../lib/resolveItemState';
+import { DEFAULT_LEAD_TIME_DIAS } from '../../lib/config/entrega';
 
 export async function createPayPalOrder(cartItems: any[]): Promise<{ orderID: string; totalAmount: number }> {
-  // Se acumula en CENTAVOS (enteros) para evitar drift de punto flotante
-  // y garantizar que sum(items) === breakdown.item_total exactamente.
   let totalCents = 0;
   const itemsParaPayPal = [];
 
   for (const item of cartItems) {
     const { data: prod, error } = await supabaseAdmin
       .from('productos')
-      .select('precio_retail, precio_mayor, nombre')
+      .select('id, precio_retail, precio_mayor, nombre, tipo_disponibilidad, tiempo_reposicion_horas, lead_time_dias')
       .eq('id', item.productoId)
       .single();
 
     if (error || !prod) throw new Error(`Producto no encontrado: ${item.productoId}`);
+
+    let variante: VarianteInfo | null = null;
+    if (prod.tipo_disponibilidad === 'stock') {
+      const { data: v } = await supabaseAdmin
+        .from('producto_variantes')
+        .select('talla,color,stock_fisico')
+        .eq('producto_id', prod.id)
+        .eq('talla', item.talla)
+        .eq('color', item.color)
+        .maybeSingle();
+      variante = v ?? null;
+    }
+
+    const state = resolveItemState(prod as ProductoInfo, variante, item.cantidad);
+    if (!state.canPurchase) {
+      throw new Error(`No se puede comprar "${prod.nombre}" en este momento. Contactá a un asesor.`);
+    }
 
     const precioUnitario: number = item.cantidad >= 12 ? prod.precio_mayor : prod.precio_retail;
     const unitCents = Math.round(precioUnitario * 100);
@@ -34,7 +51,6 @@ export async function createPayPalOrder(cartItems: any[]): Promise<{ orderID: st
   const totalAmount = Number(totalAmountString);
 
   const ordersController = new OrdersController(paypalClient);
-
   const response = await ordersController.ordersCreate({
     body: {
       intent: CheckoutPaymentIntent.Capture,
@@ -42,11 +58,7 @@ export async function createPayPalOrder(cartItems: any[]): Promise<{ orderID: st
         amount: {
           currencyCode: 'USD',
           value: totalAmountString,
-          // PayPal exige item_total cuando se envían items (error ITEM_TOTAL_REQUIRED).
-          // Con shipping_preference=NO_SHIPPING y sin impuestos, breakdown = { item_total }.
-          breakdown: {
-            itemTotal: { currencyCode: 'USD', value: totalAmountString },
-          },
+          breakdown: { itemTotal: { currencyCode: 'USD', value: totalAmountString } },
         },
         items: itemsParaPayPal,
       }],
@@ -60,24 +72,61 @@ export async function createPayPalOrder(cartItems: any[]): Promise<{ orderID: st
   return { orderID, totalAmount };
 }
 
-export async function capturePayPalOrder(orderID: string, cartItems: any[], totalAmount: number) {
+export async function capturePayPalOrder(
+  orderID: string,
+  cartItems: any[],
+  totalAmount: number
+): Promise<{ success: true; pedidoId: string; numeroOrden: string }> {
   const ordersController = new OrdersController(paypalClient);
-
-  // 1. Capturar el pago en PayPal
   const response = await ordersController.ordersCapture({ id: orderID });
 
   if (response.result.status !== 'COMPLETED') {
     throw new Error('El pago no se completó correctamente en PayPal.');
   }
 
-  // 2. Guardar pedido + items atómicamente vía RPC (Opción B)
-  const pedidoItems = cartItems.map((item) => ({
-    producto_id: item.productoId,
-    cantidad: item.cantidad,
-    precio_unitario: item.precioUnitario,
-    talla: item.talla,
-    color: item.color,
-  }));
+  const pedidoItems: any[] = [];
+  for (const item of cartItems) {
+    const { data: prod } = await supabaseAdmin
+      .from('productos')
+      .select('id, precio_retail, precio_mayor, tipo_disponibilidad, tiempo_reposicion_horas, lead_time_dias')
+      .eq('id', item.productoId)
+      .single();
+
+    if (!prod) {
+      console.error('[capture] PRODUCTO_DESAPARECIDO', { orderID, productoId: item.productoId });
+      throw new Error('Un producto de tu pedido ya no está disponible. Contactá a un asesor.');
+    }
+
+    let variante: VarianteInfo | null = null;
+    if (prod.tipo_disponibilidad === 'stock') {
+      const { data: v } = await supabaseAdmin
+        .from('producto_variantes')
+        .select('talla,color,stock_fisico')
+        .eq('producto_id', prod.id)
+        .eq('talla', item.talla)
+        .eq('color', item.color)
+        .maybeSingle();
+      variante = v ?? null;
+    }
+
+    const state = resolveItemState(prod as ProductoInfo, variante, item.cantidad);
+    if (!state.canPurchase) {
+      console.error('[capture] STATE_NO_COMPRABLE', { orderID, productoId: item.productoId, motivo: state.motivo });
+      throw new Error('El estado de un producto cambió mientras pagabas. Contactá a un asesor.');
+    }
+
+    const precioUnitario: number = item.cantidad >= 12 ? prod.precio_mayor : prod.precio_retail;
+
+    pedidoItems.push({
+      producto_id: item.productoId,
+      cantidad: item.cantidad,
+      precio_unitario: precioUnitario,
+      talla: item.talla,
+      color: item.color,
+      es_bajo_pedido: state.esBajoPedido,
+      lead_time_dias: state.leadTimeDias ?? DEFAULT_LEAD_TIME_DIAS,
+    });
+  }
 
   const { data: pedidoId, error: errorRpc } = await supabaseAdmin.rpc('crear_pedido_completo', {
     p_total: totalAmount,
@@ -87,9 +136,20 @@ export async function capturePayPalOrder(orderID: string, cartItems: any[], tota
   });
 
   if (errorRpc || !pedidoId) {
+    if (errorRpc?.code === 'P0001') {
+      console.error('[capture] STOCK_INSUFICIENTE', { orderID, mensaje: errorRpc.message, items: pedidoItems });
+      throw new Error('El stock cambió mientras completabas el pago. Tu pago fue procesado; contactá a un asesor para resolver tu pedido.');
+    }
     console.error('Error atómico guardando pedido:', errorRpc);
     throw new Error('Hubo un error al guardar su pedido en la base de datos.');
   }
 
-  return { success: true, pedidoId: pedidoId };
+  const { data: pedidoRow } = await supabaseAdmin
+    .from('pedidos')
+    .select('numero_orden')
+    .eq('id', pedidoId)
+    .single();
+
+  const numeroOrden = (pedidoRow as any)?.numero_orden ?? '';
+  return { success: true, pedidoId: pedidoId as string, numeroOrden };
 }

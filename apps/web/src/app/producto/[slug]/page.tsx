@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '../../../lib/supabase';
+import { supabaseAdmin } from '../../../lib/supabase-admin';
 import { ProductImage } from '../../../components/catalog/ProductImage';
 import { ProductActions } from '../../../components/catalog/ProductActions';
 import { Badge } from '../../../components/ui/Badge';
@@ -21,6 +22,12 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
+  const { data: variantesData, error: errorVariantes } = await supabaseAdmin
+    .from('producto_variantes')
+    .select('talla,color,stock_fisico')
+    .eq('producto_id', producto.id);
+
+  const variantes = variantesData ?? [];
   const precioBase = producto.precio_mayor ?? producto.precio_retail ?? producto.precio_min ?? 0;
 
   return (
@@ -84,8 +91,10 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
                 <span className="font-medium text-azul">{producto.telas?.join(', ') || 'No especificada'}</span>
               </div>
               <div className="bg-blanco p-4 rounded-lg border border-beige-200">
-                <span className="block text-xs text-marron-400 mb-1">Tiempo de Entrega</span>
-                <span className="font-medium text-azul">{producto.tiempo_entrega}</span>
+                <span className="block text-xs text-marron-400 mb-1">Disponibilidad</span>
+                <span className="font-medium text-azul">
+                  {variantes.length > 0 ? 'Sujeto a stock físico' : 'Bajo pedido'}
+                </span>
               </div>
               <div className="bg-blanco p-4 rounded-lg border border-beige-200">
                 <span className="block text-xs text-marron-400 mb-1">Garantía</span>
@@ -97,8 +106,8 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
               </div>
             </div>
 
-            {/* Aquí inyectamos el componente interactivo */}
-            <ProductActions producto={producto} />
+
+            <ProductActions producto={producto} variantes={variantes} />
             
             <p className="text-xs text-marron-400 text-center mt-2">
               * El precio final y los tiempos de entrega serán confirmados por un asesor.
