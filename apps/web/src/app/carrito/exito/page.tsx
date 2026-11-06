@@ -31,18 +31,28 @@ export default async function ExitoPage({ searchParams }: PageProps) {
     );
   }
 
-  const { data: pedido } = await supabaseAdmin
+  const { data: pedido, error: errorPedido } = await supabaseAdmin
     .from('pedidos')
     .select('id, numero_orden, total, moneda, created_at')
     .eq('paypal_order_id', pp)
     .maybeSingle();
 
-  const { data: items } = pedido
-    ? await supabaseAdmin
-        .from('pedido_items')
-        .select('producto_id, cantidad, precio_unitario, talla, color, es_bajo_pedido, fecha_entrega_estimada')
-        .eq('pedido_id', pedido.id)
-    : { data: [] };
+  // CARTEL DE DEBUG TEMPORAL
+  if (errorPedido || !pedido) {
+    return (
+      <div className="bg-red-50 text-red-800 p-8 m-8 font-mono whitespace-pre-wrap rounded-lg border border-red-300">
+        <h2 className="text-xl font-bold mb-4">DIAGNÓSTICO DE ERROR EN TICKET</h2>
+        <p><strong>PayPal Order ID (pp):</strong> {pp}</p>
+        <p><strong>Error de Supabase:</strong> {errorPedido ? JSON.stringify(errorPedido, null, 2) : 'Ninguno'}</p>
+        <p><strong>¿Pedido encontrado?:</strong> {pedido ? 'Sí' : 'No'}</p>
+      </div>
+    );
+  }
+
+  const { data: items } = await supabaseAdmin
+    .from('pedido_items')
+    .select('producto_id, cantidad, precio_unitario, talla, color, es_bajo_pedido, fecha_entrega_estimada')
+    .eq('pedido_id', pedido.id);
 
   const productosPorId: Record<string, { nombre: string; tiempo_reposicion_horas: number | null; lead_time_dias: number | null }> = {};
   if (items && items.length > 0) {
@@ -60,7 +70,7 @@ export default async function ExitoPage({ searchParams }: PageProps) {
     });
   }
 
-  const numeroOrden = (pedido as any)?.numero_orden ?? ordenFallback ?? '—';
+  const numeroOrden = pedido.numero_orden ?? ordenFallback ?? '—';
 
   return (
     <div className="bg-beige min-h-screen py-16">
@@ -121,14 +131,12 @@ export default async function ExitoPage({ searchParams }: PageProps) {
             </div>
           )}
 
-          {pedido && (
-            <div className="flex justify-between items-center mb-8 pt-4 border-t border-azul/20">
-              <span className="font-semibold text-azul">Total pagado:</span>
-              <span className="font-display text-2xl text-vino font-bold">
-                {pedido.moneda ?? 'USD'} {Number(pedido.total).toFixed(2)}
-              </span>
-            </div>
-          )}
+          <div className="flex justify-between items-center mb-8 pt-4 border-t border-azul/20">
+            <span className="font-semibold text-azul">Total pagado:</span>
+            <span className="font-display text-2xl text-vino font-bold">
+              {pedido.moneda ?? 'USD'} {Number(pedido.total).toFixed(2)}
+            </span>
+          </div>
 
           <p className="text-xs text-marron-400 text-center mb-6">
             Un asesor de El Cacique se pondrá en contacto con usted en las próximas 24 horas.
