@@ -95,3 +95,37 @@ h1, h2, h3, h4, h5, h6 {
 .animate-fade-in-delayed {
   animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Efecto de brillo para el logo (Glass/Jewel Reflection) */
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  20% {
+    left: 200%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+.animate-shine {
+  animation: shine 4s infinite ease-in-out;
+}
+
+/* Efecto de brillo diagonal (sin recortes circulares) */
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  20% {
+    left: 200%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+.animate-shine {
+  animation: shine 4s infinite ease-in-out;
+}

@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { HeroVideo } from '../components/hero/HeroVideo';
 import { Container } from '../components/ui/Container';
 import { Section } from '../components/ui/Section';
@@ -19,31 +18,27 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full">
       
-      {/* 1. HERO SECTION */}
-      <section className="relative w-full min-h-[75vh] md:min-h-[85vh] flex items-center justify-center overflow-hidden">
-        {/* Video de fondo */}
+      {/* 1. HERO SECTION con Padding superior para el logo gigante */}
+      <section className="relative w-full min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-28 md:pt-32">
         <HeroVideo />
         
         {/* Contenido superpuesto */}
-        <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-blanco/10 backdrop-blur-md border border-blanco/20 text-white font-body text-xs sm:text-sm font-semibold tracking-wide uppercase mb-6">
-            Fábrica de Uniformes en Nicaragua
-          </span>
+        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 text-center animate-fade-in-up">
           
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] tracking-tight mb-6 text-balance drop-shadow-xl">
-            Vestimos a tu equipo con la calidad que se siente.
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl !text-white leading-[1.1] tracking-tight mb-6 text-balance drop-shadow-2xl">
+            Vestimos cada etapa de tu camino.
           </h1>
           
-          <p className="font-body text-base sm:text-lg md:text-xl text-celeste-100 max-w-2xl mx-auto leading-relaxed mb-10 text-balance drop-shadow-md">
-            Confección médica, industrial y corporativa con bordado computarizado y entrega local en 48–72 horas.
+          <p className="font-body text-base sm:text-lg md:text-xl !text-white/95 max-w-3xl mx-auto leading-relaxed mb-10 text-balance drop-shadow-lg">
+            Uniformes escolares, corporativos y especializados confeccionados para acompañar a quienes aprenden, trabajan y construyen el futuro.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button href="/catalogo" variant="primary" size="lg" className="w-full sm:w-auto !bg-vino hover:!bg-vino-600 shadow-2xl text-lg px-8">
-              Explorar Catálogo
+              Explorar catálogo
             </Button>
-            <Button href="/cotizacion" variant="secondary" size="lg" className="w-full sm:w-auto !border-white !text-white hover:!bg-white hover:!text-azul backdrop-blur-xs text-lg px-8">
-              Cotizar por Mayoreo
+            <Button href="/nosotros" variant="secondary" size="lg" className="w-full sm:w-auto !border-white !text-white hover:!bg-white hover:!text-azul backdrop-blur-xs text-lg px-8 shadow-xl">
+              Conocer nuestros servicios
             </Button>
           </div>
         </div>

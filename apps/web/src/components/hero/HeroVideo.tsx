@@ -26,7 +26,6 @@ export function HeroVideo() {
 
   return (
     <>
-      {/* Video Background o Fallback Poster */}
       {!videoError && !reducedMotion ? (
         <video
           autoPlay
@@ -49,9 +48,9 @@ export function HeroVideo() {
         />
       )}
 
-      {/* Overlay azul para legibilidad del texto */}
-      <div className="absolute inset-0 bg-azul/60 backdrop-brightness-75 z-10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-azul-700/90 via-azul/40 to-azul-700/30 z-10 pointer-events-none" />
+      {/* Overlay azul ajustado (menos opaco, más brillo) */}
+      <div className="absolute inset-0 bg-azul/50 backdrop-brightness-90 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0F2338] via-azul/20 to-[#0F2338]/40 z-10 pointer-events-none" />
     </>
   );
 }

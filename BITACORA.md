@@ -306,3 +306,15 @@ macOS 11.7.11 · Node v20.20.2 · pnpm 9.15.9 · Next 16.4.5 · HEAD `8d0fa89` �
 - **Meta (Facebook):** El login de Facebook funciona en local, pero para producción requiere crear un Portafolio Comercial verificado en Meta. Queda pausado.
 - **Ajustes UI/UX:** Quedan detalles por afinar (textos finales, colores, espaciados) tras revisión del cliente.
 - **CyberSource:** Diferido hasta tener credenciales del banco.
+
+## [2026-11-06 — Cierre UI/UX: Hero, Navegación y Efecto de Logo]
+
+### Hitos Alcanzados
+- **Header & Logo:** Se integró el logo aislado de Supabase Storage. Se aplicó un efecto "vitrina" (destello diagonal CSS) y el texto de marca se separó para mejor manipulación. Navegación orientada al comprador (Uniformes escolares, Empresariales, Especializados con submenú).
+- **Hero:** Se reconstruyó el componente `HeroVideo` eliminando textos hardcodeados. Se ajustó el overlay azul (de 70% a 50%) para dar mayor protagonismo al video. Textos B2C aprobados ("Vestimos cada etapa de tu camino").
+- **Footer & Legal:** Se creó el Footer con acceso a la documentación legal (Política, Términos, Eliminación de datos).
+- **Catálogo:** Buscador con autocompletado predictivo (conectado a Supabase) y filtros laterales en móvil.
+- **Búsqueda:** Corrección lógica para que buscar ignore el filtro de categoría y busque en todo el catálogo.
+
+### Estado
+- Página lista para entrega del primer borrador al cliente.

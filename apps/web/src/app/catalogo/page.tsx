@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Container } from '../../components/ui/Container';
 import { SectionTitle } from '../../components/ui/SectionTitle';
 import { ProductCard } from '../../components/catalog/ProductCard';
@@ -24,10 +25,14 @@ function CatalogoContent() {
   const [sortBy, setSortBy] = useState<'relevancia' | 'precio-asc' | 'precio-desc' | 'nombre'>('relevancia');
   const [page, setPage] = useState(1);
   
-  // Estado para menú de filtros móvil
+  // Estados para las sugerencias (Autocompletado)
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const itemsPerPage = 12;
 
+  // Cargar productos iniciales
   useEffect(() => {
     async function fetchProductos() {
       const { data } = await supabase.from('productos').select('*').order('id');
@@ -45,8 +50,35 @@ function CatalogoContent() {
     fetchProductos();
   }, []);
 
+  // Autocompletado en tiempo real
   useEffect(() => {
-    const timer = setTimeout(() => { setDebouncedQuery(searchInput); setPage(1); }, 300);
+    async function fetchSuggestions() {
+      if (searchInput.trim().length < 2) {
+        setSuggestions([]);
+        return;
+      }
+      const { data } = await supabase
+        .from('productos')
+        .select('id, nombre, slug, precio_retail, precio_min')
+        .ilike('nombre', `%${searchInput}%`)
+        .limit(5);
+      if (data) setSuggestions(data);
+    }
+
+    const timer = setTimeout(fetchSuggestions, 300);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  // Debounce para filtrado principal
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(searchInput);
+      setPage(1);
+      // IMPORTANTE: Si el usuario está buscando, reseteamos la categoría para que busque en todo el catálogo
+      if (searchInput.trim().length > 0) {
+        setSelectedCategoria('todos');
+      }
+    }, 400);
     return () => clearTimeout(timer);
   }, [searchInput]);
 
@@ -54,7 +86,13 @@ function CatalogoContent() {
 
   const filteredProductos = useMemo(() => {
     let result = [...productos];
-    if (selectedCategoria !== 'todos') result = result.filter(p => p.categoria.toLowerCase() === selectedCategoria.toLowerCase());
+    
+    // Filtrar por categoría (solo si no hay búsqueda activa)
+    if (selectedCategoria !== 'todos' && debouncedQuery.trim() === '') {
+      result = result.filter(p => p.categoria.toLowerCase() === selectedCategoria.toLowerCase());
+    }
+
+    // Filtrar por búsqueda
     if (debouncedQuery.trim()) {
       const q = normalizeText(debouncedQuery.trim());
       const words = q.split(/\s+/).filter(Boolean);
@@ -63,9 +101,12 @@ function CatalogoContent() {
         return words.every(word => textPool.includes(word));
       });
     }
+
+    // Ordenamiento
     if (sortBy === 'precio-asc') result.sort((a, b) => (a.precio_mayor ?? 0) - (b.precio_mayor ?? 0));
     else if (sortBy === 'precio-desc') result.sort((a, b) => (b.precio_mayor ?? 0) - (a.precio_mayor ?? 0));
     else if (sortBy === 'nombre') result.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    
     return result;
   }, [productos, selectedCategoria, debouncedQuery, sortBy]);
 
@@ -80,11 +121,37 @@ function CatalogoContent() {
           <SectionTitle align="left" badge="Catálogo" title="Nuestras Prendas" subtitle="Encuentra lo que buscas por categoría o usando el buscador." />
         </div>
 
-        {/* Barra de búsqueda y filtro móvil */}
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 mb-8 bg-blanco p-4 rounded-xl border border-azul/10 shadow-xs">
+        {/* Barra de búsqueda con Autocompletado */}
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 mb-8 bg-blanco p-4 rounded-xl border border-azul/10 shadow-xs relative z-20">
           <div className="relative w-full max-w-lg">
-            <input type="text" placeholder="Buscar prenda, tela..." value={searchInput} onChange={(e) => setSearchInput(e.target.value)} className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm bg-beige-100 border border-beige-200 focus:outline-none focus:border-azul" />
+            <input 
+              type="text" 
+              placeholder="Buscar prenda, SKU o tela (ej: columbia, scrub)..." 
+              value={searchInput} 
+              onChange={(e) => { setSearchInput(e.target.value); setShowSuggestions(true); }} 
+              onFocus={() => { if (searchInput.trim().length >= 2) setShowSuggestions(true); }}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+              className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm bg-beige-100 border border-beige-200 focus:outline-none focus:border-azul" 
+            />
             <svg className="w-4 h-4 absolute left-3.5 top-3.5 text-marron-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+
+            {/* Dropdown de Sugerencias */}
+            {showSuggestions && suggestions.length > 0 && (
+              <ul className="absolute z-50 w-full mt-1 bg-white border border-beige-200 rounded-lg shadow-xl overflow-hidden top-full text-left">
+                {suggestions.map((prod) => (
+                  <li key={prod.id} className="border-b border-beige-100 last:border-0">
+                    <button
+                      type="button"
+                      onClick={() => { setShowSuggestions(false); router.push(`/producto/${prod.slug}`); }}
+                      className="w-full text-left px-4 py-3 hover:bg-beige-50 transition-colors flex flex-col cursor-pointer"
+                    >
+                      <span className="font-semibold text-azul text-sm">{prod.nombre}</span>
+                      <span className="text-xs text-marron">Desde C${prod.precio_retail || prod.precio_min || 0}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <div className="flex items-center gap-3">
@@ -103,7 +170,7 @@ function CatalogoContent() {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
           
-          {/* Filtros Escritorio */}
+          {/* Filtros Escritorio / Móvil */}
           <aside className={`lg:col-span-1 bg-blanco p-6 rounded-2xl border border-azul/10 shadow-xs flex-col gap-6 ${isMobileFiltersOpen ? 'fixed inset-0 z-50 m-4 overflow-y-auto flex' : 'hidden lg:flex'}`}>
             <div className="flex justify-between items-center lg:hidden mb-4">
               <h3 className="font-display text-xl text-azul">Filtros</h3>
@@ -113,13 +180,13 @@ function CatalogoContent() {
               <h3 className="font-display text-base text-azul mb-3 pb-2 border-b border-beige-200">Categorías</h3>
               <ul className="flex flex-col gap-1 text-sm font-body">
                 <li>
-                  <button onClick={() => { setSelectedCategoria('todos'); setPage(1); setIsMobileFiltersOpen(false); }} className={`w-full text-left px-3 py-2 rounded-lg transition-colors flex items-center justify-between text-xs font-medium ${selectedCategoria === 'todos' ? 'bg-azul text-blanco' : 'text-marron hover:bg-beige-100'}`}>
+                  <button onClick={() => { setSelectedCategoria('todos'); setPage(1); setIsMobileFiltersOpen(false); setSearchInput(''); }} className={`w-full text-left px-3 py-2 rounded-lg transition-colors flex items-center justify-between text-xs font-medium ${selectedCategoria === 'todos' && !debouncedQuery ? 'bg-azul text-blanco' : 'text-marron hover:bg-beige-100'}`}>
                     <span>Todos</span><span>{productos.length}</span>
                   </button>
                 </li>
                 {categorias.map((cat) => (
                   <li key={cat.id}>
-                    <button onClick={() => { setSelectedCategoria(cat.id); setPage(1); setIsMobileFiltersOpen(false); }} className={`w-full text-left px-3 py-2 rounded-lg transition-colors flex items-center justify-between text-xs font-medium ${selectedCategoria === cat.id ? 'bg-azul text-blanco' : 'text-marron hover:bg-beige-100'}`}>
+                    <button onClick={() => { setSelectedCategoria(cat.id); setSearchInput(''); setPage(1); setIsMobileFiltersOpen(false); }} className={`w-full text-left px-3 py-2 rounded-lg transition-colors flex items-center justify-between text-xs font-medium ${selectedCategoria === cat.id && !debouncedQuery ? 'bg-azul text-blanco' : 'text-marron hover:bg-beige-100'}`}>
                       <span className="truncate pr-2">{cat.nombre}</span><span>{cat.count}</span>
                     </button>
                   </li>
@@ -133,7 +200,17 @@ function CatalogoContent() {
 
           {/* Grid de Productos */}
           <main className="lg:col-span-3 flex flex-col gap-6 w-full">
-            <span className="text-xs text-marron-400 font-body">Mostrando <strong>{paginatedProductos.length}</strong> de <strong>{filteredProductos.length}</strong> prendas</span>
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-marron-400 font-body">
+                Mostrando <strong>{paginatedProductos.length}</strong> de <strong>{filteredProductos.length}</strong> prendas
+              </span>
+              {debouncedQuery && (
+                <span className="text-xs bg-beige-200 text-marron px-2 py-1 rounded-md">
+                  Búsqueda: "{debouncedQuery}" <button onClick={() => setSearchInput('')} className="ml-1 font-bold text-vino">&times;</button>
+                </span>
+              )}
+            </div>
+            
             {paginatedProductos.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {paginatedProductos.map((prod) => <ProductCard key={prod.id} producto={prod} />)}
@@ -141,9 +218,11 @@ function CatalogoContent() {
             ) : (
               <div className="bg-blanco p-12 rounded-2xl border border-azul/10 text-center">
                 <h4 className="font-display text-2xl text-azul mb-2">No encontramos prendas</h4>
-                <Button variant="primary" onClick={() => { setSelectedCategoria('todos'); setSearchInput(''); }}>Ver todo</Button>
+                <p className="text-marron-400 text-sm mb-4">Intenta con otra palabra o revisa la ortografía.</p>
+                <Button variant="primary" onClick={() => { setSelectedCategoria('todos'); setSearchInput(''); }}>Ver todo el catálogo</Button>
               </div>
             )}
+            
             {paginatedProductos.length < filteredProductos.length && (
               <div className="text-center pt-8">
                 <Button variant="secondary" size="lg" onClick={() => setPage((prev) => prev + 1)}>Cargar más</Button>
