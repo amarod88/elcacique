@@ -41,3 +41,67 @@
 - **RLS (Row Level Security):** Se solucionó un error de recursión infinita (Code: 42P17) usando una función `SECURITY DEFINER` llamada `is_admin()`. Además, se otorgaron permisos base (GRANT SELECT) a la tabla `profiles`.
 - **Inventario Relacional:** Creada tabla `producto_variantes` (talla, color, stock_fisico, en_produccion, lead_time_dias). Sembrada con 100 unidades por variante para el `MED-TOP-001`.
 - **Dashboard Admin:** Rutas protegidas en `/admin/(panel)/dashboard` y `/admin/(panel)/inventario`. Layout aislado del login usando Route Groups `(panel)`.
+
+## 7. Arquitectura de Gobernanza y Disponibilidad (Fase 3+)
+
+### 7.1. Modelo de Disponibilidad (3 estados por producto)
+- `tipo_disponibilidad`: `'stock'` | `'bajo_pedido'` | `'visita_local'`.
+- `tiempo_reposicion_horas` (integer NULL): aplica solo a productos `'stock'` de alta rotación. Default conceptual: 48h.
+- `activo boolean DEFAULT true` (soft-delete). Admin NO borra en duro.
+- `eliminado_por uuid NULL`, `eliminado_at timestamptz NULL` (auditoría).
+
+### 7.2. Máquina de 6 estados del botón (ProductActions)
+| # | Condición | Botón | Alerta |
+|---|---|---|---|
+| 1 | `visita_local` | "Solicitar Cotización" | "Producto a medida. Te esperamos en tienda." |
+| 2 | `stock > 10` | "Agregar al Carrito" | — |
+| 3 | `1 <= stock <= 10` | "Agregar al Carrito" | "Últimos N en stock" |
+| 4 | `stock = 0`, `tiempo_reposicion_horas` definido | "Reservar Bajo Pedido (48h)" | "Agotado. Disponible en 48h si lo pides ahora." |
+| 5 | `stock = 0`, sin `tiempo_reposicion_horas` | "Sin stock — Consultar" (bloqueado) | "Agotado. Consulta disponibilidad." |
+| 6 | `bajo_pedido` (MTO puro) | "Ordenar bajo pedido (N días)" | "Se fabrica a tu medida. Entrega en N días." |
+
+### 7.3. Libro Mayor de Inventario (única vía de modificar stock)
+- `stock_fisico` en `producto_variantes` **no es editable directamente**.
+- Toda modificación ocurre por **movimiento de inventario** con: `tipo` (venta, requisa, devolucion-reparada, ajuste-auditoria), `cantidad` (+/-), `motivo`, `ejecutado_por`, `created_at`.
+- El stock mostrado es la proyección del libro mayor. Fase 4 introduce tabla `movimientos_inventario`.
+- Admin sembrado por auditoría física; NO puede alterarlo salvo por eventos autorizados (factura local, venta confirmada, requisa declarada).
+
+### 7.4. Roles y Límites
+- **Admin:** opera inventario, atiende pedidos, registra ventas locales, autoriza anulaciones (auto-reversión con notificación), gestiona RMAs.
+- **Superadmin:** gobierna catálogo, precios públicos, `tipo_disponibilidad`, categorías, códigos de descuento, umbrales. Ve auditoría del admin.
+- **Admin NO puede:** borrar producto con stock > 0, modificar precios públicos, alterar `stock_fisico` fuera de eventos autorizados.
+
+### 7.5. Pagos y Comisiones
+- Métodos: efectivo, transferencia, crédito (con plazo + alerta), tarjeta POS, e-commerce (PayPal/crédito).
+- `pedidos.metodo_pago`, `pedidos.comision_bancaria` (registro interno).
+- Comisión POS = **gasto empresa**, no se traslada al cliente. Precio público es final.
+- Umbral stock bajo = **10** (global, hardcodeado; superadmin override en fase futura).
+
+### 7.6. MTO y Reposición 48h (dos pools de producción)
+- **Pool A — MTO puro:** `tipo='bajo_pedido'`. SLA >= 7 días (configurable por producto por superadmin). Cola por orden de llegada. Equipo producción general.
+- **Pool B — Alta rotación 48h:** `tipo='stock'` agotado con `tiempo_reposicion_horas=48`. Cola por orden de llegada. Equipo corte rápido.
+- Admin verá ambos pools consolidados con reporte acumulado por **categoría + SKU**.
+- **Módulo de Control de Producción (declarado, fase posterior):** onboarding que refleje el estado exacto de cada orden (En Cola -> En Producción -> Control Calidad -> Completado/Reproceso).
+
+### 7.7. Devoluciones (RMA) por Defecto de Fábrica
+- Cuarentena -> inspección -> `reparado` o `descartado`.
+- **NO reingresa automáticamente** al stock vendible.
+- Solo si `reparado` se registra reingreso. Métricas obligatorias: `reparado` vs `descartado` por SKU y por proveedor.
+
+### 7.8. Anulación de Factura / Venta
+- Admin puede anular con **motivo obligatorio**.
+- Reversión automática de stock + notificación al superadmin + registro en `anulaciones`.
+
+### 7.9. Pruebas QA (Fase 3)
+- 3 usuarios `qa-1@elcacique.net`, `qa-2@...`, `qa-3@...` en `auth.users` (creados manualmente por el Operador).
+- Escenarios: (A) compra con stock -> decremento; (B) compra agotado -> bajo_pedido; (C) anulación -> reversión.
+- **Protocolo de limpieza al cierre:** DELETE por patrón + re-siembra de stock + registro en BITACORA.
+
+### 7.10. OAuth
+- Diferido. Login admin SSR con email/password. OAuth (Google/Facebook) en fase posterior a certificar el flujo QA.
+
+### 7.11. Hoja de Ruta
+- **Fase 3 (esta):** Bajo-pedido end-to-end + pruebas QA. Cierra lazo venta -> stock -> dashboard.
+- **Fase 4:** Libro mayor, dashboard admin (KPIs accionables), RMA, reportes de producción, catálogo depurado.
+- **Fase 5:** Superadmin (gobernanza, roles, auditoría, precios, descuentos).
+- **Fase 6:** Control de Producción (onboarding, dos equipos, reporte acumulado).

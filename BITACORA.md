@@ -243,3 +243,37 @@ Se resolvieron los bloqueos de autenticación (bucle de redirección, falta de c
 - Función `is_admin()` y `GRANT SELECT ON profiles TO authenticated` en Supabase.
 - Layout movido a Route Group `(panel)` para aislar el `/admin/login`.
 - Eliminación del código de debug en producción (commit `0a9cf31`).
+
+## [2026-11-05 17:26 CST] — Fix: Dashboard Admin mostrando ceros por falta de GRANTs
+
+### Diagnóstico
+El Dashboard Admin mostraba 0 ventas, 0 pedidos y 0 inventario a pesar de que la base de datos tenía 42 variantes y 2 items de pedidos. 
+Causa: El rol `authenticated` no tenía permisos de `SELECT` (solo TRUNCATE/TRIGGER) en las tablas `pedidos`, `pedido_items` y `producto_variantes`. Además, la política RLS de `pedidos` solo permitía ver los pedidos propios.
+
+### Solución Aplicada
+- `GRANT SELECT` a `authenticated` en las 3 tablas.
+- Nuevas políticas RLS usando `is_admin()` para permitir al Administrador leer todos los pedidos e items.
+
+## [2026-11-05 — Reframe de Fase 3: de "conectar frontend" a "control de inventario con trazabilidad"]
+
+### Contexto
+El alcance original de Fase 3 ("conectar ProductActions con variantes") era precondición técnica, no el fin. El Operador expuso la visión completa: control de inventario inmutable, libro mayor de movimientos, modelo de 3 estados de disponibilidad, dos pools de producción (MTO 7d + Alta Rotación 48h), roles admin/superadmin, RMA por defecto de fábrica, y métricas/alertas accionables. Se acota Fase 3 al lazo mínimo (venta -> decremento stock -> dashboard) y se abre Fase 4 (Libro Mayor + Dashboard) y Fase 5 (Superadmin).
+
+### Decisiones cerradas (N1-N14)
+- N5: alta rotación con stock=0 -> bloquear pago, ofrecer reposición 48h. MTO separado.
+- N7: umbral stock bajo = 10 global (override futuro).
+- N8: anulación -> reversión auto + notificación superadmin + registro.
+- N9: devoluciones NO reingresan auto; cuarentena -> reparado/descartado.
+- N10: comisión POS = gasto empresa, no al cliente.
+- N11/N13: 3 usuarios QA en producción, creados manualmente por Operador.
+- N12: descuento de stock post-pago (dentro del RPC atómico).
+- N14: escenarios QA (A stock, B agotado, C anulación).
+
+### Hallazgos §3.6 (lectura dirigida)
+- Admin actual mínimo: 5 archivos, 0 componentes reutilizables. Fase 4 construye desde base.
+- `producto_variantes`: solo `MED-TOP-001` tiene 42 variantes sembradas (4200u). El resto del catálogo NO tiene variantes -> D1 default = bajo_pedido.
+- RPC `crear_pedido_completo` actual NO descuenta stock, NO conoce `es_bajo_pedido`/`lead_time_dias`/`fecha_entrega_estimada`. Requiere migración.
+- `productos` NO tiene `tipo_disponibilidad` ni `tiempo_reposicion_horas`. ALTER en Fase 3.1.
+
+### Entorno inmutable verificado
+macOS 11.7.11 · Node v20.20.2 · pnpm 9.15.9 · Next 16.4.5 · HEAD `8d0fa89` · build verde certificado.

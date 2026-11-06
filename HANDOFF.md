@@ -1,26 +1,34 @@
 # HANDOFF DE CONTEXTO — PROYECTO EL CACIQUE
 
-**Rol asumido:** Director de Proyecto / Desarrollador Senior IA.
-
 ## 1. Estado Actual (Último milímetro)
-- **Commit actual en `main`:** `0a9cf31` (en Vercel: Ready).
-- **Pagos:** ✅ **100% Funcionales.** RPC atómico en producción.
-- **Admin:** ✅ **Operativo.** Login SSR con cookies, Dashboard protegido y tabla de inventario visible.
-- **Base de Datos:** Tabla `producto_variantes` creada y sembrada (100 unidades por talla/color del Top Médico).
+- **Commit en `main`:** `8d0fa89` (Vercel: Ready).
+- **Pagos:** OK 100% funcionales. RPC atómico `crear_pedido_completo` en producción.
+- **Admin:** OK Login SSR, Dashboard, Inventario (5 archivos, mínimo).
+- **BD:** `producto_variantes` con 42 variantes de `MED-TOP-001` (4200u). Resto del catálogo sin variantes sembradas.
 
-## 2. Próxima Fase: Frontend "Bajo Pedido" + Carrito
-El backend y la base de datos ya soportan la lógica de "Bajo Pedido" (`en_produccion`, `lead_time_dias`, `es_bajo_pedido` en pedido_items), pero el frontend (tienda pública) aún no está conectado a esta lógica.
+## 2. Fase 3 en curso — Bajo Pedido end-to-end
+### 3 commits secuenciales
+1. **docs** — este bloque.
+2. **SQL 3.1** — ALTER `productos` + `CREATE OR REPLACE FUNCTION crear_pedido_completo` con decremento de stock.
+3. **code 3.2/3.3** — `cart.ts`, `ProductActions.tsx`, `paypal.ts`.
 
-### Objetivos Inmediatos
-1. **`ProductActions.tsx`:** Consultar `producto_variantes` para verificar `stock_fisico`.
-   - Si `stock_fisico > 0`: Mostrar stock disponible.
-   - Si `stock_fisico === 0` (y `en_produccion`): Mostrar "Bajo pedido (7 días)".
-2. **Carrito (Zustand):** Propagar el flag `es_bajo_pedido` al backend.
-3. **`paypal.ts`:** Actualizar la llamada al RPC `crear_pedido_completo` para insertar el flag `es_bajo_pedido` y calcular la `fecha_entrega_estimada`.
-4. **Fase H-008 (Divisa):** Sigue pendiente resolver C$ vs USD. Requiere decisión de negocio.
+### Máquina de 6 estados
+Ver HISTORIA §7.2.
 
-## 3. Reglas del Proyecto
-- **PROTOCOLO §2 (Cero Suposiciones):** Usar SQL, logs o grep antes de dictar fixes.
-- **PROTOCOLO §3 (Regla de Oro):** `pnpm build` exitoso antes de cada push.
-- **PROTOCOLO §4:** Prohibido actualizar Node (v20) o macOS Big Sur.
-- **PROTOCOLO §6.1:** Deploys forzados solo por Vercel UI (CLI falla en Big Sur).
+### Pruebas QA
+3 usuarios `qa-N@elcacique.net` en `auth.users`. Escenarios: A stock, B agotado, C anulación. Sandbox PayPal en producción. **Protocolo de limpieza al cierre.**
+
+## 3. Próximas fases (declaradas, no construidas)
+- **Fase 4:** Libro Mayor (`movimientos_inventario`), Dashboard Admin con KPIs accionables, RMA, reporte producción acumulada.
+- **Fase 5:** Superadmin (roles, precios, categorías, descuentos, auditoría).
+- **Fase 6:** Módulo Control de Producción (onboarding, dos equipos).
+
+## 4. Lecciones Aprendidas
+- **GRANTs:** tras crear tabla, `GRANT ... TO authenticated` o falla silencioso.
+- **RLS admin:** `is_admin()` explícito en tablas que el admin debe leer todo.
+- **Vercel CLI:** falla en Big Sur. Deploy manual por UI, sin caché.
+- **RPC atómico:** cero ventas huérfanas. Nunca volver a INSERTs separados.
+
+## 5. Reglas del Proyecto
+- §2 Cero Suposiciones. §3 Regla de Oro (`pnpm build` verde antes de push). §4 Entorno inmutable. §6.1 Deploy por UI.
+- §3.6 lectura de código permitida con declaración de objetivo. §5.4 escalera de 3 peldaños. Prohibido `-g`.
