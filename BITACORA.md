@@ -291,3 +291,18 @@ macOS 11.7.11 · Node v20.20.2 · pnpm 9.15.9 · Next 16.4.5 · HEAD `8d0fa89` �
 - **CyberSource:** Se revisó la documentación del banco (JWT + 3DS). Queda diferido hasta que el ejecutivo del banco entregue credenciales.
 - **Auth:** Se planificó la Fase 4.0 (OAuth Google/Facebook + Email/Pass). Queda pendiente.
 - **Limpieza QA:** Se ejecutó el protocolo de limpieza para restaurar stock y borrar pedidos de prueba.
+
+## [2026-11-06 — Cierre UI/UX, Auth Base y Migración de Dominio]
+
+### Hitos Alcanzados
+- **Compra de dominio:** Adquirido `elcacique.net` vía Vercel. Configurado y apuntando al proyecto.
+- **Auth Base:** Implementado login con Google y Facebook (OAuth), más formulario de Email/Contraseña con "ojo" para ver la clave. Header actualizado con botón de Logout y visualización del usuario activo.
+- **Página FAQ:** Creada ruta `/faq` y enlazada en el Header/MobileMenu.
+- **Reconstrucción del Home (Hero):** Se detectó que `HeroVideo.tsx` tenía textos y botones hardcodeados que causaban superposición con `page.tsx`. Se limpió el componente para que sea solo fondo. Se reconstruyó el Hero con tono B2C, un solo CTA y buscador flotante en caja blanca.
+- **Buscador:** `SearchBar` ahora consulta a Supabase en tiempo real y sugiere productos reales.
+- **Catálogo Móvil:** Se implementó un menú lateral (drawer) para los filtros en móvil, evitando el scroll infinito de filtros estáticos.
+
+### Pendientes / Deudas
+- **Meta (Facebook):** El login de Facebook funciona en local, pero para producción requiere crear un Portafolio Comercial verificado en Meta. Queda pausado.
+- **Ajustes UI/UX:** Quedan detalles por afinar (textos finales, colores, espaciados) tras revisión del cliente.
+- **CyberSource:** Diferido hasta tener credenciales del banco.
