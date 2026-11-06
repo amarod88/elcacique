@@ -20,7 +20,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://elcacique.com.ni'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://elcacique.net'),
   title: {
     default: 'El Cacique — Fábrica de Uniformes en Nicaragua',
     template: '%s | El Cacique — Fábrica de Uniformes',
@@ -37,13 +37,11 @@ export const metadata: Metadata = {
     'ropa de trabajo managua',
     'el cacique uniformes',
   ],
-  authors: [{ name: 'El Cacique, Fábrica de Uniformes' }],
-  creator: 'El Cacique',
   openGraph: {
     title: 'El Cacique — Fábrica de Uniformes en Nicaragua',
     description:
       'Uniformes que proyectan presencia. Confección industrial, médica, ejecutiva y escolar con garantía de 3 a 6 meses y delivery gratis en Managua.',
-    url: 'https://elcacique.com.ni',
+    url: 'https://elcacique.net',
     siteName: 'El Cacique',
     locale: 'es_NI',
     type: 'website',
@@ -71,7 +69,10 @@ export default function RootLayout({
         className={`${dmSerifDisplay.variable} ${inter.variable} flex flex-col min-h-screen bg-beige text-marron antialiased`}
       >
         <Header />
-        <main className="flex-1">{children}</main>
+        {/* El padding-top asegura que el contenido no quede oculto detrás del header sticky */}
+        <main className="flex-1 flex flex-col w-full">
+          {children}
+        </main>
         <Footer />
         <ChatWidget />
       </body>

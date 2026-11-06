@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { HeroVideo } from '../components/hero/HeroVideo';
 import { Container } from '../components/ui/Container';
 import { Section } from '../components/ui/Section';
@@ -13,88 +13,113 @@ import { getCategorias, getProductosDestacados } from '@el-cacique/shared';
 
 export default function Home() {
   const categorias = getCategorias();
-  const productosDestacados = getProductosDestacados().slice(0, 4);
+  
+  // --- LÓGICA DEL CARRUSEL ---
+  const [allFavoritos, setAllFavoritos] = useState<any[]>([]);
+  const [startIndex, setStartIndex] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const todos = getProductosDestacados();
+    // Priorizar escolares y médicos
+    const priorizados = todos.filter(p => {
+      const cat = (p.categoria || '').toLowerCase();
+      const nom = (p.nombre || '').toLowerCase();
+      return cat.includes('escolar') || cat.includes('medic') || nom.includes('pantalon') || nom.includes('bata') || nom.includes('pijama');
+    });
+    const pool = priorizados.length >= 8 ? priorizados : todos;
+    
+    // Mezclar aleatoriamente la lista base
+    const randomList = [...pool].sort(() => 0.5 - Math.random());
+    setAllFavoritos(randomList);
+  }, []);
+
+  // Rotación automática cada 5 segundos
+  useEffect(() => {
+    if (allFavoritos.length <= 4) return;
+    const interval = setInterval(() => {
+      setStartIndex((prev) => (prev + 1) % (allFavoritos.length - 3));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [allFavoritos]);
+
+  const handlePrev = () => {
+    setStartIndex((prev) => (prev === 0 ? allFavoritos.length - 4 : prev - 1));
+  };
+  const handleNext = () => {
+    setStartIndex((prev) => (prev + 1) % (allFavoritos.length - 3));
+  };
+
+  const productosVisibles = allFavoritos.slice(startIndex, startIndex + 4);
+
+  // Botones de promociones
+  const promociones = [
+    { titulo: 'Ofertas', color: 'bg-azul text-white', link: '/catalogo' },
+    { titulo: 'Liquidación', color: 'bg-vino text-white', link: '/catalogo' },
+    { titulo: 'Temporada Escolar', color: 'bg-beige-200 text-azul', link: '/catalogo?categoria=escolares' },
+    { titulo: 'Médicos', color: 'bg-beige-200 text-azul', link: '/catalogo?categoria=medicos' },
+    { titulo: 'Corporativos', color: 'bg-beige-200 text-azul', link: '/catalogo?categoria=corporativos' },
+    { titulo: 'Gorras y Accesorios', color: 'bg-beige-200 text-azul', link: '/catalogo?categoria=accesorios' },
+  ];
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full pb-20">
       
-      {/* 1. HERO SECTION con Padding superior para el logo gigante */}
-      <section className="relative w-full min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-28 md:pt-32">
-        <HeroVideo />
-        
-        {/* Contenido superpuesto */}
-        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 text-center animate-fade-in-up">
-          
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl !text-white leading-[1.1] tracking-tight mb-6 text-balance drop-shadow-2xl">
-            Vestimos cada etapa de tu camino.
-          </h1>
-          
-          <p className="font-body text-base sm:text-lg md:text-xl !text-white/95 max-w-3xl mx-auto leading-relaxed mb-10 text-balance drop-shadow-lg">
-            Uniformes escolares, corporativos y especializados confeccionados para acompañar a quienes aprenden, trabajan y construyen el futuro.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button href="/catalogo" variant="primary" size="lg" className="w-full sm:w-auto !bg-vino hover:!bg-vino-600 shadow-2xl text-lg px-8">
-              Explorar catálogo
-            </Button>
-            <Button href="/nosotros" variant="secondary" size="lg" className="w-full sm:w-auto !border-white !text-white hover:!bg-white hover:!text-azul backdrop-blur-xs text-lg px-8 shadow-xl">
-              Conocer nuestros servicios
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. BUSCADOR FLOTANTE */}
-      <div className="relative z-30 -mt-8 px-4 w-full">
-        <div className="max-w-3xl mx-auto bg-blanco p-2 sm:p-3 rounded-2xl shadow-xl border border-azul/10">
-          <SearchBar placeholder="Buscar uniformes, telas, SKU... (ej. Top Médico)" />
+      {/* 1. LUPA PEGADA AL HEADER */}
+      <div className="w-full bg-white border-b border-gray-100 py-3 px-4 shadow-sm z-30 relative">
+        <div className="max-w-3xl mx-auto">
+          <SearchBar placeholder="Buscar uniformes, telas, SKU..." />
         </div>
       </div>
 
-      {/* 3. BARRA DE CONFIANZA */}
-      <section className="bg-blanco border-b border-azul/10 py-10 mt-12">
-        <Container>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="flex flex-col items-center gap-2 p-2">
-              <div className="w-12 h-12 rounded-full bg-beige-100 text-azul flex items-center justify-center mb-2">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+      {/* 2. HERO VIDEO COMO BANNER CONTENIDO */}
+      <div className="w-full pt-6 pb-8">
+        <div className="max-w-[1200px] mx-auto px-4">
+          <section className="relative w-full h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+            <HeroVideo />
+            <div className="relative z-20 flex flex-col items-center justify-center h-full px-4 text-center">
+              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl !text-white leading-[1.1] tracking-tight mb-4 drop-shadow-xl max-w-4xl">
+                Vestimos cada etapa de tu camino.
+              </h1>
+              <p className="font-body text-sm sm:text-lg !text-white/90 max-w-2xl mb-8 drop-shadow-md">
+                Uniformes escolares, corporativos y especializados confeccionados para acompañar a quienes construyen el futuro.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button href="/catalogo" variant="primary" size="lg" className="!bg-vino hover:!bg-vino-600 shadow-xl text-base px-8">
+                  Explorar catálogo
+                </Button>
+                <Button href="/nosotros" variant="secondary" size="lg" className="!border-white !text-white hover:!bg-white hover:!text-azul backdrop-blur-xs shadow-xl text-base px-8">
+                  Conocer nuestros servicios
+                </Button>
               </div>
-              <h3 className="font-display text-sm sm:text-base text-azul font-semibold">Atención Personalizada</h3>
-              <p className="text-xs text-marron-400 hidden sm:block">Te asesoramos en tu empresa</p>
             </div>
-            <div className="flex flex-col items-center gap-2 p-2">
-              <div className="w-12 h-12 rounded-full bg-beige-100 text-azul flex items-center justify-center mb-2">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
-              </div>
-              <h3 className="font-display text-sm sm:text-base text-azul font-semibold">Bordado Premium</h3>
-              <p className="text-xs text-marron-400 hidden sm:block">Acabados de alta definición</p>
-            </div>
-            <div className="flex flex-col items-center gap-2 p-2">
-              <div className="w-12 h-12 rounded-full bg-beige-100 text-azul flex items-center justify-center mb-2">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-              </div>
-              <h3 className="font-display text-sm sm:text-base text-azul font-semibold">Garantía Fábrica</h3>
-              <p className="text-xs text-marron-400 hidden sm:block">De 3 a 6 meses</p>
-            </div>
-            <div className="flex flex-col items-center gap-2 p-2">
-              <div className="w-12 h-12 rounded-full bg-beige-100 text-azul flex items-center justify-center mb-2">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              </div>
-              <h3 className="font-display text-sm sm:text-base text-azul font-semibold">Entrega Rápida</h3>
-              <p className="text-xs text-marron-400 hidden sm:block">48–72 horas en Managua</p>
-            </div>
-          </div>
-        </Container>
-      </section>
+          </section>
+        </div>
+      </div>
 
-      {/* 4. CATEGORÍAS */}
-      <Section variant="beige" id="categorias">
+      {/* 3. CATEGORÍAS Y PROMOCIONES */}
+      <Section variant="beige" id="categorias" className="pt-4 pb-12">
         <Container>
           <SectionTitle
             badge="Explora por rubro"
             title="¿Qué tipo de uniforme necesitas?"
             subtitle="Encuentra fácilmente la ropa de trabajo para tu equipo."
           />
+          
+          {/* Botones de Promociones (Movidos aquí) */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
+            {promociones.map((promo, idx) => (
+              <a 
+                key={idx} 
+                href={promo.link}
+                className={`px-6 py-2 rounded-full text-sm font-semibold tracking-wide transition-transform hover:scale-105 shadow-sm ${promo.color}`}
+              >
+                {promo.titulo}
+              </a>
+            ))}
+          </div>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {categorias.map((cat) => (
               <CategoryCard key={cat.id} categoria={cat} />
@@ -103,35 +128,54 @@ export default function Home() {
         </Container>
       </Section>
 
-      {/* 5. PRODUCTOS DESTACADOS */}
+      {/* 4. FAVORITOS EN CARRUSEL ROTATIVO */}
       <Section variant="blanco" id="destacados">
         <Container>
-          <div className="flex flex-col sm:flex-row justify-between items-end mb-8 gap-4">
+          <div className="flex justify-between items-end mb-8">
             <SectionTitle
               align="left"
               badge="Los más pedidos"
               title="Favoritos de nuestros clientes"
-              subtitle="Prendas que ya usan hospitales y oficinas."
+              subtitle="Una selección rotativa de nuestras mejores prendas."
               className="mb-0"
             />
-            <Button href="/catalogo" variant="secondary" size="md" className="whitespace-nowrap hidden sm:flex">
-              Ver todos
-            </Button>
+            {/* Controles del Carrusel */}
+            <div className="hidden sm:flex gap-2">
+              <button onClick={handlePrev} className="p-2 rounded-full border border-azul/20 text-azul hover:bg-azul hover:text-white transition-colors">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <button onClick={handleNext} className="p-2 rounded-full border border-azul/20 text-azul hover:bg-azul hover:text-white transition-colors">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {productosDestacados.map((prod) => (
-              <ProductCard key={prod.id} producto={prod} />
-            ))}
+
+          <div className="relative">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {isMounted ? (
+                productosVisibles.map((prod) => (
+                  <ProductCard key={prod.id} producto={prod} />
+                ))
+              ) : (
+                Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="flex flex-col gap-3 animate-pulse">
+                    <div className="w-full aspect-[4/5] bg-beige-200 rounded-xl"></div>
+                    <div className="h-4 bg-beige-200 rounded w-3/4"></div>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
-          <div className="mt-8 text-center sm:hidden">
-            <Button href="/catalogo" variant="secondary" size="md" className="w-full">
-              Ver todo el catálogo
-            </Button>
+          
+          {/* Controles móviles */}
+          <div className="flex justify-center gap-4 mt-8 sm:hidden">
+            <button onClick={handlePrev} className="p-3 rounded-full border border-azul/20 text-azul"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg></button>
+            <button onClick={handleNext} className="p-3 rounded-full border border-azul/20 text-azul"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg></button>
           </div>
         </Container>
       </Section>
 
-      {/* 6. CTA FINAL */}
+      {/* 5. CTA FINAL */}
       <Section variant="azul" id="contacto-cta">
         <Container>
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
@@ -145,10 +189,6 @@ export default function Home() {
               <Button href="/cotizacion" variant="primary" size="lg" className="!bg-vino hover:!bg-vino-600 w-full sm:w-auto">
                 Solicitar cotización
               </Button>
-              <a href="https://wa.me/50588888888" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center font-body font-medium text-base py-3 px-6 rounded-lg gap-2 text-white border border-celeste/50 hover:bg-celeste/10 transition-colors w-full sm:w-auto">
-                <svg className="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.087-.179.182-.077.357.101.174.449.741.964 1.201.662.591 1.221.774 1.394.861.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z" /></svg>
-                WhatsApp
-              </a>
             </div>
           </div>
         </Container>

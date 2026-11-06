@@ -89,7 +89,7 @@ function CatalogoContent() {
     
     // Filtrar por categoría (solo si no hay búsqueda activa)
     if (selectedCategoria !== 'todos' && debouncedQuery.trim() === '') {
-      result = result.filter(p => p.categoria.toLowerCase() === selectedCategoria.toLowerCase());
+      result = result.filter(p => p.categoria.toLowerCase().includes(selectedCategoria.toLowerCase()));
     }
 
     // Filtrar por búsqueda
