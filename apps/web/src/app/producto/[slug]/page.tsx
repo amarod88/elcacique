@@ -7,7 +7,7 @@ import { ProductActions } from '../../../components/catalog/ProductActions';
 import { Badge } from '../../../components/ui/Badge';
 import { Container } from '../../../components/ui/Container';
 
-export const revalidate = 0;
+export const dynamic = 'force-dynamic'; // Fuerza a no cachear y leer stock real
 
 export default async function ProductoPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -22,12 +22,14 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
-  const { data: variantesData, error: errorVariantes } = await supabaseAdmin
+  const { data: variantesData } = await supabaseAdmin
     .from('producto_variantes')
     .select('talla,color,stock_fisico')
     .eq('producto_id', producto.id);
 
   const variantes = variantesData ?? [];
+  const hayStockFisico = variantes.some(v => v.stock_fisico > 0);
+
   const precioBase = producto.precio_mayor ?? producto.precio_retail ?? producto.precio_min ?? 0;
 
   return (
@@ -93,7 +95,11 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
               <div className="bg-blanco p-4 rounded-lg border border-beige-200">
                 <span className="block text-xs text-marron-400 mb-1">Disponibilidad</span>
                 <span className="font-medium text-azul">
-                  {variantes.length > 0 ? 'Sujeto a stock físico' : 'Bajo pedido'}
+                  {variantes.length === 0 
+                    ? 'Bajo pedido (7 días)' 
+                    : hayStockFisico 
+                      ? 'Sujeto a stock físico' 
+                      : 'Agotado temporalmente (48h)'}
                 </span>
               </div>
               <div className="bg-blanco p-4 rounded-lg border border-beige-200">
@@ -105,7 +111,6 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
                 <span className="font-medium text-azul">{producto.moq} unidad(es)</span>
               </div>
             </div>
-
 
             <ProductActions producto={producto} variantes={variantes} />
             

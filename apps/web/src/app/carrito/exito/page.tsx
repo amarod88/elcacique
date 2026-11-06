@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { supabaseAdmin } from '../../../lib/supabase-admin';
 import { Container } from '../../../components/ui/Container';
 import { Button } from '../../../components/ui/Button';
-import { etiquetaEntrega } from '../../../lib/config/entrega';
 
 export const dynamic = 'force-dynamic';
 
@@ -53,26 +52,27 @@ export default async function ExitoPage({ searchParams }: PageProps) {
     );
   }
 
-  const { data: items } = await supabaseAdmin
+  const { data: itemsData } = await supabaseAdmin
     .from('pedido_items')
     .select('producto_id, cantidad, precio_unitario, talla, color, es_bajo_pedido, fecha_entrega_estimada')
     .eq('pedido_id', pedido.id);
 
-  const productosPorId: Record<string, { nombre: string; tiempo_reposicion_horas: number | null; lead_time_dias: number | null }> = {};
-  if (items && items.length > 0) {
+  const items = itemsData ?? [];
+
+  const productosPorId: Record<string, { nombre: string }> = {};
+  if (items.length > 0) {
     const ids = Array.from(new Set(items.map((i: any) => i.producto_id)));
     const { data: prods } = await supabaseAdmin
       .from('productos')
-      .select('id, nombre, tiempo_reposicion_horas, lead_time_dias')
+      .select('id, nombre')
       .in('id', ids);
     (prods ?? []).forEach((p: any) => {
-      productosPorId[p.id] = {
-        nombre: p.nombre,
-        tiempo_reposicion_horas: p.tiempo_reposicion_horas,
-        lead_time_dias: p.lead_time_dias,
-      };
+      productosPorId[p.id] = { nombre: p.nombre };
     });
   }
+
+  const itemsInmediatos = items.filter((i: any) => !i.es_bajo_pedido);
+  const itemsPendientes = items.filter((i: any) => i.es_bajo_pedido);
 
   const numeroOrden = pedido.numero_orden ?? ordenFallback ?? '—';
 
@@ -94,43 +94,52 @@ export default async function ExitoPage({ searchParams }: PageProps) {
             <p className="text-xs text-marron-400 mt-2">Guardá este número para cualquier consulta.</p>
           </div>
 
-          {items && items.length > 0 && (
+          {/* BLOQUE 1: ENTREGA INMEDIATA */}
+          {itemsInmediatos.length > 0 && (
             <div className="mb-6">
-              <h2 className="font-display text-lg text-azul mb-3">Detalle del pedido</h2>
+              <h2 className="font-display text-lg text-azul mb-3 flex items-center gap-2">
+                <span className="bg-success/10 text-success px-2 py-0.5 rounded text-xs uppercase tracking-wider font-semibold border border-success/30">Listos para entrega</span>
+              </h2>
               <div className="flex flex-col gap-3">
-                {items.map((item: any, idx: number) => {
-                  const prod = productosPorId[item.producto_id];
-                  const etiqueta = etiquetaEntrega({
-                    esBajoPedido: item.es_bajo_pedido,
-                    leadTimeDias: prod?.lead_time_dias ?? null,
-                    tiempoReposicionHoras: prod?.tiempo_reposicion_horas ?? null,
-                  });
-                  const colorEtiqueta =
-                    etiqueta.tipo === 'inmediata'
-                      ? 'bg-success/10 text-success border-success/30'
-                      : etiqueta.tipo === 'reposicion'
-                      ? 'bg-amber-50 text-amber-700 border-amber-200'
-                      : 'bg-azul/10 text-azul border-azul/30';
-                  return (
-                    <div key={idx} className="flex justify-between items-start border-b border-beige-200 pb-3">
-                      <div className="flex-1">
-                        <div className="text-sm font-semibold text-azul">{prod?.nombre ?? item.producto_id}</div>
-                        <div className="text-xs text-marron-400 mt-1">Talla {item.talla} · Color {item.color} · Cant. {item.cantidad}</div>
-                        <span className={`inline-block mt-2 text-xs px-2 py-0.5 rounded-full border ${colorEtiqueta}`}>
-                          {etiqueta.texto}
-                        </span>
-                        {item.es_bajo_pedido && item.fecha_entrega_estimada && (
-                          <div className="text-xs text-marron-400 mt-1">
-                            Entrega estimada: {new Date(item.fecha_entrega_estimada).toLocaleDateString('es-NI')}
-                          </div>
-                        )}
-                      </div>
-                      <div className="text-sm font-semibold text-azul ml-4">
-                        C${(item.precio_unitario * item.cantidad).toLocaleString('es-NI')}
-                      </div>
+                {itemsInmediatos.map((item: any, idx: number) => (
+                  <div key={`inm-${idx}`} className="flex justify-between items-start border-b border-beige-200 pb-3">
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-azul">{productosPorId[item.producto_id]?.nombre ?? item.producto_id}</div>
+                      <div className="text-xs text-marron-400 mt-1">Talla {item.talla} · Color {item.color} · Cant. {item.cantidad}</div>
+                      <div className="text-xs text-success mt-1 font-medium">Disponible para retirar en tienda</div>
                     </div>
-                  );
-                })}
+                    <div className="text-sm font-semibold text-azul ml-4">
+                      C${(item.precio_unitario * item.cantidad).toLocaleString('es-NI')}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* BLOQUE 2: PENDIENTES (BAJO PEDIDO) */}
+          {itemsPendientes.length > 0 && (
+            <div className="mb-6">
+              <h2 className="font-display text-lg text-azul mb-3 flex items-center gap-2">
+                <span className="bg-amber-50 text-amber-700 px-2 py-0.5 rounded text-xs uppercase tracking-wider font-semibold border border-amber-200">Pendientes de reposición</span>
+              </h2>
+              <div className="flex flex-col gap-3">
+                {itemsPendientes.map((item: any, idx: number) => (
+                  <div key={`pen-${idx}`} className="flex justify-between items-start border-b border-beige-200 pb-3">
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-azul">{productosPorId[item.producto_id]?.nombre ?? item.producto_id}</div>
+                      <div className="text-xs text-marron-400 mt-1">Talla {item.talla} · Color {item.color} · Cant. {item.cantidad}</div>
+                      {item.fecha_entrega_estimada && (
+                        <div className="text-xs text-amber-600 mt-1 font-medium">
+                          Entrega estimada: {new Date(item.fecha_entrega_estimada).toLocaleDateString('es-NI')}
+                        </div>
+                      )}
+                    </div>
+                    <div className="text-sm font-semibold text-azul ml-4">
+                      C${(item.precio_unitario * item.cantidad).toLocaleString('es-NI')}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -143,7 +152,7 @@ export default async function ExitoPage({ searchParams }: PageProps) {
           </div>
 
           <p className="text-xs text-marron-400 text-center mb-6">
-            Un asesor de El Cacique se pondrá en contacto con usted en las próximas 24 horas.
+            Un asesor de El Cacique se pondrá en contacto con usted en las próximas 24 horas para coordinar la entrega o recogida.
           </p>
 
           <Link href="/catalogo"><Button variant="primary" size="lg" className="w-full">Volver al catálogo</Button></Link>
