@@ -1,15 +1,18 @@
 # HANDOFF DE CONTEXTO — PROYECTO EL CACIQUE
 
 ## 1. Estado Actual (Último milímetro)
-- **Dominio:** `elcacique.net` comprado y conectado en Vercel.
-- **Auth:** Login operativo (Google, Facebook en local, Email/Pass). Callback configurado para el nuevo dominio.
-- **UI/UX:** Home, Catálogo y Header rediseñados (Mobile First, tono B2C, logo con efecto vitrina).
-- **Inventario/Pagos:** 100% funcionales (Fase 3 cerrada).
+- **Fase Actual:** Fase 1 (Experiencia de Cliente) al 90%.
+- **Auth & Perfiles:** Login con Google/Facebook/Email operativo. Tabla `profiles` actualizada con `telefono` y `direccion`. Formulario de "Checkout Gate" implementado en el carrito para capturar datos faltantes.
+- **UI/UX:** Header con menú de usuario (dropdown). El diseño del Home tiene el video encapsulado en un banner, carrusel de favoritos rotativo y botones de categorías/promociones.
+- **Inventario:** 121 variantes sembradas. El RPC `crear_pedido_completo` descuenta stock automáticamente.
 
-## 2. Próximos Pasos (Fase 4)
-1. **Verificación de Meta:** Crear Portafolio Comercial y verificar la empresa para habilitar el login de Facebook para clientes reales.
-2. **Dashboard Admin:** Construir las métricas (ventas, inventario) y gestión de pedidos bajo pedido.
-3. **Superadmin:** Panel para gestionar precios, categorías y stock (reposición).
+## 2. Próximos Pasos (Instrucciones para el Heredero)
+1.  **Escuchar al Operador:** Él tiene observaciones pendientes sobre el flujo de compra actual (Fase 1). Corregirlas antes de avanzar.
+2.  **Fase 2 (El Centro de Mando - CRÍTICO):**
+    *   **Pestaña Facturación (POS):** Catálogo ordenado alfabéticamente para ventas locales (Efectivo, Transferencia, POS). Descuenta stock.
+    *   **Pestaña Órdenes de Producción:** Agrupa pedidos bajo pedido y reposición 48h.
+    *   **Pestaña Control de Inventario:** Protegida por un PIN de seguridad (Modo Supervisor) para sembrar stock, requisas y mermas.
+    *   **Pestaña Métricas:** KPIs básicos (Ventas del día, Pedidos Web, Alertas de Stock).
 
 ## 3. Reglas del Proyecto
-- §2 Cero Suposiciones. §3 Regla de Oro (`pnpm build` antes de push). §4 Entorno inmutable. §6.1 Deploy por UI.
+- §2 Cero Suposiciones. §3 Regla de Oro (`pnpm build` verde antes de push). §4 Entorno inmutable (Node v20, Big Sur).

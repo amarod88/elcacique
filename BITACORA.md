@@ -318,3 +318,9 @@ macOS 11.7.11 · Node v20.20.2 · pnpm 9.15.9 · Next 16.4.5 · HEAD `8d0fa89` �
 
 ### Estado
 - Página lista para entrega del primer borrador al cliente.
+
+## [2026-11-06 — Fase 1: Checkout Gate y Menú de Usuario]
+- **Header de Usuario:** Se eliminó el botón de "Solicitar cotización" del header. Se creó un menú dropdown (User Menu) que muestra: Nombre/Email, "Mis Pedidos", "Ir al Panel de Admin" (si el rol es admin) y "Cerrar Sesión".
+- **Checkout Gate (Carrito):** Se implementó un bloqueo de compra si el usuario está logueado pero no tiene teléfono o dirección. Se creó un formulario en el carrito para capturar estos datos y guardarlos en `profiles`.
+- **Base de Datos:** Se ejecutó el SQL para agregar `telefono` y `direccion` a la tabla `profiles`.
+- **Pendientes Inmediatos:** El Operador tiene más observaciones de UI/UX pendientes. Fase 2 (Dashboard Admin) pausada hasta cerrar detalles de Fase 1.
