@@ -1,34 +1,33 @@
 # HANDOFF DE CONTEXTO — PROYECTO EL CACIQUE
 
 ## 1. Estado Actual (Último milímetro)
-- **Commit en `main`:** `8d0fa89` (Vercel: Ready).
-- **Pagos:** OK 100% funcionales. RPC atómico `crear_pedido_completo` en producción.
-- **Admin:** OK Login SSR, Dashboard, Inventario (5 archivos, mínimo).
-- **BD:** `producto_variantes` con 42 variantes de `MED-TOP-001` (4200u). Resto del catálogo sin variantes sembradas.
+- **Fase 3:** ✅ **Cerrada y certificada.** El flujo de compra (PayPal Sandbox), descuento de stock atómico y generación de tickets divididos (A, B, C) está funcionando al 100%.
+- **Base de Datos:** Limpia (sin pedidos de prueba). Stock del Top Médico y Uniformes intacto (10 u/variante).
+- **Rama:** `main` lista para iniciar Fase 4.
 
-## 2. Fase 3 en curso — Bajo Pedido end-to-end
-### 3 commits secuenciales
-1. **docs** — este bloque.
-2. **SQL 3.1** — ALTER `productos` + `CREATE OR REPLACE FUNCTION crear_pedido_completo` con decremento de stock.
-3. **code 3.2/3.3** — `cart.ts`, `ProductActions.tsx`, `paypal.ts`.
+## 2. Próxima Fase: Auth y Dashboard (Fase 4)
+El objetivo es construir el sistema de logins y el panel de administración.
 
-### Máquina de 6 estados
-Ver HISTORIA §7.2.
+### Tareas Inmediatas
+1. **Auth (OAuth):**
+   - Implementar login con Google, Facebook y Email/Password.
+   - Pantallas de carga en `/auth/callback` para evitar pantallas en blanco.
+   - Recuperación de contraseña (`/recuperar-password`).
+2. **Vinculación de Pedidos:**
+   - Asociar los pedidos al `usuario_id` cuando el cliente se loguea.
+3. **Dashboard Admin:**
+   - Métricas reales (ventas del día, pedidos pendientes).
+   - Gestión del Libro Mayor de Inventario (trazabilidad de stock).
 
-### Pruebas QA
-3 usuarios `qa-N@elcacique.net` en `auth.users`. Escenarios: A stock, B agotado, C anulación. Sandbox PayPal en producción. **Protocolo de limpieza al cierre.**
+### Deudas Técnicas / Futuras
+- **PayPal Producción:** Falta cuenta Business y habilitar tarjetas (ACDC).
+- **CyberSource:** Esperando credenciales del banco para integrar JWT + 3DS.
+- **Dominio Supabase:** Configurar Custom Domain en Supabase Pro para ocultar `supabase.co` en los logins sociales.
 
-## 3. Próximas fases (declaradas, no construidas)
-- **Fase 4:** Libro Mayor (`movimientos_inventario`), Dashboard Admin con KPIs accionables, RMA, reporte producción acumulada.
-- **Fase 5:** Superadmin (roles, precios, categorías, descuentos, auditoría).
-- **Fase 6:** Módulo Control de Producción (onboarding, dos equipos).
+## 3. Lecciones Aprendidas
+- **GRANTs:** Siempre otorgar permisos explícitos a `service_role` en tablas nuevas.
+- **Next.js Cache:** Forzar `export const dynamic = 'force-dynamic'` en páginas que leen stock en tiempo real.
+- **Carrito:** La llave de Zustand ahora incluye `esBajoPedido` para no fusionar ítems de stock con ítems de producción.
 
-## 4. Lecciones Aprendidas
-- **GRANTs:** tras crear tabla, `GRANT ... TO authenticated` o falla silencioso.
-- **RLS admin:** `is_admin()` explícito en tablas que el admin debe leer todo.
-- **Vercel CLI:** falla en Big Sur. Deploy manual por UI, sin caché.
-- **RPC atómico:** cero ventas huérfanas. Nunca volver a INSERTs separados.
-
-## 5. Reglas del Proyecto
+## 4. Reglas del Proyecto
 - §2 Cero Suposiciones. §3 Regla de Oro (`pnpm build` verde antes de push). §4 Entorno inmutable. §6.1 Deploy por UI.
-- §3.6 lectura de código permitida con declaración de objetivo. §5.4 escalera de 3 peldaños. Prohibido `-g`.

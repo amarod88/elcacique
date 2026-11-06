@@ -277,3 +277,17 @@ El alcance original de Fase 3 ("conectar ProductActions con variantes") era prec
 
 ### Entorno inmutable verificado
 macOS 11.7.11 · Node v20.20.2 · pnpm 9.15.9 · Next 16.4.5 · HEAD `8d0fa89` · build verde certificado.
+
+## [2026-11-05 — Cierre Fase 3: Lógica Bajo Pedido y Sub-Tickets Certificados]
+
+### Hitos Alcanzados
+- **Lógica de división de carrito:** Si un cliente pide más unidades de las que hay en stock, el sistema separa la orden (ej. 10 en stock inmediato, 5 en producción).
+- **Sub-tickets de Entrega (Fulfillment):** La pantalla de éxito ahora agrupa los ítems por fecha, generando códigos de entrega tipo `EC-2026-0001-A` (retiro inmediato) y `EC-2026-0001-B` (producción 48h/7d).
+- **Permisos (GRANTs):** Se otorgaron permisos a `service_role` sobre las tablas `pedidos` y `pedido_items` para que el backend pueda leer y renderizar los tickets.
+- **PayPal Sandbox:** Prueba end-to-end exitosa. El pago se procesa, el stock baja atómicamente y el ticket se muestra al cliente.
+
+### Decisiones y Deudas Técnicas
+- **Pagos:** Se validó el flujo Sandbox. Para pasar a producción, se requiere cuenta Business, habilitar ACDC (tarjetas) y cambiar credenciales en Vercel.
+- **CyberSource:** Se revisó la documentación del banco (JWT + 3DS). Queda diferido hasta que el ejecutivo del banco entregue credenciales.
+- **Auth:** Se planificó la Fase 4.0 (OAuth Google/Facebook + Email/Pass). Queda pendiente.
+- **Limpieza QA:** Se ejecutó el protocolo de limpieza para restaurar stock y borrar pedidos de prueba.
