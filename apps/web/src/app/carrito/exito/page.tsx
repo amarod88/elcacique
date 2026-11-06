@@ -31,20 +31,24 @@ export default async function ExitoPage({ searchParams }: PageProps) {
     );
   }
 
-  const { data: pedido, error: errorPedido } = await supabaseAdmin
+  const { data: pedido } = await supabaseAdmin
     .from('pedidos')
     .select('id, numero_orden, total, moneda, created_at')
     .eq('paypal_order_id', pp)
     .maybeSingle();
 
-  // CARTEL DE DEBUG TEMPORAL
-  if (errorPedido || !pedido) {
+  if (!pedido) {
     return (
-      <div className="bg-red-50 text-red-800 p-8 m-8 font-mono whitespace-pre-wrap rounded-lg border border-red-300">
-        <h2 className="text-xl font-bold mb-4">DIAGNÓSTICO DE ERROR EN TICKET</h2>
-        <p><strong>PayPal Order ID (pp):</strong> {pp}</p>
-        <p><strong>Error de Supabase:</strong> {errorPedido ? JSON.stringify(errorPedido, null, 2) : 'Ninguno'}</p>
-        <p><strong>¿Pedido encontrado?:</strong> {pedido ? 'Sí' : 'No'}</p>
+      <div className="bg-beige min-h-screen flex items-center justify-center py-20">
+        <Container>
+          <div className="bg-blanco p-12 rounded-2xl shadow-lg border border-azul/10 text-center max-w-lg mx-auto">
+            <h1 className="font-display text-3xl text-azul mb-4">¡Pago Exitoso!</h1>
+            <p className="text-marron-400 text-sm leading-relaxed mb-8">
+              Gracias por su compra. Un asesor se pondrá en contacto con usted en las próximas 24 horas.
+            </p>
+            <Link href="/catalogo"><Button variant="primary" size="lg">Volver al catálogo</Button></Link>
+          </div>
+        </Container>
       </div>
     );
   }
