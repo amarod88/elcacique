@@ -37,6 +37,10 @@ export async function createPayPalOrder(cartItems: any[]): Promise<{ orderID: st
     }
 
     const precioUnitario: number = item.cantidad >= 12 ? prod.precio_mayor : prod.precio_retail;
+    if (precioUnitario == null || precioUnitario <= 0) {
+      console.error('[create] PRECIO_INVALIDO', { productoId: item.productoId, cantidad: item.cantidad, precioUnitario });
+      throw new Error(`El producto "${prod.nombre}" requiere cotización antes de comprar. Contactá a un asesor.`);
+    }
     const unitCents = Math.round(precioUnitario * 100);
     totalCents += unitCents * item.cantidad;
 
@@ -75,7 +79,8 @@ export async function createPayPalOrder(cartItems: any[]): Promise<{ orderID: st
 export async function capturePayPalOrder(
   orderID: string,
   cartItems: any[],
-  totalAmount: number
+  totalAmount: number,
+  userId: string | null = null
 ): Promise<{ success: true; pedidoId: string; numeroOrden: string }> {
   const ordersController = new OrdersController(paypalClient);
   const response = await ordersController.ordersCapture({ id: orderID });
@@ -88,7 +93,7 @@ export async function capturePayPalOrder(
   for (const item of cartItems) {
     const { data: prod } = await supabaseAdmin
       .from('productos')
-      .select('id, precio_retail, precio_mayor, tipo_disponibilidad, tiempo_reposicion_horas, lead_time_dias')
+      .select('id, precio_retail, precio_mayor, nombre, tipo_disponibilidad, tiempo_reposicion_horas, lead_time_dias')
       .eq('id', item.productoId)
       .single();
 
@@ -116,6 +121,10 @@ export async function capturePayPalOrder(
     }
 
     const precioUnitario: number = item.cantidad >= 12 ? prod.precio_mayor : prod.precio_retail;
+    if (precioUnitario == null || precioUnitario <= 0) {
+      console.error('[capture] PRECIO_INVALIDO', { orderID, productoId: item.productoId, cantidad: item.cantidad, precioUnitario });
+      throw new Error(`El producto "${prod.nombre}" requiere cotización. Tu pago fue procesado; contactá a un asesor.`);
+    }
 
     pedidoItems.push({
       producto_id: item.productoId,
@@ -133,6 +142,7 @@ export async function capturePayPalOrder(
     p_moneda: 'USD',
     p_paypal_order_id: orderID,
     p_items: pedidoItems,
+    p_usuario_id: userId,
   });
 
   if (errorRpc || !pedidoId) {

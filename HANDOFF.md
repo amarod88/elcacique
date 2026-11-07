@@ -35,3 +35,20 @@
 ### Deudas sin cambio
 - H-008 (divisa C$/USD en PayPal hardcodeado).
 - OAuth Facebook en producción (pendiente Portafolio Comercial Meta).
+
+
+---
+## Actualización [2026-11-07] — Fix PayPal + Reclasificación
+
+### Estado
+- Pedidos con `usuario_id` funcionando. 4 pedidos visibles en `/cuenta/pedidos` para `amador.rodriguez2@gmail.com`.
+- 10 productos "a medida" reclasificados a `visita_local`. Ya no entran al carrito; muestran "Solicitar Cotización" → `/cotizacion`.
+- `ProductActions.tsx`: botón hardcodeado "Solicitar Cotización Personalizada" eliminado. Botón condicional de fallback cuando `!state.canPurchase`.
+- Capa 3 (validación defensiva) en `createPayPalOrder` y `capturePayPalOrder` si `precioUnitario <= 0`.
+
+### Decisión de negocio (Fase 2)
+- **Rastreo público de pedidos** ("Order Tracking") para clientes walk-in del POS. Modelo 1: `/rastrear-pedido` con `numero_orden` + `telefono`. Recomendado como MVP. Modelos 2 (link único) y 3 (QR) como evolución. Documentar en `VISION_TUPRIX.md`.
+- **POS puede vender `visita_local`** con precio manual + ticket. El RPC admite `precio_unitario` libre, sin cambios en la BD.
+
+### Próximo paso (Fase 2)
+Dashboard Admin: pestaña Facturación POS, Órdenes de Producción, Control de Inventario (PIN), Métricas.

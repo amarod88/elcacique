@@ -108,13 +108,17 @@ export function ProductActions({ producto, variantes }: Props) {
 
       <div className="flex flex-col gap-3 mt-4">
         {state.motivo === 'visita_local' ? (
-          <Link href="/contacto" className="block"><Button variant="secondary" size="lg" className="w-full text-lg">Solicitar Cotización</Button></Link>
+          <Link href="/cotizacion" className="block"><Button variant="secondary" size="lg" className="w-full text-lg">Solicitar Cotización</Button></Link>
         ) : (
-          <Button variant="primary" size="lg" onClick={handleAddToCart} className={`w-full text-lg shadow-lg transition-all ${!state.canPurchase ? 'opacity-50 cursor-not-allowed' : ''} ${isAdded ? '!bg-success hover:!bg-success' : ''}`}>
-            {isAdded ? '✓ Agregado al carrito' : state.motivo === 'sin_stock' ? 'Sin stock — Consultar' : 'Agregar al Carrito'}
-          </Button>
+          <>
+            <Button variant="primary" size="lg" onClick={handleAddToCart} className={`w-full text-lg shadow-lg transition-all ${!state.canPurchase ? 'opacity-50 cursor-not-allowed' : ''} ${isAdded ? '!bg-success hover:!bg-success' : ''}`}>
+              {isAdded ? '✓ Agregado al carrito' : state.motivo === 'sin_stock' ? 'Sin stock — Consultar' : 'Agregar al Carrito'}
+            </Button>
+            {!state.canPurchase && (
+              <Link href="/cotizacion" className="block"><Button variant="secondary" size="lg" className="w-full">Solicitar Cotización</Button></Link>
+            )}
+          </>
         )}
-        <Button variant="secondary" size="lg" className="w-full">Solicitar Cotización Personalizada</Button>
       </div>
     </div>
   );

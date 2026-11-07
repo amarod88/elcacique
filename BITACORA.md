@@ -335,3 +335,20 @@ macOS 11.7.11 · Node v20.20.2 · pnpm 9.15.9 · Next 16.4.5 · HEAD `8d0fa89` �
 ### Notas de Implementación
 - Se utilizó inyección de código vía `node - << 'EOF'` para modificar archivos de forma segura sin riesgo de errores humanos en editores de texto.
 - Se limpió todo el código temporal de debug (barras rojas y `console.log`).
+
+
+## [2026-11-07 — Fix Crítico PayPal: vincular usuario_id + reclasificar productos a medida + limpiar UI/UX]
+
+### Hitos Alcanzados
+- **RPC migrado:** `crear_pedido_completo` acepta `p_usuario_id uuid DEFAULT NULL`. DROP+CREATE atómico con validación de cantidad (`P0002`), secuencia calificada, `GRANT EXECUTE` explícito y `NOTIFY pgrst`.
+- **Pedidos huérfanos reparados:** 2 históricos asignados a `ff39f7f8-...`. Verificado con RETURNING.
+- **Sesión propagada:** `PayPalButton.tsx` obtiene `userId` del cliente y lo pasa a `capturePayPalOrder`. `paypal.ts` lo envía al RPC.
+- **Bug sistémico detectado y reparado:** 10 productos con `precio_retail = NULL` y `tipo_disponibilidad = 'bajo_pedido'` causaban `23502 null value in precio_unitario`. Reclasificados a `visita_local`. Corregido con Capa 3 (validación defensiva en create/capture) + fix UI (`ProductActions.tsx`: eliminado botón hardcodeado "Solicitar Cotización Personalizada", redirigido a `/cotizacion`).
+- **Tests end-to-end exitosos:** pedidos `EC-2026-0004` (C$2636.50) y `EC-2026-0005` (C$3839.85) creados con `usuario_id` correcto.
+
+### Deuda técnica detectada
+- **Total float:** `EC-2026-0005` muestra `3839.8499999999995`. Fix futuro: `Number(totalAmount.toFixed(2))` en `createPayPalOrder` y `capturePayPalOrder`.
+- **RPC no versionado:** sigue viviendo solo en Supabase, no en `supabase/migrations/`.
+
+### Build
+23/23 rutas, Exit status 0. Commit posterior a este registro.

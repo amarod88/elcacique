@@ -12,6 +12,8 @@ const LOGO_URL = 'https://tsytfsrqemtmqlrctgfz.supabase.co/storage/v1/object/pub
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isDocsOpen, setIsDocsOpen] = useState(false);
+  const [isMenuDocsOpen, setIsMenuDocsOpen] = useState(false);
   const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
   const totalItems = useCartStore((state) => state.totalItems());
   const [user, setUser] = useState<any>(null);
@@ -134,16 +136,35 @@ export function Header() {
                       <p className="text-sm font-semibold text-azul truncate">{user.email}</p>
                       <p className="text-xs text-marron-400">Bienvenido a El Cacique</p>
                     </div>
-                    <Link href="/cuenta/pedidos" className="block px-4 py-2 hover:bg-beige-100 text-azul text-sm font-medium">Mis Pedidos</Link>
+                    <Link href="/cuenta/pedidos" className="flex items-center gap-3 px-4 py-2 hover:bg-beige-100 text-azul text-sm font-medium transition-colors">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                      Mis Pedidos
+                    </Link>
                     
                     {isAdmin && (
-                      <Link href="/admin/dashboard" className="block px-4 py-2 hover:bg-beige-100 text-vino font-bold text-sm bg-red-50/50">
+                      <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-2 hover:bg-red-100 text-vino font-bold text-sm bg-red-50 transition-colors">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                         Ir al Panel de Admin
                       </Link>
                     )}
+
+                    <button onClick={() => setIsDocsOpen(!isDocsOpen)} className="flex items-center justify-between w-full text-left px-4 py-2 hover:bg-beige-100 text-azul text-sm font-medium transition-colors">
+                      <span className="flex items-center gap-3">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        Documentación
+                      </span>
+                      <svg className={`w-4 h-4 transition-transform ${isDocsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    {isDocsOpen && (
+                      <div className="bg-beige-50 pl-11 pr-4 py-1 flex flex-col gap-1 border-l-2 border-azul/20 ml-4">
+                        <Link href="/politica-de-privacidad" className="text-xs text-marron hover:text-vino py-1">Política de Privacidad</Link>
+                        <Link href="/terminos-y-condiciones" className="text-xs text-marron hover:text-vino py-1">Términos y Condiciones</Link>
+                        <Link href="/eliminar-datos" className="text-xs text-marron hover:text-vino py-1">Eliminación de Datos</Link>
+                      </div>
+                    )}
                     
                     <div className="h-px bg-beige-200 my-1"></div>
-                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-beige-100 text-vino font-semibold text-sm flex items-center gap-2">
+                    <button onClick={handleLogout} className="flex items-center gap-3 w-full text-left px-4 py-2 hover:bg-beige-100 text-vino font-semibold text-sm transition-colors">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
                       Cerrar Sesión
                     </button>
@@ -205,6 +226,18 @@ export function Header() {
                 <Link href="/nosotros" className="py-2 text-azul font-medium hover:text-vino transition-colors">Nosotros</Link>
                 <Link href="/contacto" className="py-2 text-azul font-medium hover:text-vino transition-colors">Contacto</Link>
                 <Link href="/faq" className="py-2 text-azul font-medium hover:text-vino transition-colors">Preguntas Frecuentes</Link>
+                
+                <button onClick={() => setIsMenuDocsOpen(!isMenuDocsOpen)} className="flex items-center justify-between w-full py-2 text-azul font-medium hover:text-vino transition-colors text-left mt-2">
+                  <span>Documentación</span>
+                  <svg className={`w-4 h-4 transition-transform ${isMenuDocsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                {isMenuDocsOpen && (
+                  <div className="flex flex-col gap-2 pl-4 py-2 border-l-2 border-azul/20 ml-2">
+                    <Link href="/politica-de-privacidad" className="text-sm text-marron hover:text-vino transition-colors">Política de Privacidad</Link>
+                    <Link href="/terminos-y-condiciones" className="text-sm text-marron hover:text-vino transition-colors">Términos y Condiciones</Link>
+                    <Link href="/eliminar-datos" className="text-sm text-marron hover:text-vino transition-colors">Eliminación de Datos</Link>
+                  </div>
+                )}
               </div>
 
             </div>

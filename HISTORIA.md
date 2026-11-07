@@ -105,3 +105,10 @@
 - **Fase 4:** Libro mayor, dashboard admin (KPIs accionables), RMA, reportes de producción, catálogo depurado.
 - **Fase 5:** Superadmin (gobernanza, roles, auditoría, precios, descuentos).
 - **Fase 6:** Control de Producción (onboarding, dos equipos, reporte acumulado).
+
+
+### 8.4. Totales con artefactos de punto flotante
+El campo `pedidos.total` puede mostrar valores como `3839.8499999999995` cuando `precioUnitario` tiene decimales. PostgreSQL lo trunca correctamente en el tipo `numeric`, pero la UI muestra el artefacto. Fix: `Number(totalAmount.toFixed(2))` en `createPayPalOrder` y `capturePayPalOrder`.
+
+### 8.5. RPC `crear_pedido_completo` migrado pero no versionado
+La firma actual es `(p_total, p_moneda, p_paypal_order_id, p_items, p_usuario_id uuid DEFAULT NULL)`. Vive solo en Supabase. Acción pendiente: migrar a `supabase/migrations/` en Fase 2.

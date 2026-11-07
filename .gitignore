@@ -11,3 +11,4 @@ chat-cli.mjs
 
 # TypeScript incremental build cache
 *.tsbuildinfo
+*.bak-*

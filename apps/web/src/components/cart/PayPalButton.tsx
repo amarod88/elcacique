@@ -3,6 +3,7 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { createPayPalOrder, capturePayPalOrder } from '../../app/actions/paypal';
 import { useCartStore } from '../../lib/store/cart';
+import { supabase } from '../../lib/supabase';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -47,7 +48,9 @@ export function PayPalButton() {
                 precioUnitario: item.precioUnitario,
               }));
 
-              const result = await capturePayPalOrder(data.orderID, cartItems, total());
+              const { data: { user } } = await supabase.auth.getUser();
+              const userId = user?.id ?? null;
+              const result = await capturePayPalOrder(data.orderID, cartItems, total(), userId);
               clear();
               router.push(`/carrito/exito?pp=${encodeURIComponent(data.orderID)}&orden=${encodeURIComponent(result.numeroOrden)}`);
             } catch (error) {
