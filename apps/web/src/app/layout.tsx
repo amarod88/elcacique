@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { DM_Serif_Display, Inter } from 'next/font/google';
 import './globals.css';
@@ -68,7 +69,9 @@ export default function RootLayout({
       <body
         className={`${dmSerifDisplay.variable} ${inter.variable} flex flex-col min-h-screen bg-beige text-marron antialiased`}
       >
-        <Header />
+        <Suspense fallback={<div className="h-20 w-full bg-white border-b border-gray-100 shadow-sm" />}>
+          <Header />
+        </Suspense>
         {/* El padding-top asegura que el contenido no quede oculto detrás del header sticky */}
         <main className="flex-1 flex flex-col w-full">
           {children}

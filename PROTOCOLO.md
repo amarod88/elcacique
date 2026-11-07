@@ -98,3 +98,9 @@ solo si `pnpm dlx` no cubre el caso (p. ej. resolución de peer deps específica
 - **Evidencia sobre Suposiciones:** Toda hipótesis debe validarse con logs de Vercel, SQL de Supabase o `grep` del código fuente. Si un servidor falla (ej. 500), usar un `throw` explícito para imprimir el error real en pantalla o en los logs antes de adivinar.
 - **Verificación de Código:** Antes de sugerir un fix de RLS, validar que existan los GRANT base y que las políticas no tengan recursión.
 - **Debug Visual:** Si una redirección falla, inyectar un componente de debug temporal que muestre el estado del usuario, el perfil y el error, en lugar de un `redirect()` ciego.
+
+
+## 8. Depuración de Eventos UI (Black Box Debugging)
+- **El problema del *mousedown* vs *click*:** Cuando se usan eventos globales como `handleClickOutside` (mousedown), existe el riesgo de que el menú se desmonte antes de que el evento `click` llegue al elemento destino (ej. un `<Link>`), interrumpiendo la navegación.
+- **Regla:** Todo contenedor que requiera interacción interna (como un Mega-Menú o un Dropdown) debe tener su propio `useRef` y ser excluido explícitamente de la lógica de cierre exterior.
+- **Protocolo de Evidencia Visual:** Antes de dictar un fix de este tipo, el Director debe inyectar código de debug (barras rojas, logs en consola) o solicitar la inspección del DOM (`Click Derecho > Inspeccionar`) para confirmar qué elemento está capturando el evento.

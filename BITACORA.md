@@ -324,3 +324,14 @@ macOS 11.7.11 · Node v20.20.2 · pnpm 9.15.9 · Next 16.4.5 · HEAD `8d0fa89` �
 - **Checkout Gate (Carrito):** Se implementó un bloqueo de compra si el usuario está logueado pero no tiene teléfono o dirección. Se creó un formulario en el carrito para capturar estos datos y guardarlos en `profiles`.
 - **Base de Datos:** Se ejecutó el SQL para agregar `telefono` y `direccion` a la tabla `profiles`.
 - **Pendientes Inmediatos:** El Operador tiene más observaciones de UI/UX pendientes. Fase 2 (Dashboard Admin) pausada hasta cerrar detalles de Fase 1.
+
+## [2026-11-06 — Fix Navegación Menú Hamburguesa y Refactor Header]
+
+### Hitos Alcanzados
+- **Navegación Fluida (Mega-Menú):** Se solucionó el bug donde los enlaces del menú hamburguesa no navegaban. Causa raíz: el `handleClickOutside` (mousedown) desmontaba el menú antes de que el evento `click` llegara al `<Link>`. Solución: se añadió `menuPanelRef` para excluir el panel de la lógica de cierre exterior.
+- **Sincronización URL-Catálogo:** Se implementó `useEffect` en `catalogo/page.tsx` para escuchar cambios en `useSearchParams`. Ahora el estado `selectedCategoria` reacciona cuando el usuario navega desde el Header (ej. `?categoria=medicos`).
+- **Mejoras UI:** Se inyectó el icono de Home a la izquierda del menú central y se añadió la categoría "Médicos" directamente en el Header de escritorio.
+
+### Notas de Implementación
+- Se utilizó inyección de código vía `node - << 'EOF'` para modificar archivos de forma segura sin riesgo de errores humanos en editores de texto.
+- Se limpió todo el código temporal de debug (barras rojas y `console.log`).

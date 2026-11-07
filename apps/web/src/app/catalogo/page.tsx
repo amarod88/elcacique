@@ -22,6 +22,14 @@ function CatalogoContent() {
   const [selectedCategoria, setSelectedCategoria] = useState<string>(initialCategory);
   const [searchInput, setSearchInput] = useState(initialQuery);
   const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
+  // --- NUEVO: Sincronizar el estado con los cambios de URL (Header Links) ---
+  useEffect(() => {
+    setSelectedCategoria(initialCategory);
+    if (!initialQuery) {
+      setSearchInput('');
+      setDebouncedQuery('');
+    }
+  }, [initialCategory, initialQuery]);
   const [sortBy, setSortBy] = useState<'relevancia' | 'precio-asc' | 'precio-desc' | 'nombre'>('relevancia');
   const [page, setPage] = useState(1);
   

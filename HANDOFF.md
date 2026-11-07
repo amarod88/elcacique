@@ -16,3 +16,22 @@
 
 ## 3. Reglas del Proyecto
 - §2 Cero Suposiciones. §3 Regla de Oro (`pnpm build` verde antes de push). §4 Entorno inmutable (Node v20, Big Sur).
+
+
+---
+## Actualización [2026-11-06] — Cierre de Bloque UI/UX (Header + Catálogo)
+
+### Estado
+- **Build certificado:** 22/22 rutas generadas, exit status 0.
+- **Header.tsx refactorizado:** Mega-Menú full-width, menú de usuario con cierre por fuera, icono de Home en nav central, categoría "Médicos" añadida.
+- **Catálogo sincronizado:** `useEffect` con `useSearchParams` para reflejar cambios de URL desde el Header.
+- **Bug resuelto (black box debug):** `handleClickOutside` (mousedown) desmontaba el menú antes del `click` del `<Link>`. Fix: `menuPanelRef` excluido del cierre exterior.
+- **Bug resuelto (build):** `useSearchParams` en Header requiere `<Suspense>` en layout raíz. Añadido fallback `h-20`.
+
+### Próximos Pasos
+1. **Checkout Gate:** revisar observaciones UI/UX pendientes del Operador.
+2. **Fase 2 (Dashboard Admin):** reactivar cuando se cierre la Fase 1.
+
+### Deudas sin cambio
+- H-008 (divisa C$/USD en PayPal hardcodeado).
+- OAuth Facebook en producción (pendiente Portafolio Comercial Meta).
